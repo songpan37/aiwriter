@@ -13,3 +13,8 @@ go env -w GOPATH=E:\app\go\repo
 ```
 go env
 ```
+
+go env文件存储位置：
+```
+C:\Users\Song Pan\AppData\Roaming\go\env
+```
