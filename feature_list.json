@@ -2,1339 +2,2910 @@
   {
     "category": "functional",
     "description": "用户注册：填写用户名、密码、邮箱，成功创建账户",
-    "steps": ["Step 1: 打开注册页面 /register", "Step 2: 输入用户名 testuser", "Step 3: 输入密码 password123", "Step 4: 确认密码 password123", "Step 5: 输入邮箱 test@example.com", "Step 6: 点击注册按钮", "Step 7: 验证页面跳转至登录页或自动登录", "Step 8: 验证数据库中用户记录已创建"],
+    "steps": [
+      "Step 1: 打开注册页面 /register",
+      "Step 2: 输入用户名 testuser",
+      "Step 3: 输入密码 password123",
+      "Step 4: 确认密码 password123",
+      "Step 5: 输入邮箱 test@example.com",
+      "Step 6: 点击注册按钮",
+      "Step 7: 验证页面跳转至登录页或自动登录",
+      "Step 8: 验证数据库中用户记录已创建"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "用户登录：使用正确凭证登录系统",
-    "steps": ["Step 1: 打开登录页面 /login", "Step 2: 输入已注册的用户名", "Step 3: 输入正确的密码", "Step 4: 点击登录按钮", "Step 5: 验证页面跳转至作品列表页", "Step 6: 验证顶部显示用户名和头像", "Step 7: 验证JWT token已存储"],
+    "steps": [
+      "Step 1: 打开登录页面 /login",
+      "Step 2: 输入已注册的用户名",
+      "Step 3: 输入正确的密码",
+      "Step 4: 点击登录按钮",
+      "Step 5: 验证页面跳转至作品列表页",
+      "Step 6: 验证顶部显示用户名和头像",
+      "Step 7: 验证JWT token已存储"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "用户登录：使用错误密码应提示错误",
-    "steps": ["Step 1: 打开登录页面 /login", "Step 2: 输入已注册的用户名", "Step 3: 输入错误的密码", "Step 4: 点击登录按钮", "Step 5: 验证显示错误提示：用户名或密码错误", "Step 6: 验证未跳转到其他页面", "Step 7: 验证JWT token未生成"],
+    "steps": [
+      "Step 1: 打开登录页面 /login",
+      "Step 2: 输入已注册的用户名",
+      "Step 3: 输入错误的密码",
+      "Step 4: 点击登录按钮",
+      "Step 5: 验证显示错误提示：用户名或密码错误",
+      "Step 6: 验证未跳转到其他页面",
+      "Step 7: 验证JWT token未生成"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "用户登出：点击登出按钮清除会话",
-    "steps": ["Step 1: 已登录状态进入任意页面", "Step 2: 点击右上角用户头像", "Step 3: 点击下拉菜单中的退出登录", "Step 4: 验证页面跳转至登录页", "Step 5: 验证JWT token已清除", "Step 6: 验证未登录状态下访问需要鉴权的页面跳转回登录"],
+    "steps": [
+      "Step 1: 已登录状态进入任意页面",
+      "Step 2: 点击右上角用户头像",
+      "Step 3: 点击下拉菜单中的退出登录",
+      "Step 4: 验证页面跳转至登录页",
+      "Step 5: 验证JWT token已清除",
+      "Step 6: 验证未登录状态下访问需要鉴权的页面跳转回登录"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "用户查看个人信息",
-    "steps": ["Step 1: 已登录状态进入系统", "Step 2: 点击右上角用户头像", "Step 3: 点击下拉菜单中的个人设置", "Step 4: 验证页面显示用户名、邮箱、头像", "Step 5: 验证显示创建时间"],
+    "steps": [
+      "Step 1: 已登录状态进入系统",
+      "Step 2: 点击右上角用户头像",
+      "Step 3: 点击下拉菜单中的个人设置",
+      "Step 4: 验证页面显示用户名、邮箱、头像",
+      "Step 5: 验证显示创建时间"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "用户更新个人信息",
-    "steps": ["Step 1: 进入个人设置页面", "Step 2: 修改用户名", "Step 3: 上传新头像图片", "Step 4: 点击保存按钮", "Step 5: 验证显示保存成功提示", "Step 6: 刷新页面验证信息已更新", "Step 7: 验证数据库记录已更新"],
+    "steps": [
+      "Step 1: 进入个人设置页面",
+      "Step 2: 修改用户名",
+      "Step 3: 上传新头像图片",
+      "Step 4: 点击保存按钮",
+      "Step 5: 验证显示保存成功提示",
+      "Step 6: 刷新页面验证信息已更新",
+      "Step 7: 验证数据库记录已更新"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品列表展示：网格视图显示所有作品",
-    "steps": ["Step 1: 登录后进入作品列表页面 /works", "Step 2: 验证页面默认以网格形式展示", "Step 3: 验证每个作品卡片显示封面图", "Step 4: 验证每个作品卡片显示书名", "Step 5: 验证每个作品卡片显示章节数", "Step 6: 验证每个作品卡片显示总字数", "Step 7: 验证每个作品卡片显示最后修改时间", "Step 8: 验证无作品时显示空状态提示"],
+    "steps": [
+      "Step 1: 登录后进入作品列表页面 /works",
+      "Step 2: 验证页面默认以网格形式展示",
+      "Step 3: 验证每个作品卡片显示封面图",
+      "Step 4: 验证每个作品卡片显示书名",
+      "Step 5: 验证每个作品卡片显示章节数",
+      "Step 6: 验证每个作品卡片显示总字数",
+      "Step 7: 验证每个作品卡片显示最后修改时间",
+      "Step 8: 验证无作品时显示空状态提示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品列表展示：切换到列表视图",
-    "steps": ["Step 1: 进入作品列表页面", "Step 2: 找到视图切换按钮（网格/列表）", "Step 3: 点击切换到列表视图", "Step 4: 验证作品以列表形式展示", "Step 5: 验证列表每行显示封面、书名、章节数、字数、时间", "Step 6: 切换回网格视图验证正常工作"],
+    "steps": [
+      "Step 1: 进入作品列表页面",
+      "Step 2: 找到视图切换按钮（网格/列表）",
+      "Step 3: 点击切换到列表视图",
+      "Step 4: 验证作品以列表形式展示",
+      "Step 5: 验证列表每行显示封面、书名、章节数、字数、时间",
+      "Step 6: 切换回网格视图验证正常工作"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品筛选：按作品类别筛选",
-    "steps": ["Step 1: 进入作品列表页面", "Step 2: 找到类别筛选下拉框", "Step 3: 选择特定类别（如玄幻）", "Step 4: 验证列表只显示该类别的作品", "Step 5: 验证其他类别作品已隐藏", "Step 6: 选择全部类别恢复显示所有作品"],
+    "steps": [
+      "Step 1: 进入作品列表页面",
+      "Step 2: 找到类别筛选下拉框",
+      "Step 3: 选择特定类别（如玄幻）",
+      "Step 4: 验证列表只显示该类别的作品",
+      "Step 5: 验证其他类别作品已隐藏",
+      "Step 6: 选择全部类别恢复显示所有作品"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品排序：按最后修改时间排序",
-    "steps": ["Step 1: 进入作品列表页面", "Step 2: 找到排序下拉框", "Step 3: 选择按最后修改时间降序", "Step 4: 验证最新修改的作品排在最前", "Step 5: 切换为升序", "Step 6: 验证最早修改的作品排在最前"],
+    "steps": [
+      "Step 1: 进入作品列表页面",
+      "Step 2: 找到排序下拉框",
+      "Step 3: 选择按最后修改时间降序",
+      "Step 4: 验证最新修改的作品排在最前",
+      "Step 5: 切换为升序",
+      "Step 6: 验证最早修改的作品排在最前"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品排序：按总字数排序",
-    "steps": ["Step 1: 进入作品列表页面", "Step 2: 找到排序下拉框", "Step 3: 选择按总字数降序", "Step 4: 验证字数最多的作品排在最前", "Step 5: 切换为升序", "Step 6: 验证字数最少的作品排在最前"],
+    "steps": [
+      "Step 1: 进入作品列表页面",
+      "Step 2: 找到排序下拉框",
+      "Step 3: 选择按总字数降序",
+      "Step 4: 验证字数最多的作品排在最前",
+      "Step 5: 切换为升序",
+      "Step 6: 验证字数最少的作品排在最前"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "新增作品向导：选择作品类别",
-    "steps": ["Step 1: 进入作品列表页面", "Step 2: 点击新增作品按钮", "Step 3: 验证弹出新增作品向导", "Step 4: 找到作品类别下拉框", "Step 5: 验证下拉框包含预定义类别（玄幻、都市、历史等）", "Step 6: 选择一个类别", "Step 7: 点击下一步"],
+    "steps": [
+      "Step 1: 进入作品列表页面",
+      "Step 2: 点击新增作品按钮",
+      "Step 3: 验证弹出新增作品向导",
+      "Step 4: 找到作品类别下拉框",
+      "Step 5: 验证下拉框包含预定义类别（玄幻、都市、历史等）",
+      "Step 6: 选择一个类别",
+      "Step 7: 点击下一步"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "新增作品向导：选择同类作品参考",
-    "steps": ["Step 1: 在新增作品向导中选择了类别后", "Step 2: 验证页面显示同类作品参考列表", "Step 3: 验证每个参考作品显示书名和简介", "Step 4: 可以选择多个作品作为参考", "Step 5: 点击已选中作品可取消选择", "Step 6: 点击下一步进入基本信息填写"],
+    "steps": [
+      "Step 1: 在新增作品向导中选择了类别后",
+      "Step 2: 验证页面显示同类作品参考列表",
+      "Step 3: 验证每个参考作品显示书名和简介",
+      "Step 4: 可以选择多个作品作为参考",
+      "Step 5: 点击已选中作品可取消选择",
+      "Step 6: 点击下一步进入基本信息填写"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "新增作品向导：填写基本信息并创建作品",
-    "steps": ["Step 1: 在新增作品向导中进入基本信息步骤", "Step 2: 输入书名：我的新作品", "Step 3: 输入简介：这是一个测试作品", "Step 4: 输入每卷章节数：10", "Step 5: 输入每章字数：3000", "Step 6: 上传封面图片", "Step 7: 点击确认创建按钮", "Step 8: 验证页面跳转到作品创作页", "Step 9: 验证数据库中作品记录已创建", "Step 10: 验证作品包含正确的初始结构"],
+    "steps": [
+      "Step 1: 在新增作品向导中进入基本信息步骤",
+      "Step 2: 输入书名：我的新作品",
+      "Step 3: 输入简介：这是一个测试作品",
+      "Step 4: 输入每卷章节数：10",
+      "Step 5: 输入每章字数：3000",
+      "Step 6: 上传封面图片",
+      "Step 7: 点击确认创建按钮",
+      "Step 8: 验证页面跳转到作品创作页",
+      "Step 9: 验证数据库中作品记录已创建",
+      "Step 10: 验证作品包含正确的初始结构"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "新增作品向导：表单验证",
-    "steps": ["Step 1: 在新增作品向导中进入基本信息步骤", "Step 2: 不填写书名直接点击确认", "Step 3: 验证显示书名不能为空提示", "Step 4: 输入书名", "Step 5: 不填写简介点击确认", "Step 6: 验证显示简介不能为空提示", "Step 7: 填写必填项后验证可以提交"],
+    "steps": [
+      "Step 1: 在新增作品向导中进入基本信息步骤",
+      "Step 2: 不填写书名直接点击确认",
+      "Step 3: 验证显示书名不能为空提示",
+      "Step 4: 输入书名",
+      "Step 5: 不填写简介点击确认",
+      "Step 6: 验证显示简介不能为空提示",
+      "Step 7: 填写必填项后验证可以提交"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品删除：点击删除按钮",
-    "steps": ["Step 1: 进入作品列表页面", "Step 2: 找到某个作品的删除图标按钮", "Step 3: 点击删除按钮", "Step 4: 验证弹出二次确认对话框", "Step 5: 点击取消按钮", "Step 6: 验证作品未被删除", "Step 7: 再次点击删除按钮", "Step 8: 点击确认删除", "Step 9: 验证作品从列表中移除", "Step 10: 验证数据库中作品标记为已删除或已移除"],
+    "steps": [
+      "Step 1: 进入作品列表页面",
+      "Step 2: 找到某个作品的删除图标按钮",
+      "Step 3: 点击删除按钮",
+      "Step 4: 验证弹出二次确认对话框",
+      "Step 5: 点击取消按钮",
+      "Step 6: 验证作品未被删除",
+      "Step 7: 再次点击删除按钮",
+      "Step 8: 点击确认删除",
+      "Step 9: 验证作品从列表中移除",
+      "Step 10: 验证数据库中作品标记为已删除或已移除"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品详情入口：点击作品卡片跳转",
-    "steps": ["Step 1: 进入作品列表页面", "Step 2: 点击某个作品卡片（非删除按钮）", "Step 3: 验证页面跳转到作品创作页 /works/:id", "Step 4: 验证左侧菜单显示基本信息默认选中", "Step 5: 验证右侧显示该作品的基本信息编辑表单"],
+    "steps": [
+      "Step 1: 进入作品列表页面",
+      "Step 2: 点击某个作品卡片（非删除按钮）",
+      "Step 3: 验证页面跳转到作品创作页 /works/:id",
+      "Step 4: 验证左侧菜单显示基本信息默认选中",
+      "Step 5: 验证右侧显示该作品的基本信息编辑表单"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品创作：左侧菜单栏展示",
-    "steps": ["Step 1: 进入作品创作页面", "Step 2: 验证左侧显示导航菜单", "Step 3: 验证菜单包含根项：基本信息", "Step 4: 验证菜单包含根项：分卷信息", "Step 5: 验证菜单包含根项：章节信息", "Step 6: 验证菜单项支持展开/折叠", "Step 7: 验证选中状态高亮显示"],
+    "steps": [
+      "Step 1: 进入作品创作页面",
+      "Step 2: 验证左侧显示导航菜单",
+      "Step 3: 验证菜单包含根项：基本信息",
+      "Step 4: 验证菜单包含根项：分卷信息",
+      "Step 5: 验证菜单包含根项：章节信息",
+      "Step 6: 验证菜单项支持展开/折叠",
+      "Step 7: 验证选中状态高亮显示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品创作：基本信息编辑页面",
-    "steps": ["Step 1: 进入作品创作页，点击左侧基本信息", "Step 2: 验证右侧显示基本信息编辑表单", "Step 3: 验证包含书名字段（文本输入）", "Step 4: 验证包含故事梗概字段（多行文本）", "Step 5: 验证包含时空设定字段", "Step 6: 验证包含力量体系字段", "Step 7: 验证包含主要人物字段（富文本或列表）", "Step 8: 验证包含封面上传组件", "Step 9: 验证显示保存按钮", "Step 10: 修改任意字段点击保存", "Step 11: 验证显示保存成功提示", "Step 12: 验证数据已更新到数据库"],
+    "steps": [
+      "Step 1: 进入作品创作页，点击左侧基本信息",
+      "Step 2: 验证右侧显示基本信息编辑表单",
+      "Step 3: 验证包含书名字段（文本输入）",
+      "Step 4: 验证包含故事梗概字段（多行文本）",
+      "Step 5: 验证包含时空设定字段",
+      "Step 6: 验证包含力量体系字段",
+      "Step 7: 验证包含主要人物字段（富文本或列表）",
+      "Step 8: 验证包含封面上传组件",
+      "Step 9: 验证显示保存按钮",
+      "Step 10: 修改任意字段点击保存",
+      "Step 11: 验证显示保存成功提示",
+      "Step 12: 验证数据已更新到数据库"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品创作：基本信息实时保存",
-    "steps": ["Step 1: 进入基本信息编辑页面", "Step 2: 修改书名字段", "Step 3: 等待自动保存触发（如配置实时保存）", "Step 4: 验证显示保存中状态", "Step 5: 验证显示已保存提示", "Step 6: 刷新页面验证数据已保存"],
+    "steps": [
+      "Step 1: 进入基本信息编辑页面",
+      "Step 2: 修改书名字段",
+      "Step 3: 等待自动保存触发（如配置实时保存）",
+      "Step 4: 验证显示保存中状态",
+      "Step 5: 验证显示已保存提示",
+      "Step 6: 刷新页面验证数据已保存"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "分卷信息：查看分卷列表",
-    "steps": ["Step 1: 进入作品创作页，点击左侧分卷信息", "Step 2: 验证右侧显示分卷列表", "Step 3: 验证每个分卷显示卷名", "Step 4: 验证每个分卷显示章节数", "Step 5: 验证每个分卷显示字数", "Step 6: 验证分卷支持展开查看详情", "Step 7: 验证显示新增分卷按钮"],
+    "steps": [
+      "Step 1: 进入作品创作页，点击左侧分卷信息",
+      "Step 2: 验证右侧显示分卷列表",
+      "Step 3: 验证每个分卷显示卷名",
+      "Step 4: 验证每个分卷显示章节数",
+      "Step 5: 验证每个分卷显示字数",
+      "Step 6: 验证分卷支持展开查看详情",
+      "Step 7: 验证显示新增分卷按钮"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "分卷信息：新增分卷",
-    "steps": ["Step 1: 进入分卷信息管理页面", "Step 2: 点击新增分卷按钮", "Step 3: 验证弹出分卷编辑表单", "Step 4: 输入卷名：第一卷", "Step 5: 输入主要情节概述", "Step 6: 选择出场人物（多选标签）", "Step 7: 添加情节单元", "Step 8: 输入关键人物与关系变化", "Step 9: 输入主角目标与进展", "Step 10: 输入冲突与转折", "Step 11: 输入伏笔与后续钩子", "Step 12: 点击保存", "Step 13: 验证分卷列表显示新分卷", "Step 14: 验证数据库记录已创建"],
+    "steps": [
+      "Step 1: 进入分卷信息管理页面",
+      "Step 2: 点击新增分卷按钮",
+      "Step 3: 验证弹出分卷编辑表单",
+      "Step 4: 输入卷名：第一卷",
+      "Step 5: 输入主要情节概述",
+      "Step 6: 选择出场人物（多选标签）",
+      "Step 7: 添加情节单元",
+      "Step 8: 输入关键人物与关系变化",
+      "Step 9: 输入主角目标与进展",
+      "Step 10: 输入冲突与转折",
+      "Step 11: 输入伏笔与后续钩子",
+      "Step 12: 点击保存",
+      "Step 13: 验证分卷列表显示新分卷",
+      "Step 14: 验证数据库记录已创建"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "分卷信息：编辑分卷",
-    "steps": ["Step 1: 进入分卷信息管理页面", "Step 2: 点击某个分卷的编辑按钮", "Step 3: 验证弹出分卷编辑表单并加载当前数据", "Step 4: 修改卷名", "Step 5: 修改主要情节概述", "Step 6: 点击保存", "Step 7: 验证分卷列表显示更新后的卷名", "Step 8: 验证数据库记录已更新"],
+    "steps": [
+      "Step 1: 进入分卷信息管理页面",
+      "Step 2: 点击某个分卷的编辑按钮",
+      "Step 3: 验证弹出分卷编辑表单并加载当前数据",
+      "Step 4: 修改卷名",
+      "Step 5: 修改主要情节概述",
+      "Step 6: 点击保存",
+      "Step 7: 验证分卷列表显示更新后的卷名",
+      "Step 8: 验证数据库记录已更新"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "分卷信息：删除分卷",
-    "steps": ["Step 1: 进入分卷信息管理页面", "Step 2: 找到某个分卷的删除按钮", "Step 3: 点击删除按钮", "Step 4: 验证弹出确认对话框", "Step 5: 点击确认删除", "Step 6: 验证分卷从列表中移除", "Step 7: 验证该分卷下的章节也被处理（软删除或级联删除）"],
+    "steps": [
+      "Step 1: 进入分卷信息管理页面",
+      "Step 2: 找到某个分卷的删除按钮",
+      "Step 3: 点击删除按钮",
+      "Step 4: 验证弹出确认对话框",
+      "Step 5: 点击确认删除",
+      "Step 6: 验证分卷从列表中移除",
+      "Step 7: 验证该分卷下的章节也被处理（软删除或级联删除）"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "章节信息：按卷分组展示章节列表",
-    "steps": ["Step 1: 进入作品创作页，点击左侧章节信息", "Step 2: 验证右侧显示章节树", "Step 3: 验证章节按卷分组展示", "Step 4: 验证每个卷展开后显示该卷的章节", "Step 5: 验证每个章节显示章节名", "Step 6: 验证每个章节显示剧情梗概", "Step 7: 验证显示新增章节按钮"],
+    "steps": [
+      "Step 1: 进入作品创作页，点击左侧章节信息",
+      "Step 2: 验证右侧显示章节树",
+      "Step 3: 验证章节按卷分组展示",
+      "Step 4: 验证每个卷展开后显示该卷的章节",
+      "Step 5: 验证每个章节显示章节名",
+      "Step 6: 验证每个章节显示剧情梗概",
+      "Step 7: 验证显示新增章节按钮"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "章节信息：新增章节",
-    "steps": ["Step 1: 进入章节信息管理页面", "Step 2: 选择要添加章节的卷", "Step 3: 点击新增章节按钮", "Step 4: 验证弹出章节编辑表单", "Step 5: 输入章节名：第一章 新的开始", "Step 6: 输入剧情梗概", "Step 7: 选择时空设定", "Step 8: 选择出场人物", "Step 9: 添加场景列表", "Step 10: 为场景填写开端、发展与冲突、转折、结果", "Step 11: 选择场景风格", "Step 12: 点击保存", "Step 13: 验证章节出现在对应卷的列表中", "Step 14: 验证数据库记录已创建"],
+    "steps": [
+      "Step 1: 进入章节信息管理页面",
+      "Step 2: 选择要添加章节的卷",
+      "Step 3: 点击新增章节按钮",
+      "Step 4: 验证弹出章节编辑表单",
+      "Step 5: 输入章节名：第一章 新的开始",
+      "Step 6: 输入剧情梗概",
+      "Step 7: 选择时空设定",
+      "Step 8: 选择出场人物",
+      "Step 9: 添加场景列表",
+      "Step 10: 为场景填写开端、发展与冲突、转折、结果",
+      "Step 11: 选择场景风格",
+      "Step 12: 点击保存",
+      "Step 13: 验证章节出现在对应卷的列表中",
+      "Step 14: 验证数据库记录已创建"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "章节信息：编辑章节",
-    "steps": ["Step 1: 进入章节信息管理页面", "Step 2: 找到某个章节", "Step 3: 点击该章节进入详情编辑", "Step 4: 验证显示章节编辑表单并加载当前数据", "Step 5: 修改章节名", "Step 6: 修改剧情梗概", "Step 7: 修改出场人物", "Step 8: 添加新场景", "Step 9: 点击保存", "Step 10: 验证章节信息已更新", "Step 11: 验证数据库记录已更新"],
+    "steps": [
+      "Step 1: 进入章节信息管理页面",
+      "Step 2: 找到某个章节",
+      "Step 3: 点击该章节进入详情编辑",
+      "Step 4: 验证显示章节编辑表单并加载当前数据",
+      "Step 5: 修改章节名",
+      "Step 6: 修改剧情梗概",
+      "Step 7: 修改出场人物",
+      "Step 8: 添加新场景",
+      "Step 9: 点击保存",
+      "Step 10: 验证章节信息已更新",
+      "Step 11: 验证数据库记录已更新"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "章节信息：删除章节",
-    "steps": ["Step 1: 进入章节信息管理页面", "Step 2: 找到某个章节的删除按钮", "Step 3: 点击删除按钮", "Step 4: 验证弹出确认对话框", "Step 5: 点击确认删除", "Step 6: 验证章节从列表中移除", "Step 7: 验证数据库中章节已删除"],
+    "steps": [
+      "Step 1: 进入章节信息管理页面",
+      "Step 2: 找到某个章节的删除按钮",
+      "Step 3: 点击删除按钮",
+      "Step 4: 验证弹出确认对话框",
+      "Step 5: 点击确认删除",
+      "Step 6: 验证章节从列表中移除",
+      "Step 7: 验证数据库中章节已删除"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "章节信息：场景管理",
-    "steps": ["Step 1: 进入章节详情编辑页面", "Step 2: 找到场景列表区域", "Step 3: 点击添加场景按钮", "Step 4: 填写场景开端", "Step 5: 填写发展与冲突", "Step 6: 填写转折", "Step 7: 填写结果", "Step 8: 选择场景风格", "Step 9: 保存场景", "Step 10: 验证场景出现在场景列表中", "Step 11: 可以继续添加多个场景", "Step 12: 可以编辑已有场景", "Step 13: 可以删除场景"],
+    "steps": [
+      "Step 1: 进入章节详情编辑页面",
+      "Step 2: 找到场景列表区域",
+      "Step 3: 点击添加场景按钮",
+      "Step 4: 填写场景开端",
+      "Step 5: 填写发展与冲突",
+      "Step 6: 填写转折",
+      "Step 7: 填写结果",
+      "Step 8: 选择场景风格",
+      "Step 9: 保存场景",
+      "Step 10: 验证场景出现在场景列表中",
+      "Step 11: 可以继续添加多个场景",
+      "Step 12: 可以编辑已有场景",
+      "Step 13: 可以删除场景"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "顶部信息栏：作品切换下拉列表",
-    "steps": ["Step 1: 登录后进入任意页面", "Step 2: 验证顶部显示当前作品名", "Step 3: 点击作品名下拉框", "Step 4: 验证显示所有作品列表", "Step 5: 点击切换到其他作品", "Step 6: 验证页面内容切换为新作品", "Step 7: 验证顶部显示新的作品名"],
+    "steps": [
+      "Step 1: 登录后进入任意页面",
+      "Step 2: 验证顶部显示当前作品名",
+      "Step 3: 点击作品名下拉框",
+      "Step 4: 验证显示所有作品列表",
+      "Step 5: 点击切换到其他作品",
+      "Step 6: 验证页面内容切换为新作品",
+      "Step 7: 验证顶部显示新的作品名"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "顶部信息栏：通知图标与列表",
-    "steps": ["Step 1: 登录后进入任意页面", "Step 2: 验证顶部显示通知图标", "Step 3: 验证未读通知数量显示", "Step 4: 点击通知图标", "Step 5: 验证展开通知列表", "Step 6: 验证每条通知显示内容和时间", "Step 7: 点击某条通知可查看详情", "Step 8: 点击标为已读，验证数量减少"],
+    "steps": [
+      "Step 1: 登录后进入任意页面",
+      "Step 2: 验证顶部显示通知图标",
+      "Step 3: 验证未读通知数量显示",
+      "Step 4: 点击通知图标",
+      "Step 5: 验证展开通知列表",
+      "Step 6: 验证每条通知显示内容和时间",
+      "Step 7: 点击某条通知可查看详情",
+      "Step 8: 点击标为已读，验证数量减少"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "顶部信息栏：用户头像下拉菜单",
-    "steps": ["Step 1: 登录后进入任意页面", "Step 2: 验证顶部显示用户头像", "Step 3: 点击头像", "Step 4: 验证显示下拉菜单", "Step 5: 验证包含个人设置选项", "Step 6: 验证包含退出登录选项", "Step 7: 点击个人设置，验证跳转"],
+    "steps": [
+      "Step 1: 登录后进入任意页面",
+      "Step 2: 验证顶部显示用户头像",
+      "Step 3: 点击头像",
+      "Step 4: 验证显示下拉菜单",
+      "Step 5: 验证包含个人设置选项",
+      "Step 6: 验证包含退出登录选项",
+      "Step 7: 点击个人设置，验证跳转"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "左侧菜单栏：折叠/展开功能",
-    "steps": ["Step 1: 进入任意页面", "Step 2: 找到左侧菜单栏折叠按钮", "Step 3: 点击折叠按钮", "Step 4: 验证菜单栏收起", "Step 5: 验证只显示图标", "Step 6: 再次点击展开按钮", "Step 7: 验证菜单栏展开显示完整", "Step 8: 验证菜单项文字显示"],
+    "steps": [
+      "Step 1: 进入任意页面",
+      "Step 2: 找到左侧菜单栏折叠按钮",
+      "Step 3: 点击折叠按钮",
+      "Step 4: 验证菜单栏收起",
+      "Step 5: 验证只显示图标",
+      "Step 6: 再次点击展开按钮",
+      "Step 7: 验证菜单栏展开显示完整",
+      "Step 8: 验证菜单项文字显示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "左侧菜单栏：导航高亮状态",
-    "steps": ["Step 1: 进入作品列表页面", "Step 2: 验证左侧菜单作品列表项高亮", "Step 3: 点击进入AI优化页面", "Step 4: 验证AI优化项高亮，之前项取消高亮", "Step 5: 进入一键发布页面", "Step 6: 验证一键发布项高亮"],
+    "steps": [
+      "Step 1: 进入作品列表页面",
+      "Step 2: 验证左侧菜单作品列表项高亮",
+      "Step 3: 点击进入AI优化页面",
+      "Step 4: 验证AI优化项高亮，之前项取消高亮",
+      "Step 5: 进入一键发布页面",
+      "Step 6: 验证一键发布项高亮"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "面包屑导航：显示当前路径",
-    "steps": ["Step 1: 进入作品创作页面", "Step 2: 验证显示面包屑：首页 > 作品管理 > 作品名称", "Step 3: 进入分卷信息子页面", "Step 4: 验证面包屑更新：首页 > 作品管理 > 作品名称 > 分卷信息", "Step 5: 点击面包屑某级可跳转"],
+    "steps": [
+      "Step 1: 进入作品创作页面",
+      "Step 2: 验证显示面包屑：首页 > 作品管理 > 作品名称",
+      "Step 3: 进入分卷信息子页面",
+      "Step 4: 验证面包屑更新：首页 > 作品管理 > 作品名称 > 分卷信息",
+      "Step 5: 点击面包屑某级可跳转"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：优化步骤列表展示",
-    "steps": ["Step 1: 进入AI优化页面 /optimization", "Step 2: 验证左侧显示优化步骤列表", "Step 3: 验证默认包含四个步骤：信息认知时序优化", "Step 4: 验证默认包含步骤：人物对话优化", "Step 5: 验证默认包含步骤：滥用表达优化", "Step 6: 验证默认包含步骤：抽象设定说明优化", "Step 7: 验证步骤按顺序排列", "Step 8: 验证当前步骤高亮显示"],
+    "steps": [
+      "Step 1: 进入AI优化页面 /optimization",
+      "Step 2: 验证左侧显示优化步骤列表",
+      "Step 3: 验证默认包含四个步骤：信息认知时序优化",
+      "Step 4: 验证默认包含步骤：人物对话优化",
+      "Step 5: 验证默认包含步骤：滥用表达优化",
+      "Step 6: 验证默认包含步骤：抽象设定说明优化",
+      "Step 7: 验证步骤按顺序排列",
+      "Step 8: 验证当前步骤高亮显示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：步骤详情展示",
-    "steps": ["Step 1: 进入AI优化页面", "Step 2: 点击某个优化步骤", "Step 3: 验证右侧显示步骤详情", "Step 4: 验证显示审阅提示词（只读）", "Step 5: 验证显示审阅结论区域（AI生成）", "Step 6: 验证显示原文优化提示词模板", "Step 7: 验证显示原文内容输入区域", "Step 8: 验证显示优化后内容区域（AI生成）"],
+    "steps": [
+      "Step 1: 进入AI优化页面",
+      "Step 2: 点击某个优化步骤",
+      "Step 3: 验证右侧显示步骤详情",
+      "Step 4: 验证显示审阅提示词（只读）",
+      "Step 5: 验证显示审阅结论区域（AI生成）",
+      "Step 6: 验证显示原文优化提示词模板",
+      "Step 7: 验证显示原文内容输入区域",
+      "Step 8: 验证显示优化后内容区域（AI生成）"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：执行单步优化",
-    "steps": ["Step 1: 进入AI优化页面，选择某个步骤", "Step 2: 在原文内容区域输入待优化文本", "Step 3: 点击执行优化按钮", "Step 4: 验证显示加载状态", "Step 5: 等待AI处理完成", "Step 6: 验证审阅结论区域显示分析结果", "Step 7: 验证优化后内容区域显示优化文本", "Step 8: 验证优化历史记录已保存"],
+    "steps": [
+      "Step 1: 进入AI优化页面，选择某个步骤",
+      "Step 2: 在原文内容区域输入待优化文本",
+      "Step 3: 点击执行优化按钮",
+      "Step 4: 验证显示加载状态",
+      "Step 5: 等待AI处理完成",
+      "Step 6: 验证审阅结论区域显示分析结果",
+      "Step 7: 验证优化后内容区域显示优化文本",
+      "Step 8: 验证优化历史记录已保存"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：优化前后文本对比视图",
-    "steps": ["Step 1: 完成某步骤优化后", "Step 2: 找到优化前后文本对比区域", "Step 3: 验证原文和优化后文本并排显示", "Step 4: 验证差异部分高亮显示", "Step 5: 验证支持行内对比模式", "Step 6: 验证支持左右对照模式", "Step 7: 可切换对比模式"],
+    "steps": [
+      "Step 1: 完成某步骤优化后",
+      "Step 2: 找到优化前后文本对比区域",
+      "Step 3: 验证原文和优化后文本并排显示",
+      "Step 4: 验证差异部分高亮显示",
+      "Step 5: 验证支持行内对比模式",
+      "Step 6: 验证支持左右对照模式",
+      "Step 7: 可切换对比模式"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：添加自定义步骤",
-    "steps": ["Step 1: 进入AI优化页面", "Step 2: 点击底部添加步骤按钮", "Step 3: 验证弹出添加步骤模态框", "Step 4: 输入步骤名称：语法检查", "Step 5: 输入审阅提示词模板", "Step 6: 输入原文优化提示模板", "Step 7: 选择插入位置", "Step 8: 点击确认", "Step 9: 验证新步骤出现在列表中", "Step 10: 验证步骤可正常使用"],
+    "steps": [
+      "Step 1: 进入AI优化页面",
+      "Step 2: 点击底部添加步骤按钮",
+      "Step 3: 验证弹出添加步骤模态框",
+      "Step 4: 输入步骤名称：语法检查",
+      "Step 5: 输入审阅提示词模板",
+      "Step 6: 输入原文优化提示模板",
+      "Step 7: 选择插入位置",
+      "Step 8: 点击确认",
+      "Step 9: 验证新步骤出现在列表中",
+      "Step 10: 验证步骤可正常使用"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：删除自定义步骤",
-    "steps": ["Step 1: 进入AI优化页面", "Step 2: 选择某个自定义（非默认）步骤", "Step 3: 找到删除按钮", "Step 4: 点击删除按钮", "Step 5: 验证弹出确认对话框", "Step 6: 点击确认删除", "Step 7: 验证步骤从列表中移除", "Step 8: 验证默认步骤不可删除"],
+    "steps": [
+      "Step 1: 进入AI优化页面",
+      "Step 2: 选择某个自定义（非默认）步骤",
+      "Step 3: 找到删除按钮",
+      "Step 4: 点击删除按钮",
+      "Step 5: 验证弹出确认对话框",
+      "Step 6: 点击确认删除",
+      "Step 7: 验证步骤从列表中移除",
+      "Step 8: 验证默认步骤不可删除"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：步骤顺序调整",
-    "steps": ["Step 1: 进入AI优化页面", "Step 2: 找到步骤拖拽手柄", "Step 3: 拖动某步骤到新位置", "Step 4: 验证步骤顺序已更新", "Step 5: 刷新页面验证顺序已保存", "Step 6: 验证步骤执行顺序也相应改变"],
+    "steps": [
+      "Step 1: 进入AI优化页面",
+      "Step 2: 找到步骤拖拽手柄",
+      "Step 3: 拖动某步骤到新位置",
+      "Step 4: 验证步骤顺序已更新",
+      "Step 5: 刷新页面验证顺序已保存",
+      "Step 6: 验证步骤执行顺序也相应改变"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：优化结果自动传递到下一步",
-    "steps": ["Step 1: 在第一步输入原文并执行优化", "Step 2: 验证第一步优化后内容显示", "Step 3: 点击进入第二步", "Step 4: 验证第二步的原文内容自动填充为第一步的优化结果", "Step 5: 执行第二步优化", "Step 6: 验证内容正确传递"],
+    "steps": [
+      "Step 1: 在第一步输入原文并执行优化",
+      "Step 2: 验证第一步优化后内容显示",
+      "Step 3: 点击进入第二步",
+      "Step 4: 验证第二步的原文内容自动填充为第一步的优化结果",
+      "Step 5: 执行第二步优化",
+      "Step 6: 验证内容正确传递"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：重置某步骤优化结果",
-    "steps": ["Step 1: 已执行过某步骤优化", "Step 2: 找到重置按钮", "Step 3: 点击重置按钮", "Step 4: 验证该步骤的优化结果被清除", "Step 5: 验证原文内容保留", "Step 6: 可重新执行优化"],
+    "steps": [
+      "Step 1: 已执行过某步骤优化",
+      "Step 2: 找到重置按钮",
+      "Step 3: 点击重置按钮",
+      "Step 4: 验证该步骤的优化结果被清除",
+      "Step 5: 验证原文内容保留",
+      "Step 6: 可重新执行优化"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：优化历史记录查看",
-    "steps": ["Step 1: 进入AI优化页面", "Step 2: 找到历史记录入口", "Step 3: 点击查看历史记录", "Step 4: 验证显示历史优化列表", "Step 5: 验证每条记录显示时间、步骤名", "Step 6: 点击某条记录查看详情", "Step 7: 验证可回滚到历史版本"],
+    "steps": [
+      "Step 1: 进入AI优化页面",
+      "Step 2: 找到历史记录入口",
+      "Step 3: 点击查看历史记录",
+      "Step 4: 验证显示历史优化列表",
+      "Step 5: 验证每条记录显示时间、步骤名",
+      "Step 6: 点击某条记录查看详情",
+      "Step 7: 验证可回滚到历史版本"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "一键发布：作品选择",
-    "steps": ["Step 1: 进入一键发布页面 /publish", "Step 2: 找到作品选择下拉框", "Step 3: 点击展开作品列表", "Step 4: 验证显示所有可发布作品", "Step 5: 选择一个作品", "Step 6: 验证自动加载该作品的章节列表", "Step 7: 验证章节列表显示在页面中"],
+    "steps": [
+      "Step 1: 进入一键发布页面 /publish",
+      "Step 2: 找到作品选择下拉框",
+      "Step 3: 点击展开作品列表",
+      "Step 4: 验证显示所有可发布作品",
+      "Step 5: 选择一个作品",
+      "Step 6: 验证自动加载该作品的章节列表",
+      "Step 7: 验证章节列表显示在页面中"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "一键发布：章节选择",
-    "steps": ["Step 1: 已选择作品并加载章节列表", "Step 2: 找到章节多选框", "Step 3: 勾选单个章节", "Step 4: 验证章节被选中", "Step 5: 点击全选按钮", "Step 6: 验证所有章节被选中", "Step 7: 点击反选按钮", "Step 8: 验证已选章节取消，未选章节选中", "Step 9: 显示已选章节数量"],
+    "steps": [
+      "Step 1: 已选择作品并加载章节列表",
+      "Step 2: 找到章节多选框",
+      "Step 3: 勾选单个章节",
+      "Step 4: 验证章节被选中",
+      "Step 5: 点击全选按钮",
+      "Step 6: 验证所有章节被选中",
+      "Step 7: 点击反选按钮",
+      "Step 8: 验证已选章节取消，未选章节选中",
+      "Step 9: 显示已选章节数量"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "一键发布：字数重划分",
-    "steps": ["Step 1: 已选择作品和章节", "Step 2: 找到字数输入框", "Step 3: 输入目标字数：2000", "Step 4: 点击重新划分按钮", "Step 5: 验证显示加载状态", "Step 6: 等待处理完成", "Step 7: 验证显示重新划分后的章节列表", "Step 8: 验证章节数量和字数符合预期", "Step 9: 验证每章显示预估字数"],
+    "steps": [
+      "Step 1: 已选择作品和章节",
+      "Step 2: 找到字数输入框",
+      "Step 3: 输入目标字数：2000",
+      "Step 4: 点击重新划分按钮",
+      "Step 5: 验证显示加载状态",
+      "Step 6: 等待处理完成",
+      "Step 7: 验证显示重新划分后的章节列表",
+      "Step 8: 验证章节数量和字数符合预期",
+      "Step 9: 验证每章显示预估字数"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "一键发布：章节名自动生成",
-    "steps": ["Step 1: 已完成字数重划分", "Step 2: 验证新章节列表显示在页面中", "Step 3: 验证每个新章节显示AI生成的章节名", "Step 4: 点击某章节的编辑按钮", "Step 5: 手动修改章节名", "Step 6: 点击保存", "Step 7: 验证章节名已更新"],
+    "steps": [
+      "Step 1: 已完成字数重划分",
+      "Step 2: 验证新章节列表显示在页面中",
+      "Step 3: 验证每个新章节显示AI生成的章节名",
+      "Step 4: 点击某章节的编辑按钮",
+      "Step 5: 手动修改章节名",
+      "Step 6: 点击保存",
+      "Step 7: 验证章节名已更新"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "一键发布：发布目标平台选择",
-    "steps": ["Step 1: 进入一键发布页面", "Step 2: 找到平台选择下拉框", "Step 3: 点击展开平台列表", "Step 4: 验证显示支持的平台：番茄小说", "Step 5: 验证显示支持的平台：起点中文网", "Step 6: 选择目标平台", "Step 7: 验证显示平台发布参数配置（如分类、标签）", "Step 8: 配置发布参数"],
+    "steps": [
+      "Step 1: 进入一键发布页面",
+      "Step 2: 找到平台选择下拉框",
+      "Step 3: 点击展开平台列表",
+      "Step 4: 验证显示支持的平台：番茄小说",
+      "Step 5: 验证显示支持的平台：起点中文网",
+      "Step 6: 选择目标平台",
+      "Step 7: 验证显示平台发布参数配置（如分类、标签）",
+      "Step 8: 配置发布参数"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "一键发布：执行发布",
-    "steps": ["Step 1: 已完成所有前置配置", "Step 2: 确认已选择作品、章节、平台", "Step 3: 点击发布按钮", "Step 4: 验证显示发布确认对话框", "Step 5: 点击确认发布", "Step 6: 验证显示发布进度", "Step 7: 等待发布完成", "Step 8: 验证显示发布结果", "Step 9: 验证发布任务记录已保存"],
+    "steps": [
+      "Step 1: 已完成所有前置配置",
+      "Step 2: 确认已选择作品、章节、平台",
+      "Step 3: 点击发布按钮",
+      "Step 4: 验证显示发布确认对话框",
+      "Step 5: 点击确认发布",
+      "Step 6: 验证显示发布进度",
+      "Step 7: 等待发布完成",
+      "Step 8: 验证显示发布结果",
+      "Step 9: 验证发布任务记录已保存"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "一键发布：发布状态查询",
-    "steps": ["Step 1: 正在发布或发布完成后", "Step 2: 进入发布任务列表", "Step 3: 找到对应发布任务", "Step 4: 验证显示发布状态：进行中/成功/失败", "Step 5: 如失败验证显示错误信息", "Step 6: 可查看发布详情"],
+    "steps": [
+      "Step 1: 正在发布或发布完成后",
+      "Step 2: 进入发布任务列表",
+      "Step 3: 找到对应发布任务",
+      "Step 4: 验证显示发布状态：进行中/成功/失败",
+      "Step 5: 如失败验证显示错误信息",
+      "Step 6: 可查看发布详情"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API认证：注册接口功能正常",
-    "steps": ["Step 1: 发送POST请求到 /api/auth/register", "Step 2: 传入用户名、密码、邮箱", "Step 3: 验证返回成功状态", "Step 4: 验证返回用户信息", "Step 5: 验证数据库中有对应记录"],
+    "steps": [
+      "Step 1: 发送POST请求到 /api/auth/register",
+      "Step 2: 传入用户名、密码、邮箱",
+      "Step 3: 验证返回成功状态",
+      "Step 4: 验证返回用户信息",
+      "Step 5: 验证数据库中有对应记录"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API认证：登录接口返回JWT",
-    "steps": ["Step 1: 发送POST请求到 /api/auth/login", "Step 2: 传入正确用户名和密码", "Step 3: 验证返回成功状态", "Step 4: 验证返回JWT token", "Step 5: 验证token可正常使用"],
+    "steps": [
+      "Step 1: 发送POST请求到 /api/auth/login",
+      "Step 2: 传入正确用户名和密码",
+      "Step 3: 验证返回成功状态",
+      "Step 4: 验证返回JWT token",
+      "Step 5: 验证token可正常使用"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API认证：无效token访问受保护接口返回401",
-    "steps": ["Step 1: 使用无效token发送请求", "Step 2: 访问需要鉴权的接口", "Step 3: 验证返回401未授权", "Step 4: 验证返回错误提示"],
+    "steps": [
+      "Step 1: 使用无效token发送请求",
+      "Step 2: 访问需要鉴权的接口",
+      "Step 3: 验证返回401未授权",
+      "Step 4: 验证返回错误提示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API作品列表：分页功能",
-    "steps": ["Step 1: 发送GET请求到 /api/works", "Step 2: 传入page=1&page_size=10", "Step 3: 验证返回10条记录", "Step 4: 验证返回分页信息（总数、页码等）", "Step 5: 请求第二页", "Step 6: 验证返回不同数据"],
+    "steps": [
+      "Step 1: 发送GET请求到 /api/works",
+      "Step 2: 传入page=1&page_size=10",
+      "Step 3: 验证返回10条记录",
+      "Step 4: 验证返回分页信息（总数、页码等）",
+      "Step 5: 请求第二页",
+      "Step 6: 验证返回不同数据"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API作品列表：筛选功能",
-    "steps": ["Step 1: 发送GET请求到 /api/works?category=玄幻", "Step 2: 验证只返回玄幻类作品", "Step 3: 发送GET请求到 /api/works?sort=updated_at&order=desc", "Step 4: 验证按更新时间降序排列"],
+    "steps": [
+      "Step 1: 发送GET请求到 /api/works?category=玄幻",
+      "Step 2: 验证只返回玄幻类作品",
+      "Step 3: 发送GET请求到 /api/works?sort=updated_at&order=desc",
+      "Step 4: 验证按更新时间降序排列"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API作品详情：获取单个作品",
-    "steps": ["Step 1: 发送GET请求到 /api/works/:id", "Step 2: 验证返回作品完整信息", "Step 3: 验证包含书名、简介、章节数等", "Step 4: 验证返回分卷信息", "Step 5: 验证返回章节列表"],
+    "steps": [
+      "Step 1: 发送GET请求到 /api/works/:id",
+      "Step 2: 验证返回作品完整信息",
+      "Step 3: 验证包含书名、简介、章节数等",
+      "Step 4: 验证返回分卷信息",
+      "Step 5: 验证返回章节列表"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API作品更新：修改作品信息",
-    "steps": ["Step 1: 发送PUT请求到 /api/works/:id", "Step 2: 传入更新的书名和简介", "Step 3: 验证返回成功状态", "Step 4: 验证数据库中记录已更新", "Step 5: 再次获取作品验证内容已更改"],
+    "steps": [
+      "Step 1: 发送PUT请求到 /api/works/:id",
+      "Step 2: 传入更新的书名和简介",
+      "Step 3: 验证返回成功状态",
+      "Step 4: 验证数据库中记录已更新",
+      "Step 5: 再次获取作品验证内容已更改"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API分卷管理：创建分卷",
-    "steps": ["Step 1: 发送POST请求到 /api/works/:workId/volumes", "Step 2: 传入卷名和相关信息", "Step 3: 验证返回新分卷信息", "Step 4: 验证数据库中记录已创建", "Step 5: 获取作品分卷列表验证包含新分卷"],
+    "steps": [
+      "Step 1: 发送POST请求到 /api/works/:workId/volumes",
+      "Step 2: 传入卷名和相关信息",
+      "Step 3: 验证返回新分卷信息",
+      "Step 4: 验证数据库中记录已创建",
+      "Step 5: 获取作品分卷列表验证包含新分卷"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API分卷管理：更新分卷",
-    "steps": ["Step 1: 发送PUT请求到 /api/volumes/:id", "Step 2: 传入更新的卷名和内容", "Step 3: 验证返回成功状态", "Step 4: 验证数据库中记录已更新"],
+    "steps": [
+      "Step 1: 发送PUT请求到 /api/volumes/:id",
+      "Step 2: 传入更新的卷名和内容",
+      "Step 3: 验证返回成功状态",
+      "Step 4: 验证数据库中记录已更新"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API分卷管理：删除分卷",
-    "steps": ["Step 1: 发送DELETE请求到 /api/volumes/:id", "Step 2: 验证返回成功状态", "Step 3: 验证数据库中记录已删除或软删除", "Step 4: 再次获取该分卷验证不存在"],
+    "steps": [
+      "Step 1: 发送DELETE请求到 /api/volumes/:id",
+      "Step 2: 验证返回成功状态",
+      "Step 3: 验证数据库中记录已删除或软删除",
+      "Step 4: 再次获取该分卷验证不存在"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API章节管理：创建章节",
-    "steps": ["Step 1: 发送POST请求到 /api/works/:workId/chapters", "Step 2: 传入章节名、剧情梗概、场景列表等", "Step 3: 验证返回新章节信息", "Step 4: 验证数据库中记录已创建", "Step 5: 验证字数自动计算"],
+    "steps": [
+      "Step 1: 发送POST请求到 /api/works/:workId/chapters",
+      "Step 2: 传入章节名、剧情梗概、场景列表等",
+      "Step 3: 验证返回新章节信息",
+      "Step 4: 验证数据库中记录已创建",
+      "Step 5: 验证字数自动计算"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API章节管理：获取章节详情",
-    "steps": ["Step 1: 发送GET请求到 /api/chapters/:id", "Step 2: 验证返回章节完整信息", "Step 3: 验证包含场景列表JSON", "Step 4: 验证包含出场人物信息"],
+    "steps": [
+      "Step 1: 发送GET请求到 /api/chapters/:id",
+      "Step 2: 验证返回章节完整信息",
+      "Step 3: 验证包含场景列表JSON",
+      "Step 4: 验证包含出场人物信息"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API章节管理：更新章节",
-    "steps": ["Step 1: 发送PUT请求到 /api/chapters/:id", "Step 2: 传入更新的章节信息", "Step 3: 验证返回成功状态", "Step 4: 验证数据库中记录已更新", "Step 5: 验证字数重新计算"],
+    "steps": [
+      "Step 1: 发送PUT请求到 /api/chapters/:id",
+      "Step 2: 传入更新的章节信息",
+      "Step 3: 验证返回成功状态",
+      "Step 4: 验证数据库中记录已更新",
+      "Step 5: 验证字数重新计算"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API章节管理：删除章节",
-    "steps": ["Step 1: 发送DELETE请求到 /api/chapters/:id", "Step 2: 验证返回成功状态", "Step 3: 验证数据库中记录已删除"],
+    "steps": [
+      "Step 1: 发送DELETE请求到 /api/chapters/:id",
+      "Step 2: 验证返回成功状态",
+      "Step 3: 验证数据库中记录已删除"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API优化步骤：获取用户步骤列表",
-    "steps": ["Step 1: 登录后发送GET请求到 /api/optimization/steps", "Step 2: 验证返回用户配置的优化步骤", "Step 3: 验证包含默认四个步骤", "Step 4: 验证包含用户自定义步骤"],
+    "steps": [
+      "Step 1: 登录后发送GET请求到 /api/optimization/steps",
+      "Step 2: 验证返回用户配置的优化步骤",
+      "Step 3: 验证包含默认四个步骤",
+      "Step 4: 验证包含用户自定义步骤"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API优化步骤：创建自定义步骤",
-    "steps": ["Step 1: 发送POST请求到 /api/optimization/steps", "Step 2: 传入步骤名称、审阅提示词、优化提示词", "Step 3: 验证返回新步骤信息", "Step 4: 验证数据库中记录已创建"],
+    "steps": [
+      "Step 1: 发送POST请求到 /api/optimization/steps",
+      "Step 2: 传入步骤名称、审阅提示词、优化提示词",
+      "Step 3: 验证返回新步骤信息",
+      "Step 4: 验证数据库中记录已创建"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API优化执行：调用AI优化接口",
-    "steps": ["Step 1: 发送POST请求到 /api/optimization/execute", "Step 2: 传入原文内容、步骤ID", "Step 3: 验证调用AI服务处理", "Step 4: 验证返回优化后文本", "Step 5: 验证返回审阅结论", "Step 6: 验证优化记录已保存"],
+    "steps": [
+      "Step 1: 发送POST请求到 /api/optimization/execute",
+      "Step 2: 传入原文内容、步骤ID",
+      "Step 3: 验证调用AI服务处理",
+      "Step 4: 验证返回优化后文本",
+      "Step 5: 验证返回审阅结论",
+      "Step 6: 验证优化记录已保存"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API优化历史：查询优化记录",
-    "steps": ["Step 1: 发送GET请求到 /api/optimization/records", "Step 2: 传入作品ID和章节ID", "Step 3: 验证返回优化历史列表", "Step 4: 验证每条记录包含原文、优化后内容、时间"],
+    "steps": [
+      "Step 1: 发送GET请求到 /api/optimization/records",
+      "Step 2: 传入作品ID和章节ID",
+      "Step 3: 验证返回优化历史列表",
+      "Step 4: 验证每条记录包含原文、优化后内容、时间"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API发布平台：获取支持平台列表",
-    "steps": ["Step 1: 发送GET请求到 /api/publish/platforms", "Step 2: 验证返回支持的平台列表", "Step 3: 验证包含平台名称和发布参数配置"],
+    "steps": [
+      "Step 1: 发送GET请求到 /api/publish/platforms",
+      "Step 2: 验证返回支持的平台列表",
+      "Step 3: 验证包含平台名称和发布参数配置"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API发布预览：预览重划分结果",
-    "steps": ["Step 1: 发送POST请求到 /api/publish/preview", "Step 2: 传入章节ID列表和目标字数", "Step 3: 验证返回预览结果", "Step 4: 验证包含新章节划分", "Step 5: 验证包含AI生成的章节名"],
+    "steps": [
+      "Step 1: 发送POST请求到 /api/publish/preview",
+      "Step 2: 传入章节ID列表和目标字数",
+      "Step 3: 验证返回预览结果",
+      "Step 4: 验证包含新章节划分",
+      "Step 5: 验证包含AI生成的章节名"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API发布执行：创建发布任务",
-    "steps": ["Step 1: 发送POST请求到 /api/publish/execute", "Step 2: 传入作品ID、章节列表、平台信息", "Step 3: 验证返回任务ID", "Step 4: 验证发布任务已创建", "Step 5: 验证任务状态为进行中"],
+    "steps": [
+      "Step 1: 发送POST请求到 /api/publish/execute",
+      "Step 2: 传入作品ID、章节列表、平台信息",
+      "Step 3: 验证返回任务ID",
+      "Step 4: 验证发布任务已创建",
+      "Step 5: 验证任务状态为进行中"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API发布任务：查询任务状态",
-    "steps": ["Step 1: 发送GET请求到 /api/publish/tasks", "Step 2: 验证返回用户发布任务列表", "Step 3: 验证每条任务包含状态信息", "Step 4: 可查询单个任务详情"],
+    "steps": [
+      "Step 1: 发送GET请求到 /api/publish/tasks",
+      "Step 2: 验证返回用户发布任务列表",
+      "Step 3: 验证每条任务包含状态信息",
+      "Step 4: 可查询单个任务详情"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API通知：获取通知列表",
-    "steps": ["Step 1: 登录后发送GET请求到 /api/notifications", "Step 2: 验证返回通知列表", "Step 3: 验证包含未读数量", "Step 4: 验证每条通知包含内容和时间"],
+    "steps": [
+      "Step 1: 登录后发送GET请求到 /api/notifications",
+      "Step 2: 验证返回通知列表",
+      "Step 3: 验证包含未读数量",
+      "Step 4: 验证每条通知包含内容和时间"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API通知：标记已读",
-    "steps": ["Step 1: 发送PUT请求到 /api/notifications/:id/read", "Step 2: 验证返回成功状态", "Step 3: 验证通知标记为已读", "Step 4: 再次获取通知列表验证未读数减少"],
+    "steps": [
+      "Step 1: 发送PUT请求到 /api/notifications/:id/read",
+      "Step 2: 验证返回成功状态",
+      "Step 3: 验证通知标记为已读",
+      "Step 4: 再次获取通知列表验证未读数减少"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "作品列表：网格视图卡片样式",
-    "steps": ["Step 1: 进入作品列表网格视图", "Step 2: 截图对比设计稿", "Step 3: 验证卡片圆角为lg（large）", "Step 4: 验证卡片阴影为sm（small）", "Step 5: 验证悬停时阴影变为md", "Step 6: 验证封面图显示正确尺寸", "Step 7: 验证书名、章节数、字数、时间文字样式"],
+    "steps": [
+      "Step 1: 进入作品列表网格视图",
+      "Step 2: 截图对比设计稿",
+      "Step 3: 验证卡片圆角为lg（large）",
+      "Step 4: 验证卡片阴影为sm（small）",
+      "Step 5: 验证悬停时阴影变为md",
+      "Step 6: 验证封面图显示正确尺寸",
+      "Step 7: 验证书名、章节数、字数、时间文字样式"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "作品列表：列表视图样式",
-    "steps": ["Step 1: 进入作品列表视图", "Step 2: 切换到列表视图", "Step 3: 验证列表行高合适", "Step 4: 验证封面图、书名等信息排列对齐", "Step 5: 验证hover背景色变化", "Step 6: 验证操作按钮位置正确"],
+    "steps": [
+      "Step 1: 进入作品列表视图",
+      "Step 2: 切换到列表视图",
+      "Step 3: 验证列表行高合适",
+      "Step 4: 验证封面图、书名等信息排列对齐",
+      "Step 5: 验证hover背景色变化",
+      "Step 6: 验证操作按钮位置正确"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "新增作品向导：弹窗样式",
-    "steps": ["Step 1: 点击新增作品按钮", "Step 2: 验证弹出模态框居中显示", "Step 3: 验证模态框背景有遮罩", "Step 4: 验证标题栏样式", "Step 5: 验证表单布局整齐", "Step 6: 验证按钮样式正确"],
+    "steps": [
+      "Step 1: 点击新增作品按钮",
+      "Step 2: 验证弹出模态框居中显示",
+      "Step 3: 验证模态框背景有遮罩",
+      "Step 4: 验证标题栏样式",
+      "Step 5: 验证表单布局整齐",
+      "Step 6: 验证按钮样式正确"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "作品创作页面：左侧菜单样式",
-    "steps": ["Step 1: 进入作品创作页面", "Step 2: 验证左侧菜单宽度为250px", "Step 3: 验证背景色为浅灰（#f9fafb）", "Step 4: 验证菜单项有图标和文字", "Step 5: 验证选中项背景色为主色调", "Step 6: 验证悬停效果"],
+    "steps": [
+      "Step 1: 进入作品创作页面",
+      "Step 2: 验证左侧菜单宽度为250px",
+      "Step 3: 验证背景色为浅灰（#f9fafb）",
+      "Step 4: 验证菜单项有图标和文字",
+      "Step 5: 验证选中项背景色为主色调",
+      "Step 6: 验证悬停效果"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "作品创作页面：右侧内容区样式",
-    "steps": ["Step 1: 进入作品创作页面", "Step 2: 验证右侧内容区内边距为20px", "Step 3: 验证内容区背景色为白色", "Step 4: 验证标题样式（font-semibold, text-lg）", "Step 5: 验证表单输入框圆角为md", "Step 6: 验证按钮样式一致"],
+    "steps": [
+      "Step 1: 进入作品创作页面",
+      "Step 2: 验证右侧内容区内边距为20px",
+      "Step 3: 验证内容区背景色为白色",
+      "Step 4: 验证标题样式（font-semibold, text-lg）",
+      "Step 5: 验证表单输入框圆角为md",
+      "Step 6: 验证按钮样式一致"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "AI优化页面：步骤列表样式",
-    "steps": ["Step 1: 进入AI优化页面", "Step 2: 验证左侧步骤列表宽度合适", "Step 3: 验证每个步骤项有图标和名称", "Step 4: 验证当前步骤高亮显示（主色调背景）", "Step 5: 验证步骤可点击", "Step 6: 验证悬停效果"],
+    "steps": [
+      "Step 1: 进入AI优化页面",
+      "Step 2: 验证左侧步骤列表宽度合适",
+      "Step 3: 验证每个步骤项有图标和名称",
+      "Step 4: 验证当前步骤高亮显示（主色调背景）",
+      "Step 5: 验证步骤可点击",
+      "Step 6: 验证悬停效果"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "AI优化页面：文本对比区样式",
-    "steps": ["Step 1: 进入AI优化页面并选择某步骤", "Step 2: 验证右侧分为上下区域", "Step 3: 验证上方显示审阅信息", "Step 4: 验证下方显示原文和优化后文本", "Step 5: 验证差异高亮样式正确", "Step 6: 验证滚动条样式"],
+    "steps": [
+      "Step 1: 进入AI优化页面并选择某步骤",
+      "Step 2: 验证右侧分为上下区域",
+      "Step 3: 验证上方显示审阅信息",
+      "Step 4: 验证下方显示原文和优化后文本",
+      "Step 5: 验证差异高亮样式正确",
+      "Step 6: 验证滚动条样式"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "一键发布页面：表单布局样式",
-    "steps": ["Step 1: 进入一键发布页面", "Step 2: 验证表单元素对齐", "Step 3: 验证下拉框样式一致", "Step 4: 验证复选框对齐", "Step 5: 验证按钮颜色为主色调", "Step 6: 验证布局响应式"],
+    "steps": [
+      "Step 1: 进入一键发布页面",
+      "Step 2: 验证表单元素对齐",
+      "Step 3: 验证下拉框样式一致",
+      "Step 4: 验证复选框对齐",
+      "Step 5: 验证按钮颜色为主色调",
+      "Step 6: 验证布局响应式"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "顶部信息栏：样式验证",
-    "steps": ["Step 1: 进入任意页面", "Step 2: 验证顶部高度为60px", "Step 3: 验证背景色为白色或浅灰", "Step 4: 验证Logo或系统名称在左侧", "Step 5: 验证作品切换下拉居中", "Step 6: 验证通知图标和用户头像在右侧", "Step 7: 验证各元素间距合适"],
+    "steps": [
+      "Step 1: 进入任意页面",
+      "Step 2: 验证顶部高度为60px",
+      "Step 3: 验证背景色为白色或浅灰",
+      "Step 4: 验证Logo或系统名称在左侧",
+      "Step 5: 验证作品切换下拉居中",
+      "Step 6: 验证通知图标和用户头像在右侧",
+      "Step 7: 验证各元素间距合适"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "按钮样式：主按钮",
-    "steps": ["Step 1: 查找页面中的主按钮（提交、确认等）", "Step 2: 验证按钮圆角为md", "Step 3: 验证背景色为主色调#2563eb", "Step 4: 验证文字为白色", "Step 5: 验证悬停时颜色加深", "Step 6: 验证点击效果"],
+    "steps": [
+      "Step 1: 查找页面中的主按钮（提交、确认等）",
+      "Step 2: 验证按钮圆角为md",
+      "Step 3: 验证背景色为主色调#2563eb",
+      "Step 4: 验证文字为白色",
+      "Step 5: 验证悬停时颜色加深",
+      "Step 6: 验证点击效果"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "按钮样式：次按钮/边框按钮",
-    "steps": ["Step 1: 查找页面中的次按钮（取消、返回等）", "Step 2: 验证按钮为边框样式", "Step 3: 验证边框颜色为#e5e7eb", "Step 4: 验证悬停时背景色变化", "Step 5: 验证点击效果"],
+    "steps": [
+      "Step 1: 查找页面中的次按钮（取消、返回等）",
+      "Step 2: 验证按钮为边框样式",
+      "Step 3: 验证边框颜色为#e5e7eb",
+      "Step 4: 验证悬停时背景色变化",
+      "Step 5: 验证点击效果"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "按钮样式：删除按钮",
-    "steps": ["Step 1: 找到删除按钮", "Step 2: 验证按钮颜色为警示色#ef4444", "Step 3: 验证悬停时颜色加深", "Step 4: 验证有确认提示"],
+    "steps": [
+      "Step 1: 找到删除按钮",
+      "Step 2: 验证按钮颜色为警示色#ef4444",
+      "Step 3: 验证悬停时颜色加深",
+      "Step 4: 验证有确认提示"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "输入框样式",
-    "steps": ["Step 1: 找到任意输入框", "Step 2: 验证圆角为md", "Step 3: 验证边框颜色为#e5e7eb", "Step 4: 验证聚焦时边框为主色调", "Step 5: 验证placeholder文字颜色", "Step 6: 验证输入文字颜色#1f2937"],
+    "steps": [
+      "Step 1: 找到任意输入框",
+      "Step 2: 验证圆角为md",
+      "Step 3: 验证边框颜色为#e5e7eb",
+      "Step 4: 验证聚焦时边框为主色调",
+      "Step 5: 验证placeholder文字颜色",
+      "Step 6: 验证输入文字颜色#1f2937"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "卡片组件样式",
-    "steps": ["Step 1: 找到任意卡片组件", "Step 2: 验证圆角为lg", "Step 3: 验证阴影为sm", "Step 4: 验证悬停阴影变为md", "Step 5: 验证背景色为白色", "Step 6: 验证内边距合适"],
+    "steps": [
+      "Step 1: 找到任意卡片组件",
+      "Step 2: 验证圆角为lg",
+      "Step 3: 验证阴影为sm",
+      "Step 4: 验证悬停阴影变为md",
+      "Step 5: 验证背景色为白色",
+      "Step 6: 验证内边距合适"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "字体系统：标题样式",
-    "steps": ["Step 1: 检查页面中的标题", "Step 2: 验证使用系统无衬线字体", "Step 3: 验证标题字体粗细为font-semibold", "Step 4: 验证标题字号为text-lg", "Step 5: 验证文字颜色#1f2937"],
+    "steps": [
+      "Step 1: 检查页面中的标题",
+      "Step 2: 验证使用系统无衬线字体",
+      "Step 3: 验证标题字体粗细为font-semibold",
+      "Step 4: 验证标题字号为text-lg",
+      "Step 5: 验证文字颜色#1f2937"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "字体系统：正文样式",
-    "steps": ["Step 1: 检查页面中的正文", "Step 2: 验证使用系统无衬线字体", "Step 3: 验证字体粗细为font-normal", "Step 4: 验证字号为text-base", "Step 5: 验证文字颜色#1f2937", "Step 6: 验证辅助文字颜色#6b7280"],
+    "steps": [
+      "Step 1: 检查页面中的正文",
+      "Step 2: 验证使用系统无衬线字体",
+      "Step 3: 验证字体粗细为font-normal",
+      "Step 4: 验证字号为text-base",
+      "Step 5: 验证文字颜色#1f2937",
+      "Step 6: 验证辅助文字颜色#6b7280"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "颜色系统：主色调应用",
-    "steps": ["Step 1: 检查主按钮颜色", "Step 2: 验证为#2563eb", "Step 3: 检查链接颜色", "Step 4: 验证为#2563eb", "Step 5: 检查选中状态颜色", "Step 6: 验证为#2563eb"],
+    "steps": [
+      "Step 1: 检查主按钮颜色",
+      "Step 2: 验证为#2563eb",
+      "Step 3: 检查链接颜色",
+      "Step 4: 验证为#2563eb",
+      "Step 5: 检查选中状态颜色",
+      "Step 6: 验证为#2563eb"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "颜色系统：背景色应用",
-    "steps": ["Step 1: 检查页面背景色", "Step 2: 验证为#f9fafb", "Step 3: 检查内容区背景色", "Step 4: 验证为白色", "Step 5: 检查菜单栏背景色", "Step 6: 验证为浅灰"],
+    "steps": [
+      "Step 1: 检查页面背景色",
+      "Step 2: 验证为#f9fafb",
+      "Step 3: 检查内容区背景色",
+      "Step 4: 验证为白色",
+      "Step 5: 检查菜单栏背景色",
+      "Step 6: 验证为浅灰"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "加载状态：按钮加载",
-    "步骤": ["Step 1: 点击提交按钮触发请求", "Step 2: 验证按钮显示加载状态", "Step 3: 验证按钮文字变为加载提示", "Step 4: 验证按钮不可点击", "Step 5: 请求完成后恢复原状态"],
+    "步骤": [
+      "Step 1: 点击提交按钮触发请求",
+      "Step 2: 验证按钮显示加载状态",
+      "Step 3: 验证按钮文字变为加载提示",
+      "Step 4: 验证按钮不可点击",
+      "Step 5: 请求完成后恢复原状态"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "加载状态：页面加载",
-    "steps": ["Step 1: 刷新页面", "Step 2: 验证显示页面骨架屏或加载动画", "Step 3: 验证加载完成后显示内容", "Step 4: 验证加载失败显示错误提示"],
+    "steps": [
+      "Step 1: 刷新页面",
+      "Step 2: 验证显示页面骨架屏或加载动画",
+      "Step 3: 验证加载完成后显示内容",
+      "Step 4: 验证加载失败显示错误提示"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "表单验证：错误提示样式",
-    "steps": ["Step 1: 填写无效数据提交表单", "Step 2: 验证显示错误提示", "Step 3: 验证错误文字颜色为红色", "Step 4: 验证输入框边框变红", "Step 5: 验证错误提示位置正确"],
+    "steps": [
+      "Step 1: 填写无效数据提交表单",
+      "Step 2: 验证显示错误提示",
+      "Step 3: 验证错误文字颜色为红色",
+      "Step 4: 验证输入框边框变红",
+      "Step 5: 验证错误提示位置正确"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "对话框：确认对话框样式",
-    "steps": ["Step 1: 触发删除等操作", "Step 2: 验证弹出确认对话框", "Step 3: 验证对话框居中显示", "Step 4: 验证有半透明遮罩", "Step 5: 验证标题和内容样式", "Step 6: 验证按钮样式正确"],
+    "steps": [
+      "Step 1: 触发删除等操作",
+      "Step 2: 验证弹出确认对话框",
+      "Step 3: 验证对话框居中显示",
+      "Step 4: 验证有半透明遮罩",
+      "Step 5: 验证标题和内容样式",
+      "Step 6: 验证按钮样式正确"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "下拉菜单：用户头像下拉",
-    "steps": ["Step 1: 点击用户头像", "Step 2: 验证下拉菜单动画展开", "Step 3: 验证菜单项样式", "Step 4: 验证悬停效果", "Step 5: 点击外部关闭菜单"],
+    "steps": [
+      "Step 1: 点击用户头像",
+      "Step 2: 验证下拉菜单动画展开",
+      "Step 3: 验证菜单项样式",
+      "Step 4: 验证悬停效果",
+      "Step 5: 点击外部关闭菜单"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "通知列表：样式验证",
-    "steps": ["Step 1: 点击通知图标", "Step 2: 验证通知列表展开", "Step 3: 验证每条通知样式", "Step 4: 验证未读标记样式", "Step 5: 验证时间显示格式"],
+    "steps": [
+      "Step 1: 点击通知图标",
+      "Step 2: 验证通知列表展开",
+      "Step 3: 验证每条通知样式",
+      "Step 4: 验证未读标记样式",
+      "Step 5: 验证时间显示格式"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "分页组件：样式验证",
-    "steps": ["Step 1: 作品列表有多页数据", "Step 2: 验证显示分页控件", "Step 3: 验证当前页高亮", "Step 4: 验证上下页按钮可用", "Step 5: 验证页码显示正确"],
+    "steps": [
+      "Step 1: 作品列表有多页数据",
+      "Step 2: 验证显示分页控件",
+      "Step 3: 验证当前页高亮",
+      "Step 4: 验证上下页按钮可用",
+      "Step 5: 验证页码显示正确"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "树形控件：章节树样式",
-    "steps": ["Step 1: 进入章节信息页面", "Step 2: 验证显示树形结构", "Step 3: 验证卷节点可展开/折叠", "Step 4: 验证章节节点缩进正确", "Step 5: 验证连接线样式", "Step 6: 验证选中状态样式"],
+    "steps": [
+      "Step 1: 进入章节信息页面",
+      "Step 2: 验证显示树形结构",
+      "Step 3: 验证卷节点可展开/折叠",
+      "Step 4: 验证章节节点缩进正确",
+      "Step 5: 验证连接线样式",
+      "Step 6: 验证选中状态样式"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "响应式布局：平板视图",
-    "steps": ["Step 1: 调整浏览器宽度到768px", "Step 2: 验证顶部栏自适应", "Step 3: 验证左侧菜单可折叠", "Step 4: 验证内容区自适应", "Step 5: 验证无横向滚动条"],
+    "steps": [
+      "Step 1: 调整浏览器宽度到768px",
+      "Step 2: 验证顶部栏自适应",
+      "Step 3: 验证左侧菜单可折叠",
+      "Step 4: 验证内容区自适应",
+      "Step 5: 验证无横向滚动条"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "响应式布局：手机视图",
-    "steps": ["Step 1: 调整浏览器宽度到375px", "Step 2: 验证顶部栏元素简化", "Step 3: 验证左侧菜单默认折叠， hamburger菜单", "Step 4: 验证内容区全宽", "Step 5: 验证按钮可点击区域足够大", "Step 6: 验证无横向滚动"],
+    "steps": [
+      "Step 1: 调整浏览器宽度到375px",
+      "Step 2: 验证顶部栏元素简化",
+      "Step 3: 验证左侧菜单默认折叠， hamburger菜单",
+      "Step 4: 验证内容区全宽",
+      "Step 5: 验证按钮可点击区域足够大",
+      "Step 6: 验证无横向滚动"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "分卷详情：主要情节单元管理",
-    "steps": ["Step 1: 进入分卷详情编辑页面", "Step 2: 找到主要情节单元区域", "Step 3: 点击添加情节单元", "Step 4: 输入单元标题", "Step 5: 关联多个章节到该单元", "Step 6: 保存情节单元", "Step 7: 验证单元显示在列表中", "Step 8: 可编辑已有单元", "Step 9: 可删除单元"],
+    "steps": [
+      "Step 1: 进入分卷详情编辑页面",
+      "Step 2: 找到主要情节单元区域",
+      "Step 3: 点击添加情节单元",
+      "Step 4: 输入单元标题",
+      "Step 5: 关联多个章节到该单元",
+      "Step 6: 保存情节单元",
+      "Step 7: 验证单元显示在列表中",
+      "Step 8: 可编辑已有单元",
+      "Step 9: 可删除单元"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "分卷详情：章节情节概述列表",
-    "steps": ["Step 1: 进入分卷详情编辑页面", "Step 2: 找到章节情节概述区域", "Step 3: 验证显示该卷所有章节的概述列表", "Step 4: 可点击某章节编辑其情节概述", "Step 5: 可为新章节添加情节概述"],
+    "steps": [
+      "Step 1: 进入分卷详情编辑页面",
+      "Step 2: 找到章节情节概述区域",
+      "Step 3: 验证显示该卷所有章节的概述列表",
+      "Step 4: 可点击某章节编辑其情节概述",
+      "Step 5: 可为新章节添加情节概述"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "章节详情：时空设定和出场人物",
-    "steps": ["Step 1: 进入章节详情编辑页面", "Step 2: 验证章节名可编辑", "Step 3: 验证剧情梗概可编辑", "Step 4: 验证时空设定可选择或输入", "Step 5: 验证出场人物可多选（从作品人物库选择）", "Step 6: 保存后验证数据正确"],
+    "steps": [
+      "Step 1: 进入章节详情编辑页面",
+      "Step 2: 验证章节名可编辑",
+      "Step 3: 验证剧情梗概可编辑",
+      "Step 4: 验证时空设定可选择或输入",
+      "Step 5: 验证出场人物可多选（从作品人物库选择）",
+      "Step 6: 保存后验证数据正确"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "章节场景：场景风格选择",
-    "steps": ["Step 1: 进入章节场景编辑", "Step 2: 添加新场景或编辑已有场景", "Step 3: 找到场景风格下拉选择", "Step 4: 验证可选风格类型（如：紧张、温馨、悬疑等）", "Step 5: 选择场景风格", "Step 6: 保存后验证风格已保存"],
+    "steps": [
+      "Step 1: 进入章节场景编辑",
+      "Step 2: 添加新场景或编辑已有场景",
+      "Step 3: 找到场景风格下拉选择",
+      "Step 4: 验证可选风格类型（如：紧张、温馨、悬疑等）",
+      "Step 5: 选择场景风格",
+      "Step 6: 保存后验证风格已保存"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品类别：查看预定义类别",
-    "steps": ["Step 1: 进入新增作品向导", "Step 2: 找到作品类别下拉框", "Step 3: 验证下拉框显示预定义类别", "Step 4: 验证包含：玄幻", "Step 5: 验证包含：都市", "Step 6: 验证包含：历史", "Step 7: 验证包含：科幻", "Step 8: 验证包含：游戏", "Step 9: 验证包含：其他"],
+    "steps": [
+      "Step 1: 进入新增作品向导",
+      "Step 2: 找到作品类别下拉框",
+      "Step 3: 验证下拉框显示预定义类别",
+      "Step 4: 验证包含：玄幻",
+      "Step 5: 验证包含：都市",
+      "Step 6: 验证包含：历史",
+      "Step 7: 验证包含：科幻",
+      "Step 8: 验证包含：游戏",
+      "Step 9: 验证包含：其他"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品字数统计：自动计算",
-    "steps": ["Step 1: 创建或编辑作品", "Step 2: 添加或修改章节内容", "Step 3: 验证作品总字数自动更新", "Step 4: 验证分卷字数自动更新", "Step 5: 验证单章字数显示正确", "Step 6: 验证字数统计实时更新"],
+    "steps": [
+      "Step 1: 创建或编辑作品",
+      "Step 2: 添加或修改章节内容",
+      "Step 3: 验证作品总字数自动更新",
+      "Step 4: 验证分卷字数自动更新",
+      "Step 5: 验证单章字数显示正确",
+      "Step 6: 验证字数统计实时更新"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品章节数统计：自动更新",
-    "steps": ["Step 1: 创建新作品", "Step 2: 验证总章节数为0", "Step 3: 添加第一个分卷", "Step 4: 添加章节到分卷", "Step 5: 验证作品总章节数更新", "Step 6: 验证分卷章节数更新", "Step 7: 删除章节验证计数减少"],
+    "steps": [
+      "Step 1: 创建新作品",
+      "Step 2: 验证总章节数为0",
+      "Step 3: 添加第一个分卷",
+      "Step 4: 添加章节到分卷",
+      "Step 5: 验证作品总章节数更新",
+      "Step 6: 验证分卷章节数更新",
+      "Step 7: 删除章节验证计数减少"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品最后修改时间：自动更新",
-    "steps": ["Step 1: 查看作品列表", "Step 2: 记录某作品的最后修改时间", "Step 3: 等待几秒后编辑该作品", "Step 4: 保存后刷新列表", "Step 5: 验证最后修改时间已更新为最新时间"],
+    "steps": [
+      "Step 1: 查看作品列表",
+      "Step 2: 记录某作品的最后修改时间",
+      "Step 3: 等待几秒后编辑该作品",
+      "Step 4: 保存后刷新列表",
+      "Step 5: 验证最后修改时间已更新为最新时间"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：批量优化章节",
-    "steps": ["Step 1: 进入AI优化页面", "Step 2: 选择要优化的作品和章节", "Step 3: 勾选多个章节", "Step 4: 选择优化步骤", "Step 5: 点击批量执行", "Step 6: 验证显示批量执行进度", "Step 7: 等待所有章节优化完成", "Step 8: 验证每个章节都有优化结果"],
+    "steps": [
+      "Step 1: 进入AI优化页面",
+      "Step 2: 选择要优化的作品和章节",
+      "Step 3: 勾选多个章节",
+      "Step 4: 选择优化步骤",
+      "Step 5: 点击批量执行",
+      "Step 6: 验证显示批量执行进度",
+      "Step 7: 等待所有章节优化完成",
+      "Step 8: 验证每个章节都有优化结果"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：模板变量填充",
-    "steps": ["Step 1: 进入AI优化步骤编辑", "Step 2: 创建包含变量的提示词模板", "Step 3: 变量格式：{chapter_name}, {word_count}等", "Step 4. 保存模板", "Step 5: 执行优化", "Step 6: 验证变量被正确填充为实际值", "Step 7: 验证AI返回正确内容"],
+    "steps": [
+      "Step 1: 进入AI优化步骤编辑",
+      "Step 2: 创建包含变量的提示词模板",
+      "Step 3: 变量格式：{chapter_name}, {word_count}等",
+      "Step 4. 保存模板",
+      "Step 5: 执行优化",
+      "Step 6: 验证变量被正确填充为实际值",
+      "Step 7: 验证AI返回正确内容"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：优化超时处理",
-    "steps": ["Step 1: 开始执行AI优化", "Step 2: 模拟网络超时或AI服务超时", "Step 3: 验证显示超时错误提示", "Step 4: 验证可重试优化", "Step 5: 验证原文本未丢失"],
+    "steps": [
+      "Step 1: 开始执行AI优化",
+      "Step 2: 模拟网络超时或AI服务超时",
+      "Step 3: 验证显示超时错误提示",
+      "Step 4: 验证可重试优化",
+      "Step 5: 验证原文本未丢失"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "AI优化：API限流处理",
-    "steps": ["Step 1: 短时间内多次调用AI优化", "Step 2: 触发API限流", "Step 3: 验证显示限流提示", "Step 4: 验证显示等待时间", "Step 5: 验证倒计时后自动重试"],
+    "steps": [
+      "Step 1: 短时间内多次调用AI优化",
+      "Step 2: 触发API限流",
+      "Step 3: 验证显示限流提示",
+      "Step 4: 验证显示等待时间",
+      "Step 5: 验证倒计时后自动重试"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "一键发布：字数重划分边界测试",
-    "steps": ["Step 1: 选择章节总字数1000字", "Step 2: 设置目标字数5000字", "Step 3: 点击重新划分", "Step 4: 验证显示合理提示：目标字数大于原文", "Step 5: 设置目标字数100字", "Step 6: 点击重新划分", "Step 7: 验证合理处理或提示"],
+    "steps": [
+      "Step 1: 选择章节总字数1000字",
+      "Step 2: 设置目标字数5000字",
+      "Step 3: 点击重新划分",
+      "Step 4: 验证显示合理提示：目标字数大于原文",
+      "Step 5: 设置目标字数100字",
+      "Step 6: 点击重新划分",
+      "Step 7: 验证合理处理或提示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "一键发布：发布参数验证",
-    "steps": ["Step 1: 选择发布平台", "Step 2: 不填写必填发布参数", "Step 3: 点击发布", "Step 4: 验证显示参数缺失提示", "Step 5: 填写必填参数", "Step 6: 点击发布", "Step 7: 验证可以发起发布请求"],
+    "steps": [
+      "Step 1: 选择发布平台",
+      "Step 2: 不填写必填发布参数",
+      "Step 3: 点击发布",
+      "Step 4: 验证显示参数缺失提示",
+      "Step 5: 填写必填参数",
+      "Step 6: 点击发布",
+      "Step 7: 验证可以发起发布请求"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "一键发布：取消发布任务",
-    "steps": ["Step 1: 发起发布任务", "Step 2: 任务进行中", "Step 3: 点击取消按钮", "Step 4: 验证弹出确认取消对话框", "Step 5: 确认取消", "Step 6: 验证任务状态变为已取消", "Step 7: 验证平台未收到发布内容"],
+    "steps": [
+      "Step 1: 发起发布任务",
+      "Step 2: 任务进行中",
+      "Step 3: 点击取消按钮",
+      "Step 4: 验证弹出确认取消对话框",
+      "Step 5: 确认取消",
+      "Step 6: 验证任务状态变为已取消",
+      "Step 7: 验证平台未收到发布内容"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "数据库：用户表结构正确",
-    "steps": ["Step 1: 连接数据库", "Step 2: 检查users表结构", "Step 3: 验证字段：id, username, password_hash, email, avatar, created_at, last_login", "Step 4: 验证字段类型和长度正确", "Step 5: 验证主键和外键约束"],
+    "steps": [
+      "Step 1: 连接数据库",
+      "Step 2: 检查users表结构",
+      "Step 3: 验证字段：id, username, password_hash, email, avatar, created_at, last_login",
+      "Step 4: 验证字段类型和长度正确",
+      "Step 5: 验证主键和外键约束"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "数据库：作品表结构正确",
-    "steps": ["Step 1: 连接数据库", "Step 2: 检查works表结构", "Step 3: 验证字段：id, user_id, category_id, title, cover, intro, chapter_count, word_count, updated_at, created_at, deleted_at", "Step 4: 验证字段类型正确", "Step 5: 验证外键关联"],
+    "steps": [
+      "Step 1: 连接数据库",
+      "Step 2: 检查works表结构",
+      "Step 3: 验证字段：id, user_id, category_id, title, cover, intro, chapter_count, word_count, updated_at, created_at, deleted_at",
+      "Step 4: 验证字段类型正确",
+      "Step 5: 验证外键关联"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "数据库：章节表结构正确",
-    "steps": ["Step 1: 连接数据库", "Step 2: 检查chapters表结构", "Step 3: 验证字段：id, work_id, volume_id, chapter_index, title, summary, time_space, characters, scenes(JSON), word_count, created_at, updated_at", "Step 4: 验证JSON字段可正确存储和查询", "Step 5: 验证索引已创建"],
+    "steps": [
+      "Step 1: 连接数据库",
+      "Step 2: 检查chapters表结构",
+      "Step 3: 验证字段：id, work_id, volume_id, chapter_index, title, summary, time_space, characters, scenes(JSON), word_count, created_at, updated_at",
+      "Step 4: 验证JSON字段可正确存储和查询",
+      "Step 5: 验证索引已创建"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "数据库：软删除功能",
-    "steps": ["Step 1: 删除一个作品", "Step 2: 验证作品从列表中消失", "Step 3: 查询数据库deleted_at字段", "Step 4: 验证有软删除时间戳", "Step 5: 查询带删除条件的API", "Step 6: 验证可恢复到列表", "Step 7: 永久删除功能正常"],
+    "steps": [
+      "Step 1: 删除一个作品",
+      "Step 2: 验证作品从列表中消失",
+      "Step 3: 查询数据库deleted_at字段",
+      "Step 4: 验证有软删除时间戳",
+      "Step 5: 查询带删除条件的API",
+      "Step 6: 验证可恢复到列表",
+      "Step 7: 永久删除功能正常"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "JWT Token：有效期验证",
-    "steps": ["Step 1: 登录获取token", "Step 2: 验证token在有效期内可用", "Step 3: 等待token过期或修改系统时间", "Step 4: 使用过期token访问API", "Step 5: 验证返回token过期错误", "Step 6: 验证提示重新登录"],
+    "steps": [
+      "Step 1: 登录获取token",
+      "Step 2: 验证token在有效期内可用",
+      "Step 3: 等待token过期或修改系统时间",
+      "Step 4: 使用过期token访问API",
+      "Step 5: 验证返回token过期错误",
+      "Step 6: 验证提示重新登录"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "JWT Token：刷新机制",
-    "steps": ["Step 1: 登录获取token", "Step 2: 使用refresh token请求刷新", "Step 3: 验证获得新token", "Step 4: 验证新token可正常使用", "Step 5: 验证旧token失效"],
+    "steps": [
+      "Step 1: 登录获取token",
+      "Step 2: 使用refresh token请求刷新",
+      "Step 3: 验证获得新token",
+      "Step 4: 验证新token可正常使用",
+      "Step 5: 验证旧token失效"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "权限验证：只能操作自己的作品",
-    "steps": ["Step 1: 用户A创建作品A", "Step 2: 用户B尝试访问作品A", "Step 3: 验证返回403禁止访问", "Step 4: 用户B尝试修改作品A", "Step 5: 验证返回403", "Step 6: 用户B尝试删除作品A", "Step 7: 验证返回403"],
+    "steps": [
+      "Step 1: 用户A创建作品A",
+      "Step 2: 用户B尝试访问作品A",
+      "Step 3: 验证返回403禁止访问",
+      "Step 4: 用户B尝试修改作品A",
+      "Step 5: 验证返回403",
+      "Step 6: 用户B尝试删除作品A",
+      "Step 7: 验证返回403"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "权限验证：管理员可管理所有作品",
-    "steps": ["Step 1: 管理员账户登录", "Step 2: 尝试访问用户作品", "Step 3: 验证可以访问", "Step 4: 尝试修改作品", "Step 5: 验证可以修改", "Step 6: 尝试删除作品", "Step 7: 验证可以删除"],
+    "steps": [
+      "Step 1: 管理员账户登录",
+      "Step 2: 尝试访问用户作品",
+      "Step 3: 验证可以访问",
+      "Step 4: 尝试修改作品",
+      "Step 5: 验证可以修改",
+      "Step 6: 尝试删除作品",
+      "Step 7: 验证可以删除"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "错误处理：404页面",
-    "steps": ["Step 1: 访问不存在的页面", "Step 2: 验证显示404页面", "Step 3: 验证有返回首页按钮", "Step 4: 点击返回首页", "Step 5: 验证跳转到首页"],
+    "steps": [
+      "Step 1: 访问不存在的页面",
+      "Step 2: 验证显示404页面",
+      "Step 3: 验证有返回首页按钮",
+      "Step 4: 点击返回首页",
+      "Step 5: 验证跳转到首页"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "错误处理：500服务器错误",
-    "steps": ["Step 1: 触发服务器内部错误（模拟）", "Step 2: 验证显示错误页面", "Step 3: 验证显示友好错误信息", "Step 4: 验证有重试按钮或返回首页"],
+    "steps": [
+      "Step 1: 触发服务器内部错误（模拟）",
+      "Step 2: 验证显示错误页面",
+      "Step 3: 验证显示友好错误信息",
+      "Step 4: 验证有重试按钮或返回首页"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "错误处理：网络错误",
-    "steps": ["Step 1: 断开网络连接", "Step 2: 尝试发送请求", "Step 3: 验证显示网络错误提示", "Step 4: 恢复网络", "Step 5: 验证重试后正常工作"],
+    "steps": [
+      "Step 1: 断开网络连接",
+      "Step 2: 尝试发送请求",
+      "Step 3: 验证显示网络错误提示",
+      "Step 4: 恢复网络",
+      "Step 5: 验证重试后正常工作"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "搜索功能：作品搜索",
-    "steps": ["Step 1: 在作品列表页面", "Step 2: 找到搜索框", "Step 3. 输入作品名称关键词", "Step 4: 点击搜索或按回车", "Step 5: 验证显示匹配的作品", "Step 6: 验证不匹配作品已隐藏", "Step 7: 清空搜索显示全部作品"],
+    "steps": [
+      "Step 1: 在作品列表页面",
+      "Step 2: 找到搜索框",
+      "Step 3. 输入作品名称关键词",
+      "Step 4: 点击搜索或按回车",
+      "Step 5: 验证显示匹配的作品",
+      "Step 6: 验证不匹配作品已隐藏",
+      "Step 7: 清空搜索显示全部作品"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品导出：导出为文本",
-    "steps": ["Step 1: 进入作品详情页", "Step 2: 找到导出按钮", "Step 3: 选择导出格式TXT", "Step 4: 点击导出", "Step 5: 验证开始下载", "Step 6: 验证下载文件包含所有章节内容"],
+    "steps": [
+      "Step 1: 进入作品详情页",
+      "Step 2: 找到导出按钮",
+      "Step 3: 选择导出格式TXT",
+      "Step 4: 点击导出",
+      "Step 5: 验证开始下载",
+      "Step 6: 验证下载文件包含所有章节内容"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品导出：导出为Word文档",
-    "steps": ["Step 1: 进入作品详情页", "Step 2: 选择导出格式Word", "Step 3: 点击导出", "Step 4: 验证开始下载", "Step 5: 验证下载文件格式正确", "Step 6: 验证文件内容完整"],
+    "steps": [
+      "Step 1: 进入作品详情页",
+      "Step 2: 选择导出格式Word",
+      "Step 3: 点击导出",
+      "Step 4: 验证开始下载",
+      "Step 5: 验证下载文件格式正确",
+      "Step 6: 验证文件内容完整"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品导入：从Word文档导入",
-    "steps": ["Step 1: 进入新增作品页面", "Step 2: 找到导入按钮", "Step 3: 选择Word文件上传", "Step 4: 验证文件解析中提示", "Step 5: 验证解析完成显示预览", "Step 6: 确认导入", "Step 7: 验证章节结构已创建"],
+    "steps": [
+      "Step 1: 进入新增作品页面",
+      "Step 2: 找到导入按钮",
+      "Step 3: 选择Word文件上传",
+      "Step 4: 验证文件解析中提示",
+      "Step 5: 验证解析完成显示预览",
+      "Step 6: 确认导入",
+      "Step 7: 验证章节结构已创建"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品导入：从文本文件导入",
-    "steps": ["Step 1: 进入新增作品页面", "Step 2: 选择TXT文件上传", "Step 3: 设置分隔符规则（如章节名格式）", "Step 4: 验证预览划分结果", "Step 5: 确认导入", "Step 6: 验证章节已创建"],
+    "steps": [
+      "Step 1: 进入新增作品页面",
+      "Step 2: 选择TXT文件上传",
+      "Step 3: 设置分隔符规则（如章节名格式）",
+      "Step 4: 验证预览划分结果",
+      "Step 5: 确认导入",
+      "Step 6: 验证章节已创建"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "快捷键：保存快捷键",
-    "steps": ["Step 1: 在编辑页面", "Step 2: 按Ctrl+S或Cmd+S", "Step 3: 验证触发保存操作", "Step 4: 验证显示保存成功提示", "Step 5: 验证数据已保存"],
+    "steps": [
+      "Step 1: 在编辑页面",
+      "Step 2: 按Ctrl+S或Cmd+S",
+      "Step 3: 验证触发保存操作",
+      "Step 4: 验证显示保存成功提示",
+      "Step 5: 验证数据已保存"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "快捷键：导航快捷键",
-    "steps": ["Step 1: 在作品创作页面", "Step 2: 按Alt+1切换到基本信息", "Step 3: 验证菜单切换", "Step 4: 按Alt+2切换到分卷信息", "Step 5: 验证菜单切换", "Step 6: 按Alt+3切换到章节信息"],
+    "steps": [
+      "Step 1: 在作品创作页面",
+      "Step 2: 按Alt+1切换到基本信息",
+      "Step 3: 验证菜单切换",
+      "Step 4: 按Alt+2切换到分卷信息",
+      "Step 5: 验证菜单切换",
+      "Step 6: 按Alt+3切换到章节信息"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "草稿功能：自动保存草稿",
-    "steps": ["Step 1: 开始编辑章节内容", "Step 2: 不手动保存等待自动保存", "Step 3: 验证每隔一段时间自动保存草稿", "Step 4: 刷新页面", "Step 5: 验证草稿内容保留", "Step 6: 验证草稿与已发布内容区分"],
+    "steps": [
+      "Step 1: 开始编辑章节内容",
+      "Step 2: 不手动保存等待自动保存",
+      "Step 3: 验证每隔一段时间自动保存草稿",
+      "Step 4: 刷新页面",
+      "Step 5: 验证草稿内容保留",
+      "Step 6: 验证草稿与已发布内容区分"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "草稿功能：恢复草稿",
-    "steps": ["Step 1: 有未完成的章节草稿", "Step 2: 进入章节列表", "Step 3: 验证草稿章节有标记", "Step 4: 点击草稿章节", "Step 5: 验证可以继续编辑", "Step 6: 可选择放弃草稿"],
+    "steps": [
+      "Step 1: 有未完成的章节草稿",
+      "Step 2: 进入章节列表",
+      "Step 3: 验证草稿章节有标记",
+      "Step 4: 点击草稿章节",
+      "Step 5: 验证可以继续编辑",
+      "Step 6: 可选择放弃草稿"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "版本历史：查看作品版本",
-    "steps": ["Step 1: 进入作品详情", "Step 2: 找到版本历史入口", "Step 3: 点击查看版本列表", "Step 4: 验证显示历史版本", "Step 5: 验证每个版本有时间和内容摘要", "Step 6: 可查看某版本详情"],
+    "steps": [
+      "Step 1: 进入作品详情",
+      "Step 2: 找到版本历史入口",
+      "Step 3: 点击查看版本列表",
+      "Step 4: 验证显示历史版本",
+      "Step 5: 验证每个版本有时间和内容摘要",
+      "Step 6: 可查看某版本详情"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "版本历史：回滚到历史版本",
-    "steps": ["Step 1: 进入版本历史页面", "Step 2: 选择一个历史版本", "Step 3: 点击预览", "Step 4: 验证显示版本内容", "Step 5: 点击恢复到该版本", "Step 6: 确认恢复", "Step 7: 验证当前内容已更新为历史版本", "Step 8: 验证生成新的版本记录"],
+    "steps": [
+      "Step 1: 进入版本历史页面",
+      "Step 2: 选择一个历史版本",
+      "Step 3: 点击预览",
+      "Step 4: 验证显示版本内容",
+      "Step 5: 点击恢复到该版本",
+      "Step 6: 确认恢复",
+      "Step 7: 验证当前内容已更新为历史版本",
+      "Step 8: 验证生成新的版本记录"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "协作功能：邀请协作者",
-    "steps": ["Step 1: 进入作品设置", "Step 2: 找到协作管理", "Step 3: 输入协作者邮箱", "Step 4: 发送邀请", "Step 5: 验证协作者收到邀请", "Step 6: 协作者接受邀请", "Step 7: 验证协作者可访问作品"],
+    "steps": [
+      "Step 1: 进入作品设置",
+      "Step 2: 找到协作管理",
+      "Step 3: 输入协作者邮箱",
+      "Step 4: 发送邀请",
+      "Step 5: 验证协作者收到邀请",
+      "Step 6: 协作者接受邀请",
+      "Step 7: 验证协作者可访问作品"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "协作功能：协作者权限管理",
-    "steps": ["Step 1: 作为作品所有者", "Step 2: 设置协作者权限为只读", "Step 3: 协作者登录验证只能查看", "Step 4: 修改协作者权限为可编辑", "Step 5: 协作者验证可以编辑", "Step 6: 移除协作者权限", "Step 7: 协作者验证无法访问"],
+    "steps": [
+      "Step 1: 作为作品所有者",
+      "Step 2: 设置协作者权限为只读",
+      "Step 3: 协作者登录验证只能查看",
+      "Step 4: 修改协作者权限为可编辑",
+      "Step 5: 协作者验证可以编辑",
+      "Step 6: 移除协作者权限",
+      "Step 7: 协作者验证无法访问"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "数据统计：作品数据面板",
-    "steps": ["Step 1: 进入作品统计页面", "Step 2: 验证显示总字数统计", "Step 3: 验证显示章节数统计", "Step 4: 验证显示日/周/月写作趋势图", "Step 5: 验证显示字数变化曲线"],
+    "steps": [
+      "Step 1: 进入作品统计页面",
+      "Step 2: 验证显示总字数统计",
+      "Step 3: 验证显示章节数统计",
+      "Step 4: 验证显示日/周/月写作趋势图",
+      "Step 5: 验证显示字数变化曲线"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "写作目标：设置每日写作目标",
-    "steps": ["Step 1: 进入个人设置", "Step 2: 找到写作目标设置", "Step 3: 设置每日目标字数", "Step 4: 保存设置", "Step 5: 开始写作", "Step 6: 验证显示目标进度", "Step 7: 达成目标验证提示"],
+    "steps": [
+      "Step 1: 进入个人设置",
+      "Step 2: 找到写作目标设置",
+      "Step 3: 设置每日目标字数",
+      "Step 4: 保存设置",
+      "Step 5: 开始写作",
+      "Step 6: 验证显示目标进度",
+      "Step 7: 达成目标验证提示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "写作提醒：定时提醒",
-    "steps": ["Step 1: 设置写作提醒时间", "Step 2: 等待到提醒时间", "Step 3: 验证收到写作提醒通知", "Step 4: 点击提醒跳转", "Step 5: 验证跳转到写作页面"],
+    "steps": [
+      "Step 1: 设置写作提醒时间",
+      "Step 2: 等待到提醒时间",
+      "Step 3: 验证收到写作提醒通知",
+      "Step 4: 点击提醒跳转",
+      "Step 5: 验证跳转到写作页面"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "素材库：创建素材",
-    "steps": ["Step 1: 进入素材库页面", "Step 2: 点击新建素材", "Step 3: 选择素材类型（人物/场景/道具等）", "Step 4: 填写素材内容", "Step 5: 保存素材", "Step 6: 验证素材显示在列表中"],
+    "steps": [
+      "Step 1: 进入素材库页面",
+      "Step 2: 点击新建素材",
+      "Step 3: 选择素材类型（人物/场景/道具等）",
+      "Step 4: 填写素材内容",
+      "Step 5: 保存素材",
+      "Step 6: 验证素材显示在列表中"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "素材库：在写作中引用素材",
-    "steps": ["Step 1: 在章节编辑页面", "Step 2: 打开素材库侧边栏", "Step 3: 搜索素材", "Step 4: 点击引用素材", "Step 5: 验证素材内容插入到章节中"],
+    "steps": [
+      "Step 1: 在章节编辑页面",
+      "Step 2: 打开素材库侧边栏",
+      "Step 3: 搜索素材",
+      "Step 4: 点击引用素材",
+      "Step 5: 验证素材内容插入到章节中"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "大纲模式：查看作品大纲",
-    "steps": ["Step 1: 在作品页面", "Step 2: 点击大纲模式", "Step 3: 验证显示作品大纲树", "Step 4: 验证包含分卷和章节结构", "Step 5: 验证可点击跳转"],
+    "steps": [
+      "Step 1: 在作品页面",
+      "Step 2: 点击大纲模式",
+      "Step 3: 验证显示作品大纲树",
+      "Step 4: 验证包含分卷和章节结构",
+      "Step 5: 验证可点击跳转"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "大纲模式：编辑大纲",
-    "steps": ["Step 1: 在大纲模式", "Step 2: 右键点击某节点", "Step 3: 选择编辑", "Step 4: 修改大纲内容", "Step 5: 保存", "Step 6: 验证大纲更新"],
+    "steps": [
+      "Step 1: 在大纲模式",
+      "Step 2: 右键点击某节点",
+      "Step 3: 选择编辑",
+      "Step 4: 修改大纲内容",
+      "Step 5: 保存",
+      "Step 6: 验证大纲更新"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "专注模式：全屏写作",
-    "steps": ["Step 1: 在章节编辑页面", "Step 2: 点击专注模式按钮", "Step 3: 验证进入全屏", "Step 4: 验证只显示写作区域", "Step 5: 验证隐藏其他UI元素", "Step 6: 按Esc退出", "Step 7: 验证恢复正常视图"],
+    "steps": [
+      "Step 1: 在章节编辑页面",
+      "Step 2: 点击专注模式按钮",
+      "Step 3: 验证进入全屏",
+      "Step 4: 验证只显示写作区域",
+      "Step 5: 验证隐藏其他UI元素",
+      "Step 6: 按Esc退出",
+      "Step 7: 验证恢复正常视图"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "Markdown支持：编辑支持Markdown",
-    "steps": ["Step 1: 在章节编辑页面", "Step 2: 切换到Markdown编辑模式", "Step 3: 输入Markdown语法", "Step 4: 验证实时预览渲染正确", "Step 5: 保存后验证内容存储为Markdown"],
+    "steps": [
+      "Step 1: 在章节编辑页面",
+      "Step 2: 切换到Markdown编辑模式",
+      "Step 3: 输入Markdown语法",
+      "Step 4: 验证实时预览渲染正确",
+      "Step 5: 保存后验证内容存储为Markdown"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "富文本编辑：格式工具栏",
-    "steps": ["Step 1: 在章节编辑页面", "Step 2: 验证显示格式工具栏", "Step 3: 使用加粗按钮", "Step 4: 验证文字加粗", "Step 5: 使用斜体按钮", "Step 6: 验证文字斜体", "Step 7: 使用标题按钮", "Step 8: 验证应用标题格式"],
+    "steps": [
+      "Step 1: 在章节编辑页面",
+      "Step 2: 验证显示格式工具栏",
+      "Step 3: 使用加粗按钮",
+      "Step 4: 验证文字加粗",
+      "Step 5: 使用斜体按钮",
+      "Step 6: 验证文字斜体",
+      "Step 7: 使用标题按钮",
+      "Step 8: 验证应用标题格式"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "富文本编辑：图片插入",
-    "steps": ["Step 1: 在章节编辑页面", "Step 2: 点击插入图片按钮", "Step 3: 选择本地图片上传", "Step 4: 验证图片上传成功", "Step 5: 验证图片插入到内容中", "Step 6: 保存后验证图片显示"],
+    "steps": [
+      "Step 1: 在章节编辑页面",
+      "Step 2: 点击插入图片按钮",
+      "Step 3: 选择本地图片上传",
+      "Step 4: 验证图片上传成功",
+      "Step 5: 验证图片插入到内容中",
+      "Step 6: 保存后验证图片显示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "富文本编辑：表格插入",
-    "steps": ["Step 1: 在章节编辑页面", "Step 2: 点击插入表格按钮", "Step 3: 设置行列数", "Step 4: 验证表格插入", "Step 5: 可在表格中输入内容", "Step 6: 保存后验证表格保留"],
+    "steps": [
+      "Step 1: 在章节编辑页面",
+      "Step 2: 点击插入表格按钮",
+      "Step 3: 设置行列数",
+      "Step 4: 验证表格插入",
+      "Step 5: 可在表格中输入内容",
+      "Step 6: 保存后验证表格保留"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "字数统计：当前章节字数",
-    "steps": ["Step 1: 在章节编辑页面", "Step 2: 验证显示当前章节字数", "Step 3: 输入内容", "Step 4: 验证字数实时更新", "Step 5: 删除内容", "Step 6: 验证字数实时减少"],
+    "steps": [
+      "Step 1: 在章节编辑页面",
+      "Step 2: 验证显示当前章节字数",
+      "Step 3: 输入内容",
+      "Step 4: 验证字数实时更新",
+      "Step 5: 删除内容",
+      "Step 6: 验证字数实时减少"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "敏感词检测：内容敏感词提醒",
-    "steps": ["Step 1: 在章节编辑页面", "Step 2: 输入包含敏感词的内容", "Step 3: 验证显示敏感词警告", "Step 4: 验证高亮敏感词", "Step 5: 可强制提交或修改内容"],
+    "steps": [
+      "Step 1: 在章节编辑页面",
+      "Step 2: 输入包含敏感词的内容",
+      "Step 3: 验证显示敏感词警告",
+      "Step 4: 验证高亮敏感词",
+      "Step 5: 可强制提交或修改内容"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "反馈功能：提交问题反馈",
-    "steps": ["Step 1: 点击反馈入口", "Step 2: 选择问题类型", "Step 3: 描述问题详情", "Step 4: 上传截图（如需要）", "Step 5: 提交反馈", "Step 6: 验证显示提交成功"],
+    "steps": [
+      "Step 1: 点击反馈入口",
+      "Step 2: 选择问题类型",
+      "Step 3: 描述问题详情",
+      "Step 4: 上传截图（如需要）",
+      "Step 5: 提交反馈",
+      "Step 6: 验证显示提交成功"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "帮助中心：查看使用教程",
-    "steps": ["Step 1: 点击帮助中心入口", "Step 2: 验证显示帮助文档列表", "Step 3: 点击查看某篇教程", "Step 4: 验证内容显示正确", "Step 5: 可搜索帮助文档"],
+    "steps": [
+      "Step 1: 点击帮助中心入口",
+      "Step 2: 验证显示帮助文档列表",
+      "Step 3: 点击查看某篇教程",
+      "Step 4: 验证内容显示正确",
+      "Step 5: 可搜索帮助文档"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "主题切换：深色模式",
-    "steps": ["Step 1: 进入个人设置", "Step 2: 找到主题设置", "Step 3: 选择深色模式", "Step 4: 验证页面切换为深色主题", "Step 5: 验证文字颜色调整", "Step 6: 验证背景色调整", "Step 7: 刷新页面验证保持深色"],
+    "steps": [
+      "Step 1: 进入个人设置",
+      "Step 2: 找到主题设置",
+      "Step 3: 选择深色模式",
+      "Step 4: 验证页面切换为深色主题",
+      "Step 5: 验证文字颜色调整",
+      "Step 6: 验证背景色调整",
+      "Step 7: 刷新页面验证保持深色"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "主题切换：浅色模式",
-    "steps": ["Step 1: 在深色模式下", "Step 2: 切换到浅色模式", "Step 3: 验证页面恢复浅色主题", "Step 4: 验证颜色正常显示"],
+    "steps": [
+      "Step 1: 在深色模式下",
+      "Step 2: 切换到浅色模式",
+      "Step 3: 验证页面恢复浅色主题",
+      "Step 4: 验证颜色正常显示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "主题切换：跟随系统",
-    "steps": ["Step 1: 进入主题设置", "Step 2: 选择跟随系统", "Step 3: 验证自动匹配系统主题", "Step 4: 切换系统主题", "Step 5: 验证应用自动切换"],
+    "steps": [
+      "Step 1: 进入主题设置",
+      "Step 2: 选择跟随系统",
+      "Step 3: 验证自动匹配系统主题",
+      "Step 4: 切换系统主题",
+      "Step 5: 验证应用自动切换"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "语言切换：中文/英文",
-    "steps": ["Step 1: 进入语言设置", "Step 2: 选择英文", "Step 3: 验证界面切换为英文", "Step 4: 切换回中文", "Step 5: 验证界面切换为中文"],
+    "steps": [
+      "Step 1: 进入语言设置",
+      "Step 2: 选择英文",
+      "Step 3: 验证界面切换为英文",
+      "Step 4: 切换回中文",
+      "Step 5: 验证界面切换为中文"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "个人设置：修改密码",
-    "steps": ["Step 1: 进入个人设置页面", "Step 2: 找到修改密码入口", "Step 3: 输入当前密码", "Step 4: 输入新密码", "Step 5: 确认新密码", "Step 6: 点击保存", "Step 7: 验证密码修改成功", "Step 8: 使用新密码登录验证"],
+    "steps": [
+      "Step 1: 进入个人设置页面",
+      "Step 2: 找到修改密码入口",
+      "Step 3: 输入当前密码",
+      "Step 4: 输入新密码",
+      "Step 5: 确认新密码",
+      "Step 6: 点击保存",
+      "Step 7: 验证密码修改成功",
+      "Step 8: 使用新密码登录验证"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "个人设置：修改邮箱",
-    "steps": ["Step 1: 进入个人设置页面", "Step 2: 修改邮箱地址", "Step 3: 点击保存", "Step 4: 验证需要邮箱验证", "Step 5: 完成邮箱验证", "Step 6: 验证邮箱更新成功"],
+    "steps": [
+      "Step 1: 进入个人设置页面",
+      "Step 2: 修改邮箱地址",
+      "Step 3: 点击保存",
+      "Step 4: 验证需要邮箱验证",
+      "Step 5: 完成邮箱验证",
+      "Step 6: 验证邮箱更新成功"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "个人设置：消息通知偏好",
-    "steps": ["Step 1: 进入个人设置", "Step 2: 找到通知偏好设置", "Step 3: 开启/关闭各类通知", "Step 4: 保存设置", "Step 5: 验证设置生效"],
+    "steps": [
+      "Step 1: 进入个人设置",
+      "Step 2: 找到通知偏好设置",
+      "Step 3: 开启/关闭各类通知",
+      "Step 4: 保存设置",
+      "Step 5: 验证设置生效"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "数据备份：手动备份",
-    "steps": ["Step 1: 进入数据管理页面", "Step 2: 点击手动备份", "Step 3: 验证开始备份", "Step 4: 验证显示备份进度", "Step 5: 验证备份完成", "Step 6: 可下载备份文件"],
+    "steps": [
+      "Step 1: 进入数据管理页面",
+      "Step 2: 点击手动备份",
+      "Step 3: 验证开始备份",
+      "Step 4: 验证显示备份进度",
+      "Step 5: 验证备份完成",
+      "Step 6: 可下载备份文件"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "数据备份：自动备份设置",
-    "steps": ["Step 1: 进入自动备份设置", "Step 2: 开启自动备份", "Step 3: 设置备份频率", "Step 4: 保存设置", "Step 5: 验证按设定频率自动备份"],
+    "steps": [
+      "Step 1: 进入自动备份设置",
+      "Step 2: 开启自动备份",
+      "Step 3: 设置备份频率",
+      "Step 4: 保存设置",
+      "Step 5: 验证按设定频率自动备份"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "数据恢复：从备份恢复",
-    "steps": ["Step 1: 进入数据恢复页面", "Step 2: 选择备份文件", "Step 3: 验证显示备份内容预览", "Step 4: 确认恢复", "Step 5: 验证显示恢复进度", "Step 6: 验证数据已恢复"],
+    "steps": [
+      "Step 1: 进入数据恢复页面",
+      "Step 2: 选择备份文件",
+      "Step 3: 验证显示备份内容预览",
+      "Step 4: 确认恢复",
+      "Step 5: 验证显示恢复进度",
+      "Step 6: 验证数据已恢复"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API限流：接口调用频率限制",
-    "steps": ["Step 1: 短时间内高频调用某API", "Step 2: 触发限流", "Step 3: 验证返回429状态码", "Step 4: 验证提示请求过于频繁", "Step 5: 等待限流时间后重试", "Step 6: 验证恢复正常"],
+    "steps": [
+      "Step 1: 短时间内高频调用某API",
+      "Step 2: 触发限流",
+      "Step 3: 验证返回429状态码",
+      "Step 4: 验证提示请求过于频繁",
+      "Step 5: 等待限流时间后重试",
+      "Step 6: 验证恢复正常"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "缓存机制：列表数据缓存",
-    "steps": ["Step 1: 访问作品列表", "Step 2: 刷新页面", "Step 3: 验证从缓存加载快速响应", "Step 4: 修改作品数据", "Step 5: 验证缓存更新或失效"],
+    "steps": [
+      "Step 1: 访问作品列表",
+      "Step 2: 刷新页面",
+      "Step 3: 验证从缓存加载快速响应",
+      "Step 4: 修改作品数据",
+      "Step 5: 验证缓存更新或失效"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "性能优化：懒加载图片",
-    "steps": ["Step 1: 作品列表有很多作品", "Step 2: 滚动页面", "Step 3: 验证图片懒加载", "Step 4: 验证未滚动到的图片不加载", "Step 5: 滚动到位置时加载图片"],
+    "steps": [
+      "Step 1: 作品列表有很多作品",
+      "Step 2: 滚动页面",
+      "Step 3: 验证图片懒加载",
+      "Step 4: 验证未滚动到的图片不加载",
+      "Step 5: 滚动到位置时加载图片"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "性能优化：分页加载",
-    "steps": ["Step 1: 作品列表有很多数据", "Step 2: 验证初始只加载第一页", "Step 3: 滚动到底部", "Step 4: 验证自动加载下一页", "Step 5: 验证加载过程有loading提示"],
+    "steps": [
+      "Step 1: 作品列表有很多数据",
+      "Step 2: 验证初始只加载第一页",
+      "Step 3: 滚动到底部",
+      "Step 4: 验证自动加载下一页",
+      "Step 5: 验证加载过程有loading提示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "无障碍：键盘导航",
-    "steps": ["Step 1: 使用Tab键导航", "Step 2: 验证可聚焦到所有可交互元素", "Step 3: 验证焦点样式可见", "Step 4: 使用Enter/Space触发操作", "Step 5: 验证功能正常"],
+    "steps": [
+      "Step 1: 使用Tab键导航",
+      "Step 2: 验证可聚焦到所有可交互元素",
+      "Step 3: 验证焦点样式可见",
+      "Step 4: 使用Enter/Space触发操作",
+      "Step 5: 验证功能正常"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "无障碍：屏幕阅读器支持",
-    "steps": ["Step 1: 使用屏幕阅读器测试", "Step 2: 验证图片有alt描述", "Step 3: 验证按钮有正确标签", "Step 4: 验证表单输入有标签关联", "Step 5: 验证内容顺序合理"],
+    "steps": [
+      "Step 1: 使用屏幕阅读器测试",
+      "Step 2: 验证图片有alt描述",
+      "Step 3: 验证按钮有正确标签",
+      "Step 4: 验证表单输入有标签关联",
+      "Step 5: 验证内容顺序合理"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "微信登录：扫码登录",
-    "steps": ["Step 1: 在登录页面", "Step 2: 点击微信登录", "Step 3: 验证显示二维码", "Step 4. 使用微信扫码", "Step 5: 验证登录成功并跳转"],
+    "steps": [
+      "Step 1: 在登录页面",
+      "Step 2: 点击微信登录",
+      "Step 3: 验证显示二维码",
+      "Step 4. 使用微信扫码",
+      "Step 5: 验证登录成功并跳转"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "第三方登录：绑定已有账户",
-    "steps": ["Step 1: 已登录状态", "Step 2: 进入账户绑定设置", "Step 3: 点击绑定微信", "Step 4: 扫码确认", "Step 5: 验证绑定成功", "Step 6: 可使用微信登录"],
+    "steps": [
+      "Step 1: 已登录状态",
+      "Step 2: 进入账户绑定设置",
+      "Step 3: 点击绑定微信",
+      "Step 4: 扫码确认",
+      "Step 5: 验证绑定成功",
+      "Step 6: 可使用微信登录"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品分享：生成分享链接",
-    "steps": ["Step 1: 进入作品详情", "Step 2: 点击分享按钮", "Step 3: 验证生成分享链接", "Step 4: 复制链接", "Step 5: 其他用户打开链接", "Step 6: 验证可以查看（只读）"],
+    "steps": [
+      "Step 1: 进入作品详情",
+      "Step 2: 点击分享按钮",
+      "Step 3: 验证生成分享链接",
+      "Step 4: 复制链接",
+      "Step 5: 其他用户打开链接",
+      "Step 6: 验证可以查看（只读）"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品分享：取消分享",
-    "steps": ["Step 1: 已分享的作品", "Step 2: 进入分享设置", "Step 3: 点击取消分享", "Step 4: 验证分享链接失效", "Step 5: 其他用户打开链接", "Step 6: 验证无法访问"],
+    "steps": [
+      "Step 1: 已分享的作品",
+      "Step 2: 进入分享设置",
+      "Step 3: 点击取消分享",
+      "Step 4: 验证分享链接失效",
+      "Step 5: 其他用户打开链接",
+      "Step 6: 验证无法访问"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "评论功能：添加评论",
-    "steps": ["Step 1: 在作品页面", "Step 2: 找到评论区域", "Step 3: 输入评论内容", "Step 4: 点击提交", "Step 5: 验证评论显示", "Step 6: 验证评论时间正确"],
+    "steps": [
+      "Step 1: 在作品页面",
+      "Step 2: 找到评论区域",
+      "Step 3: 输入评论内容",
+      "Step 4: 点击提交",
+      "Step 5: 验证评论显示",
+      "Step 6: 验证评论时间正确"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "评论功能：回复评论",
-    "steps": ["Step 1: 已有评论", "Step 2: 点击回复按钮", "Step 3: 输入回复内容", "Step 4: 提交回复", "Step 5: 验证回复显示在评论下", "Step 6: 验证嵌套显示"],
+    "steps": [
+      "Step 1: 已有评论",
+      "Step 2: 点击回复按钮",
+      "Step 3: 输入回复内容",
+      "Step 4: 提交回复",
+      "Step 5: 验证回复显示在评论下",
+      "Step 6: 验证嵌套显示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "评论功能：删除评论",
-    "steps": ["Step 1: 作为评论作者", "Step 2: 找到自己的评论", "Step 3: 点击删除", "Step 4: 确认删除", "Step 5: 验证评论已移除"],
+    "steps": [
+      "Step 1: 作为评论作者",
+      "Step 2: 找到自己的评论",
+      "Step 3: 点击删除",
+      "Step 4: 确认删除",
+      "Step 5: 验证评论已移除"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "打赏功能：打赏作者",
-    "steps": ["Step 1: 进入作品页面", "Step 2: 找到打赏入口", "Step 3: 选择打赏金额", "Step 4: 完成支付", "Step 5: 验证打赏记录", "Step 6: 作者收到通知"],
+    "steps": [
+      "Step 1: 进入作品页面",
+      "Step 2: 找到打赏入口",
+      "Step 3: 选择打赏金额",
+      "Step 4: 完成支付",
+      "Step 5: 验证打赏记录",
+      "Step 6: 作者收到通知"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "订阅功能：订阅作品更新",
-    "steps": ["Step 1: 进入他人作品页面", "Step 2: 点击订阅按钮", "Step 3: 验证订阅成功", "Step 4: 作者发布新章节", "Step 5: 订阅者收到通知", "Step 6: 可在订阅列表查看"],
+    "steps": [
+      "Step 1: 进入他人作品页面",
+      "Step 2: 点击订阅按钮",
+      "Step 3: 验证订阅成功",
+      "Step 4: 作者发布新章节",
+      "Step 5: 订阅者收到通知",
+      "Step 6: 可在订阅列表查看"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "订阅功能：取消订阅",
-    "steps": ["Step 1: 已有订阅的作品", "Step 2: 进入订阅管理", "Step 3: 取消订阅", "Step 4: 验证取消成功", "Step 5: 不再收到更新通知"],
+    "steps": [
+      "Step 1: 已有订阅的作品",
+      "Step 2: 进入订阅管理",
+      "Step 3: 取消订阅",
+      "Step 4: 验证取消成功",
+      "Step 5: 不再收到更新通知"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "收藏功能：收藏作品",
-    "steps": ["Step 1: 进入作品页面", "Step 2: 点击收藏按钮", "Step 3: 验证收藏成功", "Step 4: 进入收藏列表", "Step 5: 验证作品在收藏中"],
+    "steps": [
+      "Step 1: 进入作品页面",
+      "Step 2: 点击收藏按钮",
+      "Step 3: 验证收藏成功",
+      "Step 4: 进入收藏列表",
+      "Step 5: 验证作品在收藏中"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "收藏功能：管理收藏",
-    "steps": ["Step 1: 进入收藏列表", "Step 2: 验证显示所有收藏作品", "Step 3: 可取消收藏", "Step 4: 可创建收藏夹分类", "Step 5: 可移动收藏到不同夹子"],
+    "steps": [
+      "Step 1: 进入收藏列表",
+      "Step 2: 验证显示所有收藏作品",
+      "Step 3: 可取消收藏",
+      "Step 4: 可创建收藏夹分类",
+      "Step 5: 可移动收藏到不同夹子"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "阅读记录：查看阅读历史",
-    "steps": ["Step 1: 阅读过一些作品", "Step 2: 进入阅读历史", "Step 3: 验证显示阅读记录", "Step 4: 验证记录包含作品、章节、时间", "Step 5: 可继续阅读"],
+    "steps": [
+      "Step 1: 阅读过一些作品",
+      "Step 2: 进入阅读历史",
+      "Step 3: 验证显示阅读记录",
+      "Step 4: 验证记录包含作品、章节、时间",
+      "Step 5: 可继续阅读"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "阅读记录：清除记录",
-    "steps": ["Step 1: 进入阅读历史", "Step 2: 选择清除记录", "Step 3: 确认清除", "Step 4: 验证记录已清除"],
+    "steps": [
+      "Step 1: 进入阅读历史",
+      "Step 2: 选择清除记录",
+      "Step 3: 确认清除",
+      "Step 4: 验证记录已清除"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "标签系统：作品标签管理",
-    "steps": ["Step 1: 进入作品设置", "Step 2: 找到标签管理", "Step 3: 添加自定义标签", "Step 4: 验证标签显示", "Step 5: 可删除标签", "Step 6: 作品列表可按标签筛选"],
+    "steps": [
+      "Step 1: 进入作品设置",
+      "Step 2: 找到标签管理",
+      "Step 3: 添加自定义标签",
+      "Step 4: 验证标签显示",
+      "Step 5: 可删除标签",
+      "Step 6: 作品列表可按标签筛选"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "推荐系统：相似作品推荐",
-    "steps": ["Step 1: 进入作品详情", "Step 2: 滚动到底部", "Step 3: 验证显示相似作品推荐", "Step 4: 验证基于作品类型/标签推荐", "Step 5: 点击可跳转"],
+    "steps": [
+      "Step 1: 进入作品详情",
+      "Step 2: 滚动到底部",
+      "Step 3: 验证显示相似作品推荐",
+      "Step 4: 验证基于作品类型/标签推荐",
+      "Step 5: 点击可跳转"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "登录页：记住密码功能",
-    "steps": ["Step 1: 在登录页面", "Step 2: 勾选记住密码", "Step 3: 登录成功", "Step 4: 关闭浏览器", "Step 5: 重新打开登录页", "Step 6: 验证用户名已填充"],
+    "steps": [
+      "Step 1: 在登录页面",
+      "Step 2: 勾选记住密码",
+      "Step 3: 登录成功",
+      "Step 4: 关闭浏览器",
+      "Step 5: 重新打开登录页",
+      "Step 6: 验证用户名已填充"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "登录页：自动登录",
-    "steps": ["Step 1: 在登录页面", "Step 2: 勾选自动登录", "Step 3: 登录成功", "Step 4: 关闭浏览器", "Step 5: 重新打开应用", "Step 6: 验证自动登录进入系统"],
+    "steps": [
+      "Step 1: 在登录页面",
+      "Step 2: 勾选自动登录",
+      "Step 3: 登录成功",
+      "Step 4: 关闭浏览器",
+      "Step 5: 重新打开应用",
+      "Step 6: 验证自动登录进入系统"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "注册页：用户名重复检查",
-    "steps": ["Step 1: 在注册页面", "Step 2: 输入已存在的用户名", "Step 3: 触发验证（blur或实时）", "Step 4: 验证提示用户名已存在", "Step 5: 输入新用户名", "Step 6: 验证通过"],
+    "steps": [
+      "Step 1: 在注册页面",
+      "Step 2: 输入已存在的用户名",
+      "Step 3: 触发验证（blur或实时）",
+      "Step 4: 验证提示用户名已存在",
+      "Step 5: 输入新用户名",
+      "Step 6: 验证通过"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "注册页：邮箱格式验证",
-    "steps": ["Step 1: 在注册页面", "Step 2: 输入无效邮箱格式", "Step 3: 提交或触发验证", "Step 4: 验证提示邮箱格式不正确", "Step 5: 输入有效邮箱", "Step 6: 验证通过"],
+    "steps": [
+      "Step 1: 在注册页面",
+      "Step 2: 输入无效邮箱格式",
+      "Step 3: 提交或触发验证",
+      "Step 4: 验证提示邮箱格式不正确",
+      "Step 5: 输入有效邮箱",
+      "Step 6: 验证通过"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "注册页：密码强度检测",
-    "steps": ["Step 1: 在注册页面", "Step 2: 输入弱密码", "Step 3: 验证提示密码强度不足", "Step 4: 输入强密码", "Step 5: 验证显示密码强度足够"],
+    "steps": [
+      "Step 1: 在注册页面",
+      "Step 2: 输入弱密码",
+      "Step 3: 验证提示密码强度不足",
+      "Step 4: 输入强密码",
+      "Step 5: 验证显示密码强度足够"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "忘记密码：发送重置邮件",
-    "steps": ["Step 1: 在登录页面", "Step 2: 点击忘记密码", "Step 3: 输入注册邮箱", "Step 4: 点击发送", "Step 5: 验证显示发送成功", "Step 6: 邮箱收到重置链接"],
+    "steps": [
+      "Step 1: 在登录页面",
+      "Step 2: 点击忘记密码",
+      "Step 3: 输入注册邮箱",
+      "Step 4: 点击发送",
+      "Step 5: 验证显示发送成功",
+      "Step 6: 邮箱收到重置链接"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "忘记密码：重置密码",
-    "steps": ["Step 1: 点击邮箱中的重置链接", "Step 2: 验证跳转重置页面", "Step 3: 输入新密码", "Step 4: 确认新密码", "Step 5: 点击重置", "Step 6: 验证密码重置成功", "Step 7: 可使用新密码登录"],
+    "steps": [
+      "Step 1: 点击邮箱中的重置链接",
+      "Step 2: 验证跳转重置页面",
+      "Step 3: 输入新密码",
+      "Step 4: 确认新密码",
+      "Step 5: 点击重置",
+      "Step 6: 验证密码重置成功",
+      "Step 7: 可使用新密码登录"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "邮箱验证：验证邮箱地址",
-    "steps": ["Step 1: 注册时填写邮箱", "Step 2: 收到验证邮件", "Step 3: 点击验证链接", "Step 4: 验证邮箱已验证", "Step 5: 验证未验证邮箱时功能受限"],
+    "steps": [
+      "Step 1: 注册时填写邮箱",
+      "Step 2: 收到验证邮件",
+      "Step 3: 点击验证链接",
+      "Step 4: 验证邮箱已验证",
+      "Step 5: 验证未验证邮箱时功能受限"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品封面：上传封面图片",
-    "steps": ["Step 1: 进入作品基本信息编辑", "Step 2: 找到封面上传区域", "Step 3: 点击上传图片", "Step 4: 选择本地图片", "Step 5: 验证图片上传成功并预览", "Step 6: 保存作品", "Step 7: 验证封面图片正确显示"],
+    "steps": [
+      "Step 1: 进入作品基本信息编辑",
+      "Step 2: 找到封面上传区域",
+      "Step 3: 点击上传图片",
+      "Step 4: 选择本地图片",
+      "Step 5: 验证图片上传成功并预览",
+      "Step 6: 保存作品",
+      "Step 7: 验证封面图片正确显示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品封面：裁剪封面图片",
-    "steps": ["Step 1: 上传封面图片", "Step 2: 进入裁剪界面", "Step 3: 调整裁剪框", "Step 4: 确认裁剪", "Step 5: 验证裁剪后图片正确"],
+    "steps": [
+      "Step 1: 上传封面图片",
+      "Step 2: 进入裁剪界面",
+      "Step 3: 调整裁剪框",
+      "Step 4: 确认裁剪",
+      "Step 5: 验证裁剪后图片正确"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "作品封面：从图库选择",
-    "steps": ["Step 1: 在封面上传区域", "Step 2: 点击从图库选择", "Step 3: 浏览图库图片", "Step 4: 选择图片", "Step 5: 验证图片设为封面"],
+    "steps": [
+      "Step 1: 在封面上传区域",
+      "Step 2: 点击从图库选择",
+      "Step 3: 浏览图库图片",
+      "Step 4: 选择图片",
+      "Step 5: 验证图片设为封面"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "批量操作：批量删除章节",
-    "steps": ["Step 1: 进入章节管理页面", "Step 2: 勾选多个章节", "Step 3: 点击批量删除", "Step 4: 确认删除", "Step 5: 验证所有选中章节已删除"],
+    "steps": [
+      "Step 1: 进入章节管理页面",
+      "Step 2: 勾选多个章节",
+      "Step 3: 点击批量删除",
+      "Step 4: 确认删除",
+      "Step 5: 验证所有选中章节已删除"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "批量操作：批量移动章节到分卷",
-    "steps": ["Step 1: 勾选多个章节", "Step 2: 点击批量移动", "Step 3: 选择目标分卷", "Step 4: 确认移动", "Step 5: 验证章节已移动到目标分卷"],
+    "steps": [
+      "Step 1: 勾选多个章节",
+      "Step 2: 点击批量移动",
+      "Step 3: 选择目标分卷",
+      "Step 4: 确认移动",
+      "Step 5: 验证章节已移动到目标分卷"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "排序：手动拖拽排序章节",
-    "steps": ["Step 1: 进入章节管理页面", "Step 2. 拖动某章节到新位置", "Step 3: 验证章节顺序已更新", "Step 4: 保存顺序", "Step 5: 刷新页面验证顺序保持"],
+    "steps": [
+      "Step 1: 进入章节管理页面",
+      "Step 2. 拖动某章节到新位置",
+      "Step 3: 验证章节顺序已更新",
+      "Step 4: 保存顺序",
+      "Step 5: 刷新页面验证顺序保持"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "复制章节：复制章节内容",
-    "steps": ["Step 1: 在章节列表", "Step 2: 点击某章节的复制按钮", "Step 3: 验证生成新章节副本", "Step 4: 可编辑新章节", "Step 5: 保存为独立章节"],
+    "steps": [
+      "Step 1: 在章节列表",
+      "Step 2: 点击某章节的复制按钮",
+      "Step 3: 验证生成新章节副本",
+      "Step 4: 可编辑新章节",
+      "Step 5: 保存为独立章节"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "模板功能：使用章节模板",
-    "steps": ["Step 1: 新建章节", "Step 2: 选择使用模板", "Step 3: 浏览可用模板", "Step 4: 选择模板", "Step 5: 验证模板内容填充到章节", "Step 6: 可编辑内容"],
+    "steps": [
+      "Step 1: 新建章节",
+      "Step 2: 选择使用模板",
+      "Step 3: 浏览可用模板",
+      "Step 4: 选择模板",
+      "Step 5: 验证模板内容填充到章节",
+      "Step 6: 可编辑内容"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "模板功能：创建自定义模板",
-    "steps": ["Step 1: 进入模板管理", "Step 2: 创建新模板", "Step 3: 填写模板内容", "Step 4: 保存模板", "Step 5: 验证模板出现在列表中"],
+    "steps": [
+      "Step 1: 进入模板管理",
+      "Step 2: 创建新模板",
+      "Step 3: 填写模板内容",
+      "Step 4: 保存模板",
+      "Step 5: 验证模板出现在列表中"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "角色管理：创建作品角色",
-    "steps": ["Step 1: 进入作品角色库", "Step 2: 点击新增角色", "Step 3: 填写角色信息（姓名、性格、背景等）", "Step 4: 上传角色图片", "Step 5: 保存角色", "Step 6: 验证角色显示在列表中"],
+    "steps": [
+      "Step 1: 进入作品角色库",
+      "Step 2: 点击新增角色",
+      "Step 3: 填写角色信息（姓名、性格、背景等）",
+      "Step 4: 上传角色图片",
+      "Step 5: 保存角色",
+      "Step 6: 验证角色显示在列表中"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "角色管理：在章节中引用角色",
-    "steps": ["Step 1: 在章节出场人物选择", "Step 2: 打开角色库", "Step 3: 选择角色", "Step 4: 验证角色添加到出场人物", "Step 5: 保存章节", "Step 6: 验证角色引用正确"],
+    "steps": [
+      "Step 1: 在章节出场人物选择",
+      "Step 2: 打开角色库",
+      "Step 3: 选择角色",
+      "Step 4: 验证角色添加到出场人物",
+      "Step 5: 保存章节",
+      "Step 6: 验证角色引用正确"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "世界设定：创建世界背景",
-    "steps": ["Step 1: 进入世界设定", "Step 2: 创建世界背景资料", "Step 3: 填写设定内容", "Step 4: 保存设定", "Step 5: 验证设定在列表显示"],
+    "steps": [
+      "Step 1: 进入世界设定",
+      "Step 2: 创建世界背景资料",
+      "Step 3: 填写设定内容",
+      "Step 4: 保存设定",
+      "Step 5: 验证设定在列表显示"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "世界设定：关联章节",
-    "steps": ["Step 1: 在章节编辑页面", "Step 2: 关联世界设定", "Step 3: 选择相关设定", "Step 4: 保存", "Step 5: 验证章节与设定关联"],
+    "steps": [
+      "Step 1: 在章节编辑页面",
+      "Step 2: 关联世界设定",
+      "Step 3: 选择相关设定",
+      "Step 4: 保存",
+      "Step 5: 验证章节与设定关联"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "日历视图：查看写作日历",
-    "steps": ["Step 1: 进入写作统计", "Step 2: 切换到日历视图", "Step 3: 验证显示日历", "Step 4: 验证有写作的日子有标记", "Step 5: 点击某天查看详情"],
+    "steps": [
+      "Step 1: 进入写作统计",
+      "Step 2: 切换到日历视图",
+      "Step 3: 验证显示日历",
+      "Step 4: 验证有写作的日子有标记",
+      "Step 5: 点击某天查看详情"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "写作日历：记录每日写作",
-    "steps": ["Step 1: 每天写作后", "Step 2: 验证自动记录写作日期和字数", "Step 3: 进入日历视图", "Step 4: 验证显示当天写作标记", "Step 5: 验证显示字数"],
+    "steps": [
+      "Step 1: 每天写作后",
+      "Step 2: 验证自动记录写作日期和字数",
+      "Step 3: 进入日历视图",
+      "Step 4: 验证显示当天写作标记",
+      "Step 5: 验证显示字数"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API健康检查：服务状态",
-    "steps": ["Step 1: 发送GET请求到 /health", "Step 2: 验证返回服务正常状态", "Step 3: 验证返回版本信息", "Step 4: 验证返回数据库连接状态"],
+    "steps": [
+      "Step 1: 发送GET请求到 /health",
+      "Step 2: 验证返回服务正常状态",
+      "Step 3: 验证返回版本信息",
+      "Step 4: 验证返回数据库连接状态"
+    ],
     "passes": false
   },
   {
     "category": "functional",
     "description": "API文档：Swagger文档访问",
-    "步骤": ["Step 1: 访问API文档地址", "Step 2: 验证Swagger页面加载", "Step 3: 验证显示所有API端点", "Step 4: 验证可查看接口详情", "Step 5: 验证可在线测试接口"],
+    "步骤": [
+      "Step 1: 访问API文档地址",
+      "Step 2: 验证Swagger页面加载",
+      "Step 3: 验证显示所有API端点",
+      "Step 4: 验证可查看接口详情",
+      "Step 5: 验证可在线测试接口"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "深色模式：整体样式",
-    "steps": ["Step 1: 切换到深色模式", "Step 2: 截图对比", "Step 3: 验证背景色为深色", "Step 4: 验证文字颜色正确（浅色）", "Step 5: 验证组件样式适配", "Step 6: 验证对比度足够"],
+    "steps": [
+      "Step 1: 切换到深色模式",
+      "Step 2: 截图对比",
+      "Step 3: 验证背景色为深色",
+      "Step 4: 验证文字颜色正确（浅色）",
+      "Step 5: 验证组件样式适配",
+      "Step 6: 验证对比度足够"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "深色模式：输入框样式",
-    "steps": ["Step 1: 深色模式下", "Step 2: 找到输入框", "Step 3: 验证输入框背景色为深色", "Step 4: 验证边框颜色合适", "Step 5: 验证文字颜色正确", "Step 6: 验证聚焦状态可见"],
+    "steps": [
+      "Step 1: 深色模式下",
+      "Step 2: 找到输入框",
+      "Step 3: 验证输入框背景色为深色",
+      "Step 4: 验证边框颜色合适",
+      "Step 5: 验证文字颜色正确",
+      "Step 6: 验证聚焦状态可见"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "加载动画：自定义加载样式",
-    "steps": ["Step 1: 触发数据加载", "Step 2: 验证显示加载动画", "Step 3: 验证动画样式符合品牌", "Step 4: 验证加载完成动画消失"],
+    "steps": [
+      "Step 1: 触发数据加载",
+      "Step 2: 验证显示加载动画",
+      "Step 3: 验证动画样式符合品牌",
+      "Step 4: 验证加载完成动画消失"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "空状态：空列表样式",
-    "steps": ["Step 1: 进入没有任何作品的作品列表", "Step 2: 验证显示空状态", "Step 3: 验证有插图或图标", "Step 4: 验证有提示文案", "Step 5: 验证有引导按钮"],
+    "steps": [
+      "Step 1: 进入没有任何作品的作品列表",
+      "Step 2: 验证显示空状态",
+      "Step 3: 验证有插图或图标",
+      "Step 4: 验证有提示文案",
+      "Step 5: 验证有引导按钮"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "确认对话框：删除确认样式",
-    "steps": ["Step 1: 点击删除操作", "Step 2: 验证弹出确认对话框", "Step 3: 验证对话框样式居中", "Step 4: 验证有警告图标", "Step 5: 验证按钮颜色为警示色"],
+    "steps": [
+      "Step 1: 点击删除操作",
+      "Step 2: 验证弹出确认对话框",
+      "Step 3: 验证对话框样式居中",
+      "Step 4: 验证有警告图标",
+      "Step 5: 验证按钮颜色为警示色"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "提示消息：成功提示样式",
-    "steps": ["Step 1: 执行成功操作", "Step 2: 验证显示成功提示", "Step 3: 验证提示颜色为绿色", "Step 4: 验证几秒后自动消失", "Step 5: 验证位置正确（顶部或右下角）"],
+    "steps": [
+      "Step 1: 执行成功操作",
+      "Step 2: 验证显示成功提示",
+      "Step 3: 验证提示颜色为绿色",
+      "Step 4: 验证几秒后自动消失",
+      "Step 5: 验证位置正确（顶部或右下角）"
+    ],
     "passes": false
   },
   {
     "category": "style",
     "description": "提示消息：错误提示样式",
-    "steps": ["Step 1: 执行失败操作", "Step 2: 验证显示错误提示", "Step 3: 验证提示颜色为红色", "Step 4: 验证可手动关闭", "Step 5: 验证显示错误详情"],
+    "steps": [
+      "Step 1: 执行失败操作",
+      "Step 2: 验证显示错误提示",
+      "Step 3: 验证提示颜色为红色",
+      "Step 4: 验证可手动关闭",
+      "Step 5: 验证显示错误详情"
+    ],
     "passes": false
   }
 ]
