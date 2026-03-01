@@ -1,0 +1,368 @@
+<project_specification>
+  <project_name>AI写作辅助系统</project_name>
+
+  <overview>
+    构建一个功能完善的AI写作辅助系统，帮助作者高效管理创作流程，提升作品质量。系统包含作品管理、作品创作、AI优化、一键发布四大核心模块。前端采用React+TypeScript+Vite构建现代化单页应用，后端采用Go语言提供高性能API服务。界面布局清晰：顶部为全局信息栏（作品切换、通知、用户信息），左侧为导航菜单，右侧为内容展示区，确保操作直观高效。
+  </overview>
+
+  <technology_stack>
+    <frontend>
+      <framework>React 18 + TypeScript + Vite</framework>
+      <state_management>React Context + useReducer / Zustand</state_management>
+      <routing>React Router v6</routing>
+      <ui_components>Ant Design / 自定义组件</ui_components>
+      <styling>CSS Modules / Tailwind CSS</styling>
+      <http_client>axios</http_client>
+      <diff_view>react-diff-viewer / 自定义文本对比组件</diff_view>
+    </frontend>
+    <backend>
+      <language>Go 1.20+</language>
+      <framework>Gin / Echo</framework>
+      <database>MySQL / PostgreSQL</database>
+      <orm>GORM</orm>
+      <authentication>JWT</authentication>
+      <ai_integration>OpenAI API / 自研模型接口</ai_integration>
+    </backend>
+    <communication>
+      <api>RESTful JSON API</api>
+      <file_upload>multipart/form-data</file_upload>
+    </communication>
+  </technology_stack>
+
+  <prerequisites>
+    <environment>
+      - 前端开发环境需Node.js 16+，包管理器pnpm/npm
+      - 后端开发环境需Go 1.20+，并配置好数据库连接
+      - AI优化模块需配置第三方AI服务API密钥
+    </environment>
+  </prerequisites>
+
+  <core_features>
+    <!-- 作品列表模块 -->
+    <feature_group name="作品列表管理">
+      <feature>作品列表展示：以网格或列表形式展示所有作品，每项包含封面图、书名、章节数、总字数、最后修改时间。</feature>
+      <feature>作品筛选与排序：支持按作品类别、修改时间筛选和排序。</feature>
+      <feature>作品详情入口：点击作品卡片跳转至作品创作页面的基本信息子页。</feature>
+      <feature>作品删除：提供删除按钮，点击后二次确认，从数据库中软删除或硬删除。</feature>
+      <feature>新增作品向导：
+        - 弹出式向导或页面内表单
+        - 作品类别下拉框（可预定义类别如玄幻、都市等）
+        - 同类作品参考多项选择（展示已有作品供参考）
+        - 基本信息输入（书名、作者、简介等）
+        - 每卷章节数输入（期望每卷包含多少章节）
+        - 每章节字数输入（期望每章节字数）
+        - 确认后调用创建接口，生成作品基础结构
+      </feature>
+    </feature_group>
+
+    <!-- 作品创作模块 -->
+    <feature_group name="作品创作">
+      <feature>左侧菜单栏动态导航：
+        - 根菜单：基本信息、分卷信息、章节信息，支持展开/折叠
+        - 基本信息子菜单：点击后右侧展示基本信息编辑表单
+        - 分卷信息子菜单：点击后展示分卷列表，可进一步展开每卷的详细子项
+        - 章节信息子菜单：按卷分组展示章节列表，可展开每章的详细子项
+      </feature>
+      <feature>基本信息编辑：
+        - 字段：书名（文本）、故事梗概（多行文本）、时空设定（文本）、力量体系（文本）、主要人物（富文本/列表）、封面图片（上传）
+        - 支持实时保存或手动保存
+      </feature>
+      <feature>分卷信息管理：
+        - 分卷列表展示（卷名、章节数、字数）
+        - 点击某卷进入详细子页面，展示该卷的：
+          - 卷名、当前章节数、字数（自动计算）
+          - 主要情节概述（富文本）
+          - 出场人物（多选标签）
+          - 主要的情节单元（可添加多个单元，每个单元包含多个章节）
+          - 关键人物与关系变化（文本）
+          - 主角目标与进展（文本）
+          - 冲突与转折（文本）
+          - 伏笔与后续钩子（文本）
+          - 每一章节的情节概述（列表）
+        - 支持新增、编辑、删除分卷
+      </feature>
+      <feature>章节信息管理：
+        - 按卷分组展示章节列表（章节名、剧情梗概）
+        - 点击某章节进入详情编辑：
+          - 章节名、剧情梗概、故事所在时间空间、出场人物（多选）
+          - 场景列表：可添加多个场景，每个场景包含：
+            - 开端（文本）
+            - 发展与冲突（文本）
+            - 转折（文本）
+            - 结果（文本）
+            - 风格（下拉/标签）
+        - 支持新增、编辑、删除章节
+      </feature>
+    </feature_group>
+
+    <!-- AI优化模块 -->
+    <feature_group name="AI优化流程">
+      <feature>优化步骤列表：默认包含四个步骤——信息认知时序优化、人物对话优化、滥用表达优化、抽象设定说明优化，按顺序排列。</feature>
+      <feature>步骤详情展示：点击某步骤，右侧展示该步骤的详细内容，包括：
+        - 审阅提示词（只读）
+        - 审阅结论（AI生成的分析结论）
+        - 原文优化提示词（模板+实际填充）
+        - 原文内容（输入文本）
+        - 优化后的原文内容（AI生成）
+        - 优化前后文本对比视图（高亮差异，支持左右对照或行内对比）
+      </feature>
+      <feature>添加自定义步骤：
+        - 弹出表单：输入审阅提示词模板、原文优化提示模板
+        - 选择插入位置（在某个步骤之后）
+        - 确认后新步骤加入列表，并可立即使用
+      </feature>
+      <feature>步骤执行控制：
+        - 支持手动触发每个步骤的AI优化（调用AI接口）
+        - 上一步的输出作为下一步的输入自动传递
+        - 可重置某步骤的优化结果
+      </feature>
+      <feature>优化历史记录：保存每次优化的版本，支持回滚查看。</feature>
+    </feature_group>
+
+    <!-- 一键发布模块 -->
+    <feature_group name="一键发布">
+      <feature>作品选择：下拉框选择要发布的作品，自动加载该作品的章节列表。</feature>
+      <feature>章节选择：多选框选择要发布的章节，提供全选/反选功能。</feature>
+      <feature>字数重划分：
+        - 输入自定义字数（如2000字/章）
+        - 根据该字数将选中章节的原文内容重新划分章节，生成新的章节列表
+        - 支持预览重新划分后的章节结构
+      </feature>
+      <feature>章节名自动生成：AI根据重新划分后的章节内容生成新的章节名，可手动编辑。</feature>
+      <feature>发布目标平台：选择要发布的平台（番茄、起点等），可配置各平台发布参数（如分类、标签）。</feature>
+      <feature>发布执行：点击发布按钮，调用后端发布接口，将作品内容推送至目标平台，并反馈发布结果。</feature>
+    </feature_group>
+
+    <!-- 通用UI组件 -->
+    <feature_group name="通用界面布局">
+      <feature>顶部信息栏：
+        - 作品切换下拉列表：显示当前作品名，点击切换其他作品
+        - 系统通知图标：展示未读通知数量，点击展开通知列表
+        - 用户信息：头像、用户名，下拉菜单包含个人设置、退出登录等
+      </feature>
+      <feature>左侧菜单栏：
+        - 可折叠/展开的导航菜单，根据当前模块动态加载菜单项
+        - 菜单项支持图标+文字，选中状态高亮
+      </feature>
+      <feature>右侧内容区域：
+        - 根据菜单选择动态渲染对应页面或组件
+        - 支持面包屑导航，显示当前路径
+      </feature>
+    </feature_group>
+  </core_features>
+
+  <database_schema>
+    <tables>
+      <users>用户表：id, 用户名, 密码哈希, 邮箱, 头像, 创建时间, 最后登录</users>
+      <works>作品表：id, 用户id, 作品类别id, 书名, 封面图, 简介, 总章节数, 总字数, 最后修改时间, 创建时间, 删除标记</works>
+      <work_categories>作品类别表：id, 类别名称</work_categories>
+      <volumes>分卷表：id, 作品id, 卷序号, 卷名, 章节数, 字数, 主要情节概述, 出场人物, 主要情节单元(JSON), 关键人物关系, 主角目标进展, 冲突转折, 伏笔钩子</volumes>
+      <chapters>章节表：id, 作品id, 卷id, 章序号, 章节名, 剧情梗概, 时空设定, 出场人物, 场景列表(JSON), 字数, 创建时间, 更新时间</chapters>
+      <scenes>场景表（可嵌入章节表中以JSON存储，也可独立表）：id, 章节id, 开端, 发展与冲突, 转折, 结果, 风格</scenes>
+      <optimization_steps>优化步骤配置表：id, 用户id, 步骤名称, 审阅提示词模板, 原文优化提示模板, 步骤顺序, 是否默认</optimization_steps>
+      <optimization_records>优化记录表：id, 作品id, 章节id, 步骤id, 原文内容, 优化后内容, 审阅结论, 创建时间</optimization_records>
+      <publish_tasks>发布任务表：id, 作品id, 目标平台, 发布章节ID列表, 重划分字数, 新章节名列表, 状态, 创建时间, 完成时间, 结果信息</publish_tasks>
+      <notifications>通知表：id, 用户id, 内容, 是否已读, 创建时间</notifications>
+    </tables>
+  </database_schema>
+
+  <api_endpoints_summary>
+    <authentication>
+      - POST /api/auth/register
+      - POST /api/auth/login
+      - POST /api/auth/logout
+      - GET /api/auth/profile
+      - PUT /api/auth/profile
+    </authentication>
+    <works>
+      - GET /api/works (列表，支持分页、筛选)
+      - POST /api/works (创建新作品)
+      - GET /api/works/:id (获取详情)
+      - PUT /api/works/:id (更新作品)
+      - DELETE /api/works/:id (删除作品)
+    </works>
+    <volumes>
+      - GET /api/works/:workId/volumes
+      - POST /api/works/:workId/volumes
+      - GET /api/volumes/:id
+      - PUT /api/volumes/:id
+      - DELETE /api/volumes/:id
+    </volumes>
+    <chapters>
+      - GET /api/works/:workId/chapters
+      - POST /api/works/:workId/chapters
+      - GET /api/chapters/:id
+      - PUT /api/chapters/:id
+      - DELETE /api/chapters/:id
+    </chapters>
+    <optimization>
+      - GET /api/optimization/steps (获取步骤列表)
+      - POST /api/optimization/steps (添加自定义步骤)
+      - PUT /api/optimization/steps/:id (更新步骤)
+      - DELETE /api/optimization/steps/:id (删除步骤)
+      - POST /api/optimization/execute (执行某步骤优化，传入原文、步骤ID等)
+      - GET /api/optimization/records (获取优化历史)
+    </optimization>
+    <publish>
+      - GET /api/publish/platforms (获取支持平台列表)
+      - POST /api/publish/preview (预览重划分后的章节)
+      - POST /api/publish/execute (执行发布)
+      - GET /api/publish/tasks (查询发布任务状态)
+    </publish>
+    <notifications>
+      - GET /api/notifications
+      - PUT /api/notifications/:id/read
+    </notifications>
+  </api_endpoints_summary>
+
+  <ui_layout>
+    <main_structure>
+      - 顶部栏：固定高度60px，包含左侧Logo/系统名称、中间作品切换下拉、右侧通知图标和用户头像下拉。
+      - 左侧菜单栏：宽度250px，可折叠，背景色浅灰，包含导航菜单项（作品列表、创作、AI优化、一键发布等），当前选中项高亮。
+      - 右侧内容区：剩余宽度，内边距20px，根据路由渲染不同页面。
+    </main_structure>
+    <page_descriptions>
+      <works_list_page>
+        - 顶部有“新增作品”按钮
+        - 作品网格/列表展示，每个卡片包含封面、书名、章节数、字数、修改时间，以及删除图标
+        - 点击卡片跳转至作品创作页的基本信息子页
+      </works_list_page>
+      <work_creation_page>
+        - 左侧为作品内部菜单（基本信息、分卷信息、章节信息），右侧为对应表单/列表
+        - 基本信息页：表单布局，包含各字段输入，封面图片上传组件
+        - 分卷信息页：分卷列表，每项可展开进入详细编辑页面（类似选项卡或新页面）
+        - 章节信息页：按卷折叠的章节树，点击章节进入详情编辑
+      </work_creation_page>
+      <ai_optimization_page>
+        - 左侧为优化步骤列表，每个步骤项显示名称，当前步骤高亮
+        - 右侧为步骤详情，分上下区域：上方为审阅信息（审阅提示词、结论），下方为原文与优化后文本对比区
+        - 提供“执行优化”按钮触发当前步骤
+        - 底部有“添加步骤”按钮，弹出模态框
+      </ai_optimization_page>
+      <publish_page>
+        - 表单布局：作品选择下拉、章节多选、字数输入框（附带“重新划分”按钮）、新章节列表预览、平台选择下拉、发布按钮
+        - 重新划分后，下方展示新章节列表（可编辑章节名）
+      </publish_page>
+    </page_descriptions>
+  </ui_layout>
+
+  <design_system>
+    <color_palette>
+      - 主色调：#2563eb (蓝色)，用于按钮、链接、选中状态
+      - 背景色：#f9fafb (浅灰)，内容区背景白色
+      - 文字色：#1f2937 (深灰)，辅助文字色：#6b7280
+      - 边框色：#e5e7eb
+      - 警示色：#ef4444 (删除按钮)
+    </color_palette>
+    <typography>
+      - 字体：系统默认无衬线字体 (Inter, -apple-system)
+      - 标题：font-semibold, text-lg
+      - 正文：font-normal, text-base
+    </typography>
+    <components>
+      - 按钮：圆角md，填充或边框样式，悬停加深
+      - 输入框：圆角md，边框，聚焦时主色环
+      - 卡片：圆角lg，阴影sm，悬停阴影md
+    </components>
+  </design_system>
+
+  <key_interactions>
+    <create_work_wizard>
+      1. 用户点击“新增作品”按钮
+      2. 弹出向导对话框，第一步选择作品类别
+      3. 第二步选择同类作品参考（多选）
+      4. 第三步填写作品信息（书名、简介等）以及每卷章节数、每章字数
+      5. 点击确认，前端组装数据，POST /api/works 创建作品，成功后跳转至作品创作页
+    </create_work_wizard>
+    <ai_optimization_flow>
+      1. 用户选择某步骤，点击“执行优化”
+      2. 前端将当前原文（来自上一优化步骤输出或原始内容）和步骤模板发送至后端，后端调用AI服务
+      3. 后端返回优化后文本和审阅结论，前端展示差异对比
+      4. 用户可继续下一步优化，数据自动传递
+    </ai_optimization_flow>
+    <publish_flow>
+      1. 用户选择作品和章节，输入目标字数，点击“重新划分”
+      2. 前端将章节内容发送至后端，后端调用AI（或本地算法）重新分割，并生成新章节名
+      3. 前端展示新章节列表，用户可编辑章节名
+      4. 用户选择平台，点击“发布”，后端执行异步发布任务，前端轮询状态更新
+    </publish_flow>
+  </key_interactions>
+
+  <implementation_steps>
+    <step number="1">
+      <title>项目初始化与基础架构</title>
+      <tasks>
+        - 初始化前端React+TypeScript+Vite项目，配置路由、状态管理、HTTP客户端
+        - 初始化后端Go项目，搭建Gin框架，配置数据库连接，实现JWT鉴权中间件
+        - 设计数据库表结构，编写迁移脚本
+        - 实现用户注册、登录、个人信息接口
+      </tasks>
+    </step>
+    <step number="2">
+      <title>作品列表与新增功能</title>
+      <tasks>
+        - 实现作品列表的UI组件（网格/列表视图）
+        - 实现作品列表接口（分页、筛选）
+        - 实现新增作品向导界面及后端接口
+        - 实现作品删除接口及前端交互
+      </tasks>
+    </step>
+    <step number="3">
+      <title>作品创作模块</title>
+      <tasks>
+        - 实现左侧内部菜单及路由嵌套
+        - 实现基本信息编辑页面及接口
+        - 实现分卷管理页面（列表、增删改）及接口
+        - 实现分卷详细子页面（各字段编辑）
+        - 实现章节管理页面（按卷分组、增删改）及接口
+        - 实现章节详细子页面（场景列表编辑）
+      </tasks>
+    </step>
+    <step number="4">
+      <title>AI优化模块</title>
+      <tasks>
+        - 实现优化步骤列表管理（增删改、排序）
+        - 实现步骤详情页面，集成文本对比组件
+        - 集成AI服务调用，实现优化执行接口
+        - 实现优化记录存储与回滚
+      </tasks>
+    </step>
+    <step number="5">
+      <title>一键发布模块</title>
+      <tasks>
+        - 实现发布页面UI（作品选择、章节选择、字数重划分）
+        - 实现字数重划分接口（调用AI或算法）
+        - 实现发布任务创建与状态查询接口
+        - 模拟对接番茄、起点等平台API（或实现占位逻辑）
+      </tasks>
+    </step>
+    <step number="6">
+      <title>通用功能与优化</title>
+      <tasks>
+        - 实现顶部通知栏及接口
+        - 实现用户信息下拉菜单
+        - 添加全局Loading、错误处理
+        - 响应式布局适配移动端
+        - 性能优化、代码分割
+      </tasks>
+    </step>
+  </implementation_steps>
+
+  <success_criteria>
+    <functionality>
+      - 所有核心功能（作品管理、创作、AI优化、发布）均能正常使用，无严重Bug
+      - AI优化步骤可配置、可执行，文本对比清晰
+      - 一键发布能正确重划分章节并调用发布接口
+    </functionality>
+    <user_experience>
+      - 界面布局符合需求，交互流畅，响应快速
+      - 导航清晰，用户能轻松找到所需功能
+      - 表单验证友好，操作有反馈
+    </user_experience>
+    <technical_quality>
+      - 代码结构清晰，符合团队规范
+      - API设计RESTful，文档完备
+      - 数据库设计合理，查询高效
+    </technical_quality>
+  </success_criteria>
+</project_specification>
