@@ -1,0 +1,51 @@
+.work-editor {
+  display: flex;
+  gap: 20px;
+  min-height: calc(100vh - 100px);
+
+  &-nav {
+    width: 200px;
+    background: var(--color-bg-white);
+    border-radius: var(--border-radius-lg);
+    padding: 20px;
+    height: fit-content;
+  }
+
+  &-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--color-text);
+  }
+
+  &-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .menu-item {
+      padding: 12px 16px;
+      text-align: left;
+      border-radius: var(--border-radius);
+      color: var(--color-text);
+      font-size: 14px;
+      transition: all 0.2s;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      &.active {
+        background: var(--color-primary);
+        color: white;
+      }
+    }
+  }
+
+  &-content {
+    flex: 1;
+    background: var(--color-bg-white);
+    border-radius: var(--border-radius-lg);
+    padding: 24px;
+  }
+}

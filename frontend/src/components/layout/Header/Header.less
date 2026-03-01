@@ -1,0 +1,74 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: var(--color-bg-white);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 100;
+
+  &-left {
+    flex: 1;
+  }
+
+  &-logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  &-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  &-work-select {
+    width: 200px;
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-bg-white);
+    cursor: pointer;
+  }
+
+  &-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+
+  &-notification {
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    &:hover {
+      color: var(--color-text);
+    }
+  }
+
+  &-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  &-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &-username {
+    font-size: 14px;
+    color: var(--color-text);
+  }
+}
