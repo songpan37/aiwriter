@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUserStore } from '@/store'
 import './Header.less'
@@ -5,6 +6,7 @@ import './Header.less'
 const Header = () => {
   const navigate = useNavigate()
   const { user, logout } = useUserStore()
+  const [showDropdown, setShowDropdown] = useState(false)
 
   const handleLogout = () => {
     logout()
@@ -28,13 +30,19 @@ const Header = () => {
             <path d="M13.73 21a2 2 0 0 1-3.46 0" />
           </svg>
         </span>
-        <div className="header-user">
+        <div className="header-user" onClick={() => setShowDropdown(!showDropdown)}>
           <img 
             src={user?.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=default'} 
             alt="avatar" 
             className="header-avatar"
           />
           <span className="header-username">{user?.username || '用户'}</span>
+          {showDropdown && (
+            <div className="header-dropdown">
+              <div className="header-dropdown-item">个人设置</div>
+              <div className="header-dropdown-item" onClick={handleLogout}>退出登录</div>
+            </div>
+          )}
         </div>
       </div>
     </header>

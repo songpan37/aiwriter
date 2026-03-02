@@ -14,14 +14,14 @@ import (
 )
 
 type Service struct {
-	repos  *repository.Repositories
-	config *config.Config
+	Repos  *repository.Repositories
+	Config *config.Config
 }
 
 func NewServices(repos *repository.Repositories, cfg *config.Config) *Service {
 	return &Service{
-		repos:  repos,
-		config: cfg,
+		Repos:  repos,
+		Config: cfg,
 	}
 }
 

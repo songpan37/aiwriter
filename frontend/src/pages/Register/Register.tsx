@@ -27,7 +27,7 @@ const Register = () => {
 
     try {
       const { confirmPassword, ...data } = formData
-      const response = await api.post('/auth/register', data)
+      const response = await api.post('/auth/register', data) as {code: number, message: string}
       if (response.code === 0) {
         navigate('/login')
       } else {

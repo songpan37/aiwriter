@@ -4,12 +4,11 @@ import (
 	"log"
 
 	"aiwriter/api/v1"
-	"aiwrit
 	"aiwriter/internal/config"
 	"aiwriter/internal/handler"
 	"aiwriter/internal/middleware"
 	"aiwriter/internal/repository"
-	"aiwriter/api/v1"
+	"aiwriter/internal/service"
 
 	"github.com/gin-gonic/gin"
 )

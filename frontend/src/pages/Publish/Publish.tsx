@@ -7,6 +7,14 @@ const Publish = () => {
   const [targetWordCount, setTargetWordCount] = useState(2000)
   const [selectedPlatform, setSelectedPlatform] = useState('')
 
+  const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setSelectedChapters([1, 2, 3])
+    } else {
+      setSelectedChapters([])
+    }
+  }
+
   return (
     <div className="publish">
       <h2 className="publish-title">一键发布</h2>
@@ -23,10 +31,10 @@ const Publish = () => {
         </div>
 
         <div className="form-field">
-          <label>选择章节</label>
+          <label>选择章节 ({selectedChapters.length}章)</label>
           <div className="chapter-select">
             <label className="chapter-checkbox">
-              <input type="checkbox" /> 全选
+              <input type="checkbox" onChange={handleSelectAll} /> 全选
             </label>
           </div>
         </div>

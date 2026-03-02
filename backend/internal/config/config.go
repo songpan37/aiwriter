@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"gorm.io/driver/mysql"
-	
+	"gorm.io/gorm"
 )
 
 type Config struct {

@@ -25,7 +25,7 @@ const WorksList = () => {
 
   const loadWorks = async () => {
     try {
-      const response = await api.get('/works')
+      const response = await api.get('/works') as {code: number, data: {list: Work[]}}
       if (response.code === 0) {
         setWorks(response.data.list || [])
       }

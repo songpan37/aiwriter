@@ -14,7 +14,7 @@ const WorkEditor = () => {
   return (
     <div className="work-editor">
       <div className="work-editor-nav">
-        <h3 className="work-editor-title">作品编辑</h3>
+        <h3 className="work-editor-title">作品编辑 {workId ? `#${workId}` : ''}</h3>
         <nav className="work-editor-menu">
           {menuItems.map((item) => (
             <button

@@ -20,7 +20,7 @@ const Login = () => {
     setLoading(true)
 
     try {
-      const response = await api.post('/auth/login', formData)
+      const response = await api.post('/auth/login', formData) as {code: number, message: string, data: {token: string, user: any}}
       if (response.code === 0) {
         setToken(response.data.token)
         setUser(response.data.user)
