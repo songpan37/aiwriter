@@ -12,6 +12,10 @@ func RegisterRoutes(r *gin.RouterGroup, h *handler.Handler) {
 		auth.POST("/register", h.Register)
 		auth.POST("/login", h.Login)
 	}
+}
+
+func RegisterProtectedRoutes(r *gin.RouterGroup, h *handler.Handler) {
+	r.GET("/profile", h.GetProfile)
 
 	works := r.Group("/works")
 	{
@@ -20,11 +24,17 @@ func RegisterRoutes(r *gin.RouterGroup, h *handler.Handler) {
 		works.GET("/:id", h.GetWork)
 		works.PUT("/:id", h.UpdateWork)
 		works.DELETE("/:id", h.DeleteWork)
-		works.GET("/:workId/volumes", h.GetVolumes)
-		works.POST("/:workId/volumes", h.CreateVolume)
-		works.GET("/:workId/chapters", h.GetChapters)
-		works.POST("/:workId/chapters", h.CreateChapter)
 	}
 
-	r.GET("/profile", h.GetProfile)
+	workVolumes := r.Group("/works/:id/volumes")
+	{
+		workVolumes.GET("", h.GetVolumes)
+		workVolumes.POST("", h.CreateVolume)
+	}
+
+	workChapters := r.Group("/works/:id/chapters")
+	{
+		workChapters.GET("", h.GetChapters)
+		workChapters.POST("", h.CreateChapter)
+	}
 }

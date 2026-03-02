@@ -7,6 +7,7 @@ import (
 	"aiwriter/internal/config"
 	"aiwriter/internal/handler"
 	"aiwriter/internal/middleware"
+	"aiwriter/internal/model"
 	"aiwriter/internal/repository"
 	"aiwriter/internal/service"
 
@@ -21,6 +22,23 @@ func main() {
 		log.Fatalf("Failed to connect database: %v", err)
 	}
 
+	err = db.AutoMigrate(
+		&model.User{},
+		&model.WorkCategory{},
+		&model.Work{},
+		&model.Volume{},
+		&model.Chapter{},
+		&model.Scene{},
+		&model.OptimizationStep{},
+		&model.OptimizationRecord{},
+		&model.PublishTask{},
+		&model.Notification{},
+	)
+	if err != nil {
+		log.Fatalf("Failed to migrate database: %v", err)
+	}
+	log.Println("Database migration completed")
+
 	repos := repository.NewRepositories(db)
 	services := service.NewServices(repos, cfg)
 	handlers := handler.NewHandlers(services)
@@ -30,9 +48,17 @@ func main() {
 	r.Use(middleware.Recovery())
 
 	apiV1 := r.Group("/api/v1")
-	apiV1.Use(middleware.Auth(cfg.JWTSecret))
+
+	auth := apiV1.Group("/auth")
 	{
-		v1.RegisterRoutes(apiV1, handlers)
+		auth.POST("/register", handlers.Register)
+		auth.POST("/login", handlers.Login)
+	}
+
+	protected := apiV1.Group("")
+	protected.Use(middleware.Auth(cfg.JWTSecret))
+	{
+		v1.RegisterProtectedRoutes(protected, handlers)
 	}
 
 	r.GET("/health", func(c *gin.Context) {

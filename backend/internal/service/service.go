@@ -38,14 +38,20 @@ func NewAuthService(repos *repository.Repositories, cfg *config.Config) *AuthSer
 }
 
 func (s *AuthService) Register(req *request.RegisterRequest) (*response.LoginResponse, error) {
-	existingUser, _ := s.repos.User.FindByUsername(req.Username)
-	if existingUser != nil {
+	existingUser, err := s.repos.User.FindByUsername(req.Username)
+	if err == nil && existingUser != nil {
 		return nil, errors.New("username already exists")
 	}
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, err
+	}
 
-	existingEmail, _ := s.repos.User.FindByEmail(req.Email)
-	if existingEmail != nil {
+	existingEmail, err := s.repos.User.FindByEmail(req.Email)
+	if err == nil && existingEmail != nil {
 		return nil, errors.New("email already exists")
+	}
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, err
 	}
 
 	hashedPassword, err := utils.HashPassword(req.Password)

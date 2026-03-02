@@ -1,11 +1,15 @@
 import axios from 'axios'
 
-const MOCK_MODE = true
+const MOCK_MODE = false
 
 const mockResponses: Record<string, {code: number, message: string, data?: any}> = {
   '/auth/login': { code: 0, message: 'success', data: { token: 'mock-token-123', user: { id: 1, username: 'testuser', email: 'test@example.com', avatar: '' } } },
   '/auth/register': { code: 0, message: 'success' },
   '/works': { code: 0, data: { list: [], pagination: { page: 1, pageSize: 10, total: 0, totalPages: 0 } } },
+}
+
+const mockErrorResponses: Record<string, {code: number, message: string}> = {
+  '/auth/login': { code: 2001, message: '用户名或密码错误' },
 }
 
 const api = axios.create({
@@ -53,8 +57,16 @@ api.get = async (url: string, config?: any) => {
 }
 
 api.post = async (url: string, data?: any, config?: any) => {
-  if (MOCK_MODE && mockResponses[url]) {
-    return mockResponses[url]
+  if (MOCK_MODE) {
+    if (url === '/auth/login') {
+      if (data?.password === 'wrongpassword') {
+        return mockErrorResponses['/auth/login']
+      }
+      return mockResponses['/auth/login']
+    }
+    if (mockResponses[url]) {
+      return mockResponses[url]
+    }
   }
   return originalPost(url, data, config)
 }

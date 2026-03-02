@@ -39,6 +39,13 @@ func getEnv(key, defaultValue string) string {
 }
 
 func InitDB(cfg *Config) (*gorm.DB, error) {
-	dsn := cfg.DBUser + ":" + cfg.DBPassword + "@tcp(" + cfg.DBHost + ":" + cfg.DBPort + ")/" + cfg.DBName + "?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := cfg.DBUser + ":" + cfg.DBPassword + "@tcp(" + cfg.DBHost + ":" + cfg.DBPort + ")/?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		return nil, err
+	}
+	db.Exec("CREATE DATABASE IF NOT EXISTS " + cfg.DBName + " CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+	db.Exec("USE " + cfg.DBName)
+	dsn = cfg.DBUser + ":" + cfg.DBPassword + "@tcp(" + cfg.DBHost + ":" + cfg.DBPort + ")/" + cfg.DBName + "?charset=utf8mb4&parseTime=True&loc=Local"
 	return gorm.Open(mysql.Open(dsn), &gorm.Config{})
 }
