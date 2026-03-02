@@ -6,7 +6,7 @@
 
 1. **Read Project Specification**
    - Read `prompts/app_spec.txt` to understand the AI写作辅助系统 project
-   - Technology stack: React 18 + TypeScript + Vite (Frontend), Go 1.20+ + Gin (Backend), MySQL/PostgreSQL
+   - Technology stack: React 18 + TypeScript + Vite (Frontend), Go 1.20+ + Gin (Backend), MySQL/MySQL
 
 2. **Created feature_list.json**
    - Created 200+ detailed end-to-end test cases

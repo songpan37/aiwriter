@@ -35,13 +35,16 @@ for the application you're building.
 
 ### STEP 2: START SERVERS (IF NOT RUNNING)
 
-If `init.sh` exists, run it:
+If os is linux and `init.sh` exists, run it:
 ```bash
 chmod +x init.sh
 ./init.sh
 ```
+If os is windows and `init.bat`, exists, run it instead.
 
 Otherwise, start servers manually and document the process.
+
+Read `prompts/test_env.md` to find test environment configs.
 
 ### STEP 3: VERIFICATION TEST (CRITICAL!)
 

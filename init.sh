@@ -99,7 +99,7 @@ print_info() {
     echo "backend/  - Go + Gin application"
     echo ""
     echo "=== Database Setup ==="
-    echo "Ensure MySQL/PostgreSQL is running and configure database connection in backend/.env"
+    echo "Ensure MySQL is running and configure database connection in backend/.env"
     echo ""
     echo "=== Next Steps ==="
     echo "1. Configure database connection in backend/.env"

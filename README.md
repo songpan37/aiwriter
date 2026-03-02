@@ -16,7 +16,7 @@
 ### 后端
 - Go 1.20+
 - 框架: Gin / Echo
-- 数据库: MySQL / PostgreSQL
+- 数据库: MySQL / MySQL
 - ORM: GORM
 - 认证: JWT
 - AI集成: OpenAI API / 自研模型接口
@@ -69,7 +69,7 @@ aiwriter/
 
 - Node.js 16+
 - Go 1.20+
-- MySQL 8.0+ 或 PostgreSQL 14+
+- MySQL 8.0+ 或 MySQL 14+
 - pnpm 或 npm
 
 ### 安装步骤
