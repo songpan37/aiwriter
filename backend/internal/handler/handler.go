@@ -20,9 +20,9 @@ type Handler struct {
 func NewHandlers(services *service.Service) *Handler {
 	return &Handler{
 		authService:    service.NewAuthService(services.Repos, services.Config),
-		workService:    service.NewWorkService(services.Repos),
+		workService:    service.NewWorkService(services.Repos, services.Store),
 		volumeService:  service.NewVolumeService(services.Repos),
-		chapterService: service.NewChapterService(services.Repos),
+		chapterService: service.NewChapterService(services.Repos, services.Store),
 	}
 }
 

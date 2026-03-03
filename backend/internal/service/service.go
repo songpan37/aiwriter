@@ -2,26 +2,30 @@ package service
 
 import (
 	"errors"
+	"fmt"
+	"time"
 
 	"aiwriter/internal/config"
 	"aiwriter/internal/dto/request"
 	"aiwriter/internal/dto/response"
 	"aiwriter/internal/model"
 	"aiwriter/internal/repository"
+	"aiwriter/internal/storage"
 	"aiwriter/pkg/utils"
-
-	"gorm.io/gorm"
 )
 
 type Service struct {
 	Repos  *repository.Repositories
 	Config *config.Config
+	Store  storage.Storage
 }
 
-func NewServices(repos *repository.Repositories, cfg *config.Config) *Service {
+func NewServices(cfg *config.Config, store storage.Storage) *Service {
+	repos := repository.NewRepositories(store)
 	return &Service{
 		Repos:  repos,
 		Config: cfg,
+		Store:  store,
 	}
 }
 
@@ -38,20 +42,14 @@ func NewAuthService(repos *repository.Repositories, cfg *config.Config) *AuthSer
 }
 
 func (s *AuthService) Register(req *request.RegisterRequest) (*response.LoginResponse, error) {
-	existingUser, err := s.repos.User.FindByUsername(req.Username)
-	if err == nil && existingUser != nil {
+	_, err := s.repos.User.FindByUsername(req.Username)
+	if err == nil {
 		return nil, errors.New("username already exists")
 	}
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, err
-	}
 
-	existingEmail, err := s.repos.User.FindByEmail(req.Email)
-	if err == nil && existingEmail != nil {
+	_, err = s.repos.User.FindByEmail(req.Email)
+	if err == nil {
 		return nil, errors.New("email already exists")
-	}
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, err
 	}
 
 	hashedPassword, err := utils.HashPassword(req.Password)
@@ -60,9 +58,11 @@ func (s *AuthService) Register(req *request.RegisterRequest) (*response.LoginRes
 	}
 
 	user := &model.User{
-		Username: req.Username,
-		Password: hashedPassword,
-		Email:    req.Email,
+		Username:  req.Username,
+		Password:  hashedPassword,
+		Email:     req.Email,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 
 	if err := s.repos.User.Create(user); err != nil {
@@ -80,7 +80,7 @@ func (s *AuthService) Register(req *request.RegisterRequest) (*response.LoginRes
 			ID:       user.ID,
 			Username: user.Username,
 			Email:    user.Email,
-			Avatar:   user.Avatar,
+			Avatar:   user.AvatarKey,
 		},
 	}, nil
 }
@@ -88,10 +88,7 @@ func (s *AuthService) Register(req *request.RegisterRequest) (*response.LoginRes
 func (s *AuthService) Login(req *request.LoginRequest) (*response.LoginResponse, error) {
 	user, err := s.repos.User.FindByUsername(req.Username)
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, errors.New("invalid username or password")
-		}
-		return nil, err
+		return nil, errors.New("invalid username or password")
 	}
 
 	if !utils.CheckPassword(req.Password, user.Password) {
@@ -109,31 +106,41 @@ func (s *AuthService) Login(req *request.LoginRequest) (*response.LoginResponse,
 			ID:       user.ID,
 			Username: user.Username,
 			Email:    user.Email,
-			Avatar:   user.Avatar,
+			Avatar:   user.AvatarKey,
 		},
 	}, nil
 }
 
 type WorkService struct {
 	repos *repository.Repositories
+	store storage.Storage
 }
 
-func NewWorkService(repos *repository.Repositories) *WorkService {
-	return &WorkService{repos: repos}
+func NewWorkService(repos *repository.Repositories, store storage.Storage) *WorkService {
+	return &WorkService{repos: repos, store: store}
 }
 
 func (s *WorkService) Create(userID uint, req *request.CreateWorkRequest) (*model.Work, error) {
+	contentKey := fmt.Sprintf("works/%d/%d/content.json", userID, time.Now().Unix())
+
 	work := &model.Work{
 		UserID:     userID,
 		CategoryID: req.CategoryID,
 		Title:      req.Title,
-		Cover:      req.Cover,
+		CoverKey:   req.Cover,
+		ContentKey: contentKey,
 		Intro:      req.Intro,
+		Status:     0,
+		CreatedAt:  time.Now(),
+		UpdatedAt:  time.Now(),
 	}
 
 	if err := s.repos.Work.Create(work); err != nil {
 		return nil, err
 	}
+
+	initialContent := map[string]interface{}{"chapters": []interface{}{}}
+	s.store.PutMeta(nil, contentKey, initialContent)
 
 	return work, nil
 }
@@ -149,7 +156,7 @@ func (s *WorkService) GetList(userID uint, page, pageSize int) (*response.WorkLi
 		workResponses = append(workResponses, response.WorkResponse{
 			ID:           work.ID,
 			Title:        work.Title,
-			Cover:        work.Cover,
+			Cover:        work.CoverKey,
 			ChapterCount: work.ChapterCount,
 			WordCount:    work.WordCount,
 			UpdatedAt:    work.UpdatedAt,
@@ -186,12 +193,13 @@ func (s *WorkService) Update(id uint, req *request.UpdateWorkRequest) (*model.Wo
 		work.Title = req.Title
 	}
 	if req.Cover != "" {
-		work.Cover = req.Cover
+		work.CoverKey = req.Cover
 	}
 	if req.Intro != "" {
 		work.Intro = req.Intro
 	}
 
+	work.UpdatedAt = time.Now()
 	if err := s.repos.Work.Update(work); err != nil {
 		return nil, err
 	}
@@ -217,6 +225,8 @@ func (s *VolumeService) Create(workID uint, req *request.CreateVolumeRequest) (*
 		VolumeIndex: req.VolumeIndex,
 		Title:       req.Title,
 		Summary:     req.Summary,
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
 	}
 
 	if err := s.repos.Volume.Create(volume); err != nil {
@@ -243,6 +253,7 @@ func (s *VolumeService) Update(id uint, req *request.UpdateVolumeRequest) (*mode
 		volume.Summary = req.Summary
 	}
 
+	volume.UpdatedAt = time.Now()
 	if err := s.repos.Volume.Update(volume); err != nil {
 		return nil, err
 	}
@@ -256,27 +267,37 @@ func (s *VolumeService) Delete(id uint) error {
 
 type ChapterService struct {
 	repos *repository.Repositories
+	store storage.Storage
 }
 
-func NewChapterService(repos *repository.Repositories) *ChapterService {
-	return &ChapterService{repos: repos}
+func NewChapterService(repos *repository.Repositories, store storage.Storage) *ChapterService {
+	return &ChapterService{repos: repos, store: store}
 }
 
 func (s *ChapterService) Create(workID uint, req *request.CreateChapterRequest) (*model.Chapter, error) {
+	contentKey := fmt.Sprintf("works/%d/chapters/%d/content.json", workID, time.Now().Unix())
+
 	chapter := &model.Chapter{
 		WorkID:       workID,
 		VolumeID:     req.VolumeID,
 		ChapterIndex: req.ChapterIndex,
 		Title:        req.Title,
+		ContentKey:   contentKey,
 		Summary:      req.Summary,
 		TimeSpace:    req.TimeSpace,
 		Characters:   req.Characters,
 		Scenes:       req.Scenes,
+		Status:       0,
+		CreatedAt:    time.Now(),
+		UpdatedAt:    time.Now(),
 	}
 
 	if err := s.repos.Chapter.Create(chapter); err != nil {
 		return nil, err
 	}
+
+	initialContent := map[string]interface{}{"content": ""}
+	s.store.PutMeta(nil, contentKey, initialContent)
 
 	return chapter, nil
 }
@@ -302,6 +323,7 @@ func (s *ChapterService) Update(id uint, req *request.UpdateChapterRequest) (*mo
 		chapter.Summary = req.Summary
 	}
 
+	chapter.UpdatedAt = time.Now()
 	if err := s.repos.Chapter.Update(chapter); err != nil {
 		return nil, err
 	}

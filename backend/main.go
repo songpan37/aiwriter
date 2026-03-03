@@ -7,9 +7,8 @@ import (
 	"aiwriter/internal/config"
 	"aiwriter/internal/handler"
 	"aiwriter/internal/middleware"
-	"aiwriter/internal/model"
-	"aiwriter/internal/repository"
 	"aiwriter/internal/service"
+	"aiwriter/internal/storage"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,30 +16,26 @@ import (
 func main() {
 	cfg := config.Load()
 
-	db, err := config.InitDB(cfg)
-	if err != nil {
-		log.Fatalf("Failed to connect database: %v", err)
+	var store storage.Storage
+	if cfg.UseLocalStorage {
+		store = storage.NewLocalStorage("./data")
+		log.Println("Using local storage")
+	} else {
+		s3Client, err := storage.NewS3Client(
+			cfg.S3Endpoint,
+			cfg.S3Region,
+			cfg.S3Bucket,
+			cfg.S3AccessKey,
+			cfg.S3SecretKey,
+		)
+		if err != nil {
+			log.Fatalf("Failed to initialize S3 client: %v", err)
+		}
+		store = s3Client
+		log.Println("S3 client initialized")
 	}
 
-	err = db.AutoMigrate(
-		&model.User{},
-		&model.WorkCategory{},
-		&model.Work{},
-		&model.Volume{},
-		&model.Chapter{},
-		&model.Scene{},
-		&model.OptimizationStep{},
-		&model.OptimizationRecord{},
-		&model.PublishTask{},
-		&model.Notification{},
-	)
-	if err != nil {
-		log.Fatalf("Failed to migrate database: %v", err)
-	}
-	log.Println("Database migration completed")
-
-	repos := repository.NewRepositories(db)
-	services := service.NewServices(repos, cfg)
+	services := service.NewServices(cfg, store)
 	handlers := handler.NewHandlers(services)
 
 	r := gin.Default()

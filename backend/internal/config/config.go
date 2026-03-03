@@ -2,32 +2,31 @@ package config
 
 import (
 	"os"
-
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 )
 
 type Config struct {
-	ServerPort string
-	DBHost     string
-	DBPort     string
-	DBUser     string
-	DBPassword string
-	DBName     string
-	JWTSecret  string
-	AIAPIKey   string
+	ServerPort      string
+	JWTSecret       string
+	AIAPIKey        string
+	S3Endpoint      string
+	S3Region        string
+	S3Bucket        string
+	S3AccessKey     string
+	S3SecretKey     string
+	UseLocalStorage bool
 }
 
 func Load() *Config {
 	return &Config{
-		ServerPort: getEnv("SERVER_PORT", "8080"),
-		DBHost:     getEnv("DB_HOST", "localhost"),
-		DBPort:     getEnv("DB_PORT", "3306"),
-		DBUser:     getEnv("DB_USER", "root"),
-		DBPassword: getEnv("DB_PASSWORD", ""),
-		DBName:     getEnv("DB_NAME", "aiwriter"),
-		JWTSecret:  getEnv("JWT_SECRET", "your-secret-key"),
-		AIAPIKey:   getEnv("AI_API_KEY", ""),
+		ServerPort:      getEnv("SERVER_PORT", "8080"),
+		JWTSecret:       getEnv("JWT_SECRET", "your-secret-key"),
+		AIAPIKey:        getEnv("AI_API_KEY", ""),
+		S3Endpoint:      getEnv("S3_ENDPOINT", "obs.cn-north-4.myhuaweicloud.com"),
+		S3Region:        getEnv("S3_REGION", "cn-north-4"),
+		S3Bucket:        getEnv("S3_BUCKET", "aiwriter-content"),
+		S3AccessKey:     getEnv("S3_ACCESS_KEY", "HPUA6DXH1UEYENA0NGEO"),
+		S3SecretKey:     getEnv("S3_SECRET_KEY", "HTx7WLVnpbyR6PQaDhVNw6UhOoqEN5kkWJvdLBxB"),
+		UseLocalStorage: getEnv("USE_LOCAL_STORAGE", "true") == "true",
 	}
 }
 
@@ -36,16 +35,4 @@ func getEnv(key, defaultValue string) string {
 		return value
 	}
 	return defaultValue
-}
-
-func InitDB(cfg *Config) (*gorm.DB, error) {
-	dsn := cfg.DBUser + ":" + cfg.DBPassword + "@tcp(" + cfg.DBHost + ":" + cfg.DBPort + ")/?charset=utf8mb4&parseTime=True&loc=Local"
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	if err != nil {
-		return nil, err
-	}
-	db.Exec("CREATE DATABASE IF NOT EXISTS " + cfg.DBName + " CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
-	db.Exec("USE " + cfg.DBName)
-	dsn = cfg.DBUser + ":" + cfg.DBPassword + "@tcp(" + cfg.DBHost + ":" + cfg.DBPort + ")/" + cfg.DBName + "?charset=utf8mb4&parseTime=True&loc=Local"
-	return gorm.Open(mysql.Open(dsn), &gorm.Config{})
 }
