@@ -22,5 +22,5 @@ C:\Users\Song Pan\AppData\Roaming\go\env
 
 go 查看可用版本：
 ```
-go list -m -versions github.com/aws/aws-sdk-go-v2
+github.com/aws/aws-sdk-go-v2
 ```

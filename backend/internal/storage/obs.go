@@ -8,12 +8,10 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 	"sync"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/credentials"
-	"github.com/aws/aws-sdk-go-v2/service/s3"
+	"github.com/huaweicloud/huaweicloud-sdk-go-obs/obs"
 )
 
 type Storage interface {
@@ -24,11 +22,11 @@ type Storage interface {
 	ObjectExists(ctx context.Context, key string) (bool, error)
 	GetMeta(ctx context.Context, key string, v interface{}) error
 	PutMeta(ctx context.Context, key string, v interface{}) error
-	DeleteMeta(ctx context.Context, key string) error
+	DeleteMeta(ctx context.Context, key string, v interface{}) error
 }
 
-type S3Client struct {
-	client *s3.Client
+type OBSClient struct {
+	client *obs.ObsClient
 	bucket string
 	mu     sync.RWMutex
 	cache  map[string]interface{}
@@ -121,99 +119,107 @@ func (s *LocalStorage) PutMeta(ctx context.Context, key string, v interface{}) e
 	return s.PutObject(ctx, key, data)
 }
 
-func (s *LocalStorage) DeleteMeta(ctx context.Context, key string) error {
+func (s *LocalStorage) DeleteMeta(ctx context.Context, key string, v interface{}) error {
 	return s.DeleteObject(ctx, key)
 }
 
-func NewS3Client(endpoint, region, bucket, accessKey, secretKey string) (*S3Client, error) {
-	awsEndpoint := fmt.Sprintf("https://%s", endpoint)
-
-	customResolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
-		return aws.Endpoint{
-			URL:               awsEndpoint,
-			HostnameImmutable: true,
-		}, nil
-	})
-
-	awsCfg, err := config.LoadDefaultConfig(context.TODO(),
-		config.WithRegion(region),
-		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(accessKey, secretKey, "")),
-		config.WithEndpointResolverWithOptions(customResolver),
-	)
+func NewOBSClient(endpoint, region, bucket, accessKey, secretKey string) (*OBSClient, error) {
+	obsClient, err := obs.New(accessKey, secretKey, endpoint, obs.WithSignature(obs.SignatureObs))
 	if err != nil {
-		return nil, fmt.Errorf("failed to load AWS config: %w", err)
+		return nil, fmt.Errorf("failed to create OBS client: %w", err)
 	}
 
-	client := s3.NewFromConfig(awsCfg, func(o *s3.Options) {
-		o.UsePathStyle = true
-	})
+	createBucketInput := &obs.CreateBucketInput{}
+	createBucketInput.Bucket = bucket
+	createBucketInput.Location = region
+	_, err = obsClient.CreateBucket(createBucketInput)
+	if err != nil {
+		errMsg := err.Error()
+		if !strings.Contains(errMsg, "NoSuchBucket") && !strings.Contains(errMsg, "BucketAlreadyExists") {
+			return nil, fmt.Errorf("failed to create bucket: %w", err)
+		}
+	}
 
-	return &S3Client{
-		client: client,
+	return &OBSClient{
+		client: obsClient,
 		bucket: bucket,
 		cache:  make(map[string]interface{}),
 	}, nil
 }
 
-func (s *S3Client) PutObject(ctx context.Context, key string, data []byte) error {
-	_, err := s.client.PutObject(ctx, &s3.PutObjectInput{
-		Bucket: aws.String(s.bucket),
-		Key:    aws.String(key),
-		Body:   bytes.NewReader(data),
-	})
-	return err
-}
+func (s *OBSClient) PutObject(ctx context.Context, key string, data []byte) error {
+	input := &obs.PutObjectInput{}
+	input.Bucket = s.bucket
+	input.Key = key
+	input.Body = bytes.NewReader(data)
 
-func (s *S3Client) GetObject(ctx context.Context, key string) ([]byte, error) {
-	result, err := s.client.GetObject(ctx, &s3.GetObjectInput{
-		Bucket: aws.String(s.bucket),
-		Key:    aws.String(key),
-	})
+	_, err := s.client.PutObject(input)
 	if err != nil {
-		return nil, err
+		return fmt.Errorf("failed to put object: %w", err)
 	}
-	defer result.Body.Close()
-	return io.ReadAll(result.Body)
+	return nil
 }
 
-func (s *S3Client) DeleteObject(ctx context.Context, key string) error {
-	_, err := s.client.DeleteObject(ctx, &s3.DeleteObjectInput{
-		Bucket: aws.String(s.bucket),
-		Key:    aws.String(key),
-	})
-	return err
-}
+func (s *OBSClient) GetObject(ctx context.Context, key string) ([]byte, error) {
+	input := &obs.GetObjectInput{}
+	input.Bucket = s.bucket
+	input.Key = key
 
-func (s *S3Client) ListObjects(ctx context.Context, prefix string) ([]string, error) {
-	result, err := s.client.ListObjectsV2(ctx, &s3.ListObjectsV2Input{
-		Bucket: aws.String(s.bucket),
-		Prefix: aws.String(prefix),
-	})
+	output, err := s.client.GetObject(input)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to get object: %w", err)
+	}
+	defer output.Body.Close()
+
+	data, err := io.ReadAll(output.Body)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read object body: %w", err)
+	}
+	return data, nil
+}
+
+func (s *OBSClient) DeleteObject(ctx context.Context, key string) error {
+	input := &obs.DeleteObjectInput{}
+	input.Bucket = s.bucket
+	input.Key = key
+
+	_, err := s.client.DeleteObject(input)
+	if err != nil {
+		return fmt.Errorf("failed to delete object: %w", err)
+	}
+	return nil
+}
+
+func (s *OBSClient) ListObjects(ctx context.Context, prefix string) ([]string, error) {
+	input := &obs.ListObjectsInput{}
+	input.Bucket = s.bucket
+	input.Prefix = prefix
+
+	output, err := s.client.ListObjects(input)
+	if err != nil {
+		return nil, fmt.Errorf("failed to list objects: %w", err)
 	}
 
-	keys := make([]string, 0, len(result.Contents))
-	for _, obj := range result.Contents {
-		if obj.Key != nil {
-			keys = append(keys, *obj.Key)
-		}
+	keys := make([]string, 0, len(output.Contents))
+	for _, obj := range output.Contents {
+		keys = append(keys, obj.Key)
 	}
 	return keys, nil
 }
 
-func (s *S3Client) ObjectExists(ctx context.Context, key string) (bool, error) {
-	_, err := s.client.HeadObject(ctx, &s3.HeadObjectInput{
-		Bucket: aws.String(s.bucket),
-		Key:    aws.String(key),
-	})
+func (s *OBSClient) ObjectExists(ctx context.Context, key string) (bool, error) {
+	input := &obs.HeadObjectInput{}
+	input.Bucket = s.bucket
+	input.Key = key
+
+	_, err := s.client.HeadObject(input)
 	if err != nil {
 		return false, nil
 	}
 	return true, nil
 }
 
-func (s *S3Client) GetMeta(ctx context.Context, key string, v interface{}) error {
+func (s *OBSClient) GetMeta(ctx context.Context, key string, v interface{}) error {
 	data, err := s.GetObject(ctx, key)
 	if err != nil {
 		return err
@@ -221,7 +227,7 @@ func (s *S3Client) GetMeta(ctx context.Context, key string, v interface{}) error
 	return json.Unmarshal(data, v)
 }
 
-func (s *S3Client) PutMeta(ctx context.Context, key string, v interface{}) error {
+func (s *OBSClient) PutMeta(ctx context.Context, key string, v interface{}) error {
 	data, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -229,7 +235,7 @@ func (s *S3Client) PutMeta(ctx context.Context, key string, v interface{}) error
 	return s.PutObject(ctx, key, data)
 }
 
-func (s *S3Client) DeleteMeta(ctx context.Context, key string) error {
+func (s *OBSClient) DeleteMeta(ctx context.Context, key string, v interface{}) error {
 	return s.DeleteObject(ctx, key)
 }
 

@@ -21,7 +21,7 @@ func main() {
 		store = storage.NewLocalStorage("./data")
 		log.Println("Using local storage")
 	} else {
-		s3Client, err := storage.NewS3Client(
+		obsClient, err := storage.NewOBSClient(
 			cfg.S3Endpoint,
 			cfg.S3Region,
 			cfg.S3Bucket,
@@ -29,10 +29,10 @@ func main() {
 			cfg.S3SecretKey,
 		)
 		if err != nil {
-			log.Fatalf("Failed to initialize S3 client: %v", err)
+			log.Fatalf("Failed to initialize OBS client: %v", err)
 		}
-		store = s3Client
-		log.Println("S3 client initialized")
+		store = obsClient
+		log.Println("OBS client initialized")
 	}
 
 	services := service.NewServices(cfg, store)

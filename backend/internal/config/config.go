@@ -2,6 +2,8 @@ package config
 
 import (
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -17,6 +19,8 @@ type Config struct {
 }
 
 func Load() *Config {
+	godotenv.Load()
+
 	return &Config{
 		ServerPort:      getEnv("SERVER_PORT", "8080"),
 		JWTSecret:       getEnv("JWT_SECRET", "your-secret-key"),
