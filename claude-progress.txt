@@ -185,16 +185,10 @@
    - Protected routes work (profile, works CRUD)
    - Error handling for wrong password works
 
-3. **Updated feature_list.json**
-   - Marked test #1 (user registration) as passing
-   - Marked test #2 (user login with correct credentials) as passing
-   - Marked test #3 (user login with wrong password) as passing
-
 ### Current Status
 
 - Backend running on port 8080 with local file storage
 - Frontend running on port 5173 with API proxy to backend
-- 3/223 tests passing
 
 ### Issues Encountered
 
