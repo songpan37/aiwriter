@@ -1,0 +1,48 @@
+{
+  "users": {
+    "1": {
+      "id": 1,
+      "username": "testuser",
+      "email": "test@example.com",
+      "avatar_key": "",
+      "created_at": "2026-03-03T15:35:10.2966161+08:00",
+      "updated_at": "2026-03-03T15:35:10.2966161+08:00"
+    },
+    "2": {
+      "id": 2,
+      "username": "testuser2",
+      "email": "test2@example.com",
+      "avatar_key": "",
+      "created_at": "2026-03-03T15:37:03.9586221+08:00",
+      "updated_at": "2026-03-03T15:37:03.9586221+08:00"
+    }
+  },
+  "works": {
+    "1": {
+      "id": 1,
+      "user_id": 1,
+      "category_id": 1,
+      "title": "Test Work",
+      "cover_key": "",
+      "content_key": "works/1/1772523485/content.json",
+      "intro": "Test intro",
+      "chapter_count": 0,
+      "word_count": 0,
+      "status": 0,
+      "created_at": "2026-03-03T15:38:05.0007478+08:00",
+      "updated_at": "2026-03-03T15:38:05.0007478+08:00"
+    }
+  },
+  "volumes": {},
+  "chapters": {},
+  "categories": {},
+  "next_ids": {
+    "category": 1,
+    "chapter": 1,
+    "optimization": 1,
+    "publish_task": 1,
+    "user": 3,
+    "volume": 1,
+    "work": 2
+  }
+}

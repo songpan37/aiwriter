@@ -1,6 +1,6 @@
 # AI Writer 开发规范文档
 
-本文档为AI写作辅助系统提供统一的开发规范，涵盖前后端目录结构、命名规范、API定义规范以及数据库设计规范。
+本文档为AI写作辅助系统提供统一的开发规范，涵盖前后端目录结构、命名规范、API定义规范以及S3存储设计规范。
 
 ---
 
@@ -179,9 +179,8 @@ backend/
 │       ├── works.go
 │       └── ...
 │
-├── migrations/                # 数据库迁移
-│   └── 001_init.sql
-│
+├── storage/                     # S3 存储配置
+│   └── s3.go
 ├── configs/                   # 配置文件
 │   └── .env.example
 │
@@ -492,124 +491,208 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ---
 
-## 5. 数据库表结构、字段定义规范
+## 5. S3 存储设计规范
 
-### 5.1 表命名
+### 5.1 存储架构概述
 
-| 规范 | 说明 |
-|------|------|
-| 命名风格 | 小写加下划线 `snake_case` |
-| 复数名词 | 使用复数形式 `users`, `works`, `chapters` |
-| 前缀 | 不使用表前缀（如需区分可用业务前缀） |
+本系统采用 S3 兼容对象存储作为主要存储后端，结合 SQLite 作为本地轻量级元数据存储。
 
-**表名示例：**
-| 表名 | 说明 |
-|------|------|
-| `users` | 用户表 |
-| `works` | 作品表 |
-| `work_categories` | 作品类别表 |
-| `volumes` | 分卷表 |
-| `chapters` | 章节表 |
-| `scenes` | 场景表 |
-| `optimization_steps` | 优化步骤表 |
-| `optimization_records` | 优化记录表 |
-| `publish_tasks` | 发布任务表 |
-| `notifications` | 通知表 |
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Application Layer                     │
+├─────────────────────────────────────────────────────────┤
+│                   Service Layer                          │
+├─────────────────────────────────────────────────────────┤
+│   ┌─────────────────┐         ┌──────────────────┐      │
+│   │  SQLite (元数据) │         │   S3 (对象存储)   │      │
+│   │  - 用户信息      │         │  - 作品内容文件    │      │
+│   │  - 作品索引      │         │  - 章节内容        │      │
+│   │  - 目录结构      │         │  - 媒体资源        │      │
+│   │  - 配置信息      │         │  - 备份文件        │      │
+│   └─────────────────┘         └──────────────────┘      │
+└─────────────────────────────────────────────────────────┘
+```
 
----
+### 5.2 S3 存储桶结构
 
-### 5.2 字段命名
+| 存储桶 | 用途 | 访问级别 |
+|--------|------|----------|
+| `aiwriter-content` | 作品内容、章节文本 | 私有 |
+| `aiwriter-assets` | 图片、媒体资源 | 公共/私有 |
+| `aiwriter-backups` | 备份文件 | 私有 |
+| `aiwriter-temp` | 临时文件 | 私有 |
+
+### 5.3 对象键 (Object Key) 命名规范
+
+| 资源类型 | 键格式 | 示例 |
+|----------|--------|------|
+| 作品内容 | `works/{user_id}/{work_id}/content.json` | `works/001/1001/content.json` |
+| 章节内容 | `works/{user_id}/{work_id}/chapters/{chapter_id}.json` | `works/001/1001/chapters/5001.json` |
+| 作品封面 | `works/{user_id}/{work_id}/cover.{ext}` | `works/001/1001/cover.jpg` |
+| 用户头像 | `avatars/{user_id}/avatar.{ext}` | `avatars/001/avatar.png` |
+| AI 优化记录 | `optimization/{work_id}/{timestamp}.json` | `optimization/1001/1704067200.json` |
+| 发布文件 | `publish/{work_id}/{platform}/{timestamp}.zip` | `publish/1001/jinjiang/1704067200.zip` |
+
+**键命名规则：**
+- 使用 `{user_id}` 作为一级隔离，确保用户数据隔离
+- 使用有意义的路径层级，便于管理
+- 避免在键名中使用特殊字符
+- 版本号/时间戳使用 Unix 时间戳
+
+### 5.4 元数据存储 (SQLite)
+
+SQLite 用于存储需要快速查询的元数据，不存储大对象内容。
+
+**表结构设计：**
+
+```sql
+-- 用户表
+CREATE TABLE users (
+    id              INTEGER PRIMARY KEY,
+    username        VARCHAR(50) NOT NULL UNIQUE,
+    password        VARCHAR(255) NOT NULL,
+    email           VARCHAR(255) NOT NULL UNIQUE,
+    avatar_key      VARCHAR(500),
+    created_at      INTEGER NOT NULL,
+    updated_at      INTEGER NOT NULL
+);
+
+-- 作品表 (仅存储索引和元信息)
+CREATE TABLE works (
+    id              INTEGER PRIMARY KEY,
+    user_id         INTEGER NOT NULL,
+    title           VARCHAR(200) NOT NULL,
+    description     TEXT,
+    category        VARCHAR(50),
+    status          TINYINT DEFAULT 0,
+    content_key     VARCHAR(500) NOT NULL,
+    word_count      INTEGER DEFAULT 0,
+    cover_key       VARCHAR(500),
+    created_at      INTEGER NOT NULL,
+    updated_at      INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- 分卷表
+CREATE TABLE volumes (
+    id              INTEGER PRIMARY KEY,
+    work_id         INTEGER NOT NULL,
+    name            VARCHAR(200) NOT NULL,
+    order_index     INTEGER NOT NULL,
+    created_at      INTEGER NOT NULL,
+    updated_at      INTEGER NOT NULL,
+    FOREIGN KEY (work_id) REFERENCES works(id)
+);
+
+-- 章节表 (仅存储索引)
+CREATE TABLE chapters (
+    id              INTEGER PRIMARY KEY,
+    work_id         INTEGER NOT NULL,
+    volume_id       INTEGER,
+    title           VARCHAR(200) NOT NULL,
+    content_key     VARCHAR(500) NOT NULL,
+    word_count      INTEGER DEFAULT 0,
+    order_index     INTEGER NOT NULL,
+    status          TINYINT DEFAULT 0,
+    created_at      INTEGER NOT NULL,
+    updated_at      INTEGER NOT NULL,
+    FOREIGN KEY (work_id) REFERENCES works(id),
+    FOREIGN KEY (volume_id) REFERENCES volumes(id)
+);
+
+-- 优化步骤表
+CREATE TABLE optimization_steps (
+    id              INTEGER PRIMARY KEY,
+    name            VARCHAR(100) NOT NULL,
+    description     TEXT,
+    prompt_template TEXT NOT NULL,
+    order_index     INTEGER NOT NULL,
+    is_custom       TINYINT DEFAULT 0,
+    created_at      INTEGER NOT NULL
+);
+
+-- 优化记录表
+CREATE TABLE optimization_records (
+    id              INTEGER PRIMARY KEY,
+    work_id         INTEGER NOT NULL,
+    chapter_id      INTEGER,
+    step_id         INTEGER NOT NULL,
+    original_key    VARCHAR(500) NOT NULL,
+    optimized_key   VARCHAR(500) NOT NULL,
+    created_at      INTEGER NOT NULL,
+    FOREIGN KEY (work_id) REFERENCES works(id),
+    FOREIGN KEY (step_id) REFERENCES optimization_steps(id)
+);
+
+-- 发布任务表
+CREATE TABLE publish_tasks (
+    id              INTEGER PRIMARY KEY,
+    work_id         INTEGER NOT NULL,
+    platform        VARCHAR(50) NOT NULL,
+    status          TINYINT DEFAULT 0,
+    output_key      VARCHAR(500),
+    created_at      INTEGER NOT NULL,
+    completed_at    INTEGER,
+    FOREIGN KEY (work_id) REFERENCES works(id)
+);
+```
+
+### 5.5 字段命名规范
 
 | 字段类型 | 命名规则 | 示例 |
 |----------|----------|------|
-| 主键 | `id` | `id BIGINT PRIMARY KEY` |
-| 外键 | `单数表名_id` | `user_id`, `work_id` |
-| 时间戳 | `created_at`, `updated_at` | `created_at TIMESTAMP` |
-| 软删除 | `deleted_at` | `deleted_at TIMESTAMP NULL` |
-| 布尔值 | `is_xxx` 格式 | `is_default`, `is_public` |
-| 计数 | `xxx_count` 格式 | `chapter_count`, `word_count` |
+| 主键 | `id` | `id INTEGER PRIMARY KEY` |
+| 外键 | `表名_id` | `user_id`, `work_id` |
+| S3 键 | `xxx_key` | `content_key`, `cover_key` |
+| 时间戳 | `created_at`, `updated_at` | Unix 时间戳整数 |
+| 软删除 | `deleted_at` | Unix 时间戳整数 |
 
-**通用字段：**
-```sql
-created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-deleted_at  TIMESTAMP NULL
+### 5.6 S3 客户端配置
+
+**环境变量：**
+```
+S3_ENDPOINT=https://s3.amazonaws.com
+S3_REGION=us-east-1
+S3_BUCKET=aiwriter-content
+S3_ACCESS_KEY=your-access-key
+S3_SECRET_KEY=your-secret-key
+S3_USE_SSL=true
 ```
 
----
+**Go 客户端初始化：**
+```go
+func NewS3Client(cfg *Config) (*s3.Client, error) {
+    creds := credentials.NewStaticCredentials(
+        cfg.S3AccessKey,
+        cfg.S3SecretKey,
+        "",
+    )
 
-### 5.3 数据类型选择
+    endpoint := aws.String(cfg.S3Endpoint)
+    region := aws.String(cfg.S3Region)
 
-| 场景 | 推荐类型 | 说明 |
-|------|----------|------|
-| 主键自增 | `BIGINT UNSIGNED` | 使用无符号大整数避免溢出 |
-| 用户名 | `VARCHAR(50)` | 限制最大长度 |
-| 邮箱 | `VARCHAR(255)` | 邮箱地址较长 |
-| 密码哈希 | `VARCHAR(255)` | bcrypt 哈希后长度 |
-| 手机号 | `VARCHAR(20)` | 考虑国际号码 |
-| 简介/描述 | `TEXT` | 长文本 |
-| JSON 数据 | `JSON` | MySQL 5.7+ 支持 |
-| 时间 | `TIMESTAMP` | 带时区，范围有限 |
-| 时间 | `DATETIME` | 不带时区，范围更大 |
-| 状态枚举 | `TINYINT` | 0-255 的整数 |
-
-**字段定义示例：**
-```sql
-CREATE TABLE users (
-    id          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    username    VARCHAR(50) NOT NULL COMMENT '用户名',
-    password    VARCHAR(255) NOT NULL COMMENT '密码哈希',
-    email       VARCHAR(255) NOT NULL COMMENT '邮箱',
-    avatar      VARCHAR(500) NULL COMMENT '头像URL',
-    created_at  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted_at  TIMESTAMP NULL,
-    PRIMARY KEY (id),
-    UNIQUE KEY uk_username (username),
-    UNIQUE KEY uk_email (email)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    return s3.NewFromConfig(aws.Config{
+        Credentials: creds,
+        Endpoint:    endpoint,
+        Region:      region,
+    }), nil
+}
 ```
 
----
+### 5.7 数据一致性策略
 
-### 5.4 索引规范
+| 操作类型 | 策略 | 说明 |
+|----------|------|------|
+| 作品创建 | 先写 SQLite，后写 S3 | 确保元数据可用后再存储内容 |
+| 作品更新 | 事务性更新 | SQLite 和 S3 操作在一个事务中 |
+| 作品删除 | 先删 S3，后删 SQLite | 确保文件删除后再清理元数据 |
+| 批量操作 | 最终一致性 | 使用消息队列处理批量同步 |
 
-| 索引类型 | 命名规则 | 示例 |
-|----------|----------|------|
-| 主键索引 | `PRIMARY` | 主键自动为 PRIMARY |
-| 唯一索引 | `uniq_表名_字段` | `uniq_users_email` |
-| 普通索引 | `idx_表名_字段` | `idx_works_user_id` |
-| 组合索引 | `idx_表名_字段1_字段2` | `idx_chapters_work_volume` |
+### 5.8 备份与恢复
 
-**索引创建原则：**
-- WHERE 条件中频繁使用的字段
-- ORDER BY 排序的字段
-- JOIN 操作的关联字段
-- 避免在区分度低的字段上建索引（如性别、状态）
-- 组合索引注意字段顺序（区分度高的放前面）
-
----
-
-### 5.5 其他规范
-
-**字符集与排序规则：**
-```sql
-DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-```
-
-说明：
-- `utf8mb4` 支持完整的 UTF-8 字符（包括 emoji）
-- `utf8mb4_unicode_ci` 排序规则对中文友好
-
-**引擎选择：**
-```sql
-ENGINE=InnoDB
-```
-
-**外键约束：**
-- 推荐使用外键约束保证数据一致性
-- 重要业务表建议添加外键
-- 注意：频繁更新的表慎用外键
+- 每日自动备份：使用 S3 生命周期策略将数据转移至 Glacier
+- 备份键格式：`backups/{date}/{work_id}.json`
+- 恢复时从 S3 读取内容并重建 SQLite 索引
 
 ---
 
@@ -624,7 +707,7 @@ mkdir -p src/{api,assets,components/{common,layout,works},hooks,pages/{Login,Reg
 
 **后端：**
 ```bash
-mkdir -p cmd/server internal/{config,middleware,handler,service,repository,model,dto/{request,response}} pkg/{utils,errors} api/v1 migrations configs
+mkdir -p cmd/server internal/{config,middleware,handler,service,repository,model,dto/{request,response},storage} pkg/{utils,errors} api/v1 configs
 ```
 
 ---
@@ -639,11 +722,12 @@ VITE_UPLOAD_URL=/api/v1/upload
 
 **后端环境变量：**
 ```
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=password
-DB_NAME=aiwriter
+S3_ENDPOINT=https://s3.amazonaws.com
+S3_REGION=us-east-1
+S3_BUCKET=aiwriter-content
+S3_ACCESS_KEY=your-access-key
+S3_SECRET_KEY=your-secret-key
+SQLITE_PATH=./data/aiwriter.db
 JWT_SECRET=your-secret-key
 AI_API_KEY=your-api-key
 ```

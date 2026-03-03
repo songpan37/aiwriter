@@ -44,7 +44,7 @@ If os is windows and `init.bat`, exists, run it instead.
 
 Otherwise, start servers manually and document the process.
 
-Read `prompts/test_env.md` to find test environment configs.
+Read `env/env.md` to find test environment configs.
 
 ### STEP 3: VERIFICATION TEST (CRITICAL!)
 

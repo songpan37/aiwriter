@@ -16,8 +16,8 @@
 ### 后端
 - Go 1.20+
 - 框架: Gin / Echo
-- 数据库: MySQL / MySQL
-- ORM: GORM
+- 对象存储: AWS S3 / MinIO
+- 元数据存储: SQLite (本地轻量级)
 - 认证: JWT
 - AI集成: OpenAI API / 自研模型接口
 
@@ -69,7 +69,7 @@ aiwriter/
 
 - Node.js 16+
 - Go 1.20+
-- MySQL 8.0+ 或 MySQL 14+
+- AWS S3 兼容存储 (AWS S3 / MinIO / 阿里云OSS)
 - pnpm 或 npm
 
 ### 安装步骤
@@ -108,7 +108,7 @@ go run main.go
 cp backend/.env.example backend/.env
 ```
 
-2. 编辑 `backend/.env`，配置数据库连接和AI服务API密钥
+2. 编辑 `backend/.env`，配置 S3 存储连接和AI服务API密钥
 
 ## API端点
 

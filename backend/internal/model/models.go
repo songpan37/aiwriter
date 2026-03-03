@@ -3,123 +3,153 @@ package model
 import "time"
 
 type User struct {
-	ID        uint       `json:"id" gorm:"primaryKey"`
-	Username  string     `json:"username" gorm:"uniqueIndex;size:50;not null"`
-	Password  string     `json:"-" gorm:"size:255;not null"`
-	Email     string     `json:"email" gorm:"uniqueIndex;size:255;not null"`
-	Avatar    string     `json:"avatar" gorm:"size:500"`
-	CreatedAt time.Time  `json:"created_at"`
-	UpdatedAt time.Time  `json:"updated_at"`
-	DeletedAt *time.Time `json:"deleted_at" gorm:"index"`
-}
-
-type Work struct {
-	ID           uint       `json:"id" gorm:"primaryKey"`
-	UserID       uint       `json:"user_id" gorm:"index;not null"`
-	CategoryID   uint       `json:"category_id" gorm:"index"`
-	Title        string     `json:"title" gorm:"size:255;not null"`
-	Cover        string     `json:"cover" gorm:"size:500"`
-	Intro        string     `json:"intro" gorm:"type:text"`
-	ChapterCount int        `json:"chapter_count" gorm:"default:0"`
-	WordCount    int        `json:"word_count" gorm:"default:0"`
-	CreatedAt    time.Time  `json:"created_at"`
-	UpdatedAt    time.Time  `json:"updated_at"`
-	DeletedAt    *time.Time `json:"deleted_at" gorm:"index"`
-}
-
-type WorkCategory struct {
-	ID        uint      `json:"id" gorm:"primaryKey"`
-	Name      string    `json:"name" gorm:"size:50;not null"`
-	CreatedAt time.Time `json:"created_at"`
-}
-
-type Volume struct {
-	ID            uint       `json:"id" gorm:"primaryKey"`
-	WorkID        uint       `json:"work_id" gorm:"index;not null"`
-	VolumeIndex   int        `json:"volume_index" gorm:"not null"`
-	Title         string     `json:"title" gorm:"size:255;not null"`
-	ChapterCount  int        `json:"chapter_count" gorm:"default:0"`
-	WordCount     int        `json:"word_count" gorm:"default:0"`
-	Summary       string     `json:"summary" gorm:"type:text"`
-	Characters    string     `json:"characters" gorm:"type:json"`
-	PlotUnits     string     `json:"plot_units" gorm:"type:json"`
-	Relationships string     `json:"relationships" gorm:"type:text"`
-	Goals         string     `json:"goals" gorm:"type:text"`
-	Conflicts     string     `json:"conflicts" gorm:"type:text"`
-	Hooks         string     `json:"hooks" gorm:"type:text"`
-	CreatedAt     time.Time  `json:"created_at"`
-	UpdatedAt     time.Time  `json:"updated_at"`
-	DeletedAt     *time.Time `json:"deleted_at" gorm:"index"`
-}
-
-type Chapter struct {
-	ID           uint       `json:"id" gorm:"primaryKey"`
-	WorkID       uint       `json:"work_id" gorm:"index;not null"`
-	VolumeID     uint       `json:"volume_id" gorm:"index"`
-	ChapterIndex int        `json:"chapter_index" gorm:"not null"`
-	Title        string     `json:"title" gorm:"size:255;not null"`
-	Summary      string     `json:"summary" gorm:"type:text"`
-	TimeSpace    string     `json:"time_space" gorm:"size:255"`
-	Characters   string     `json:"characters" gorm:"type:json"`
-	Scenes       string     `json:"scenes" gorm:"type:json"`
-	WordCount    int        `json:"word_count" gorm:"default:0"`
-	CreatedAt    time.Time  `json:"created_at"`
-	UpdatedAt    time.Time  `json:"updated_at"`
-	DeletedAt    *time.Time `json:"deleted_at" gorm:"index"`
-}
-
-type Scene struct {
-	ID        uint      `json:"id" gorm:"primaryKey"`
-	ChapterID uint      `json:"chapter_id" gorm:"index;not null"`
-	Begin     string    `json:"begin" gorm:"type:text"`
-	Conflict  string    `json:"conflict" gorm:"type:text"`
-	Turn      string    `json:"turn" gorm:"type:text"`
-	Result    string    `json:"result" gorm:"type:text"`
-	Style     string    `json:"style" gorm:"size:50"`
+	ID        uint      `json:"id"`
+	Username  string    `json:"username"`
+	Password  string    `json:"-"`
+	Email     string    `json:"email"`
+	AvatarKey string    `json:"avatar_key"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
+type Work struct {
+	ID           uint      `json:"id"`
+	UserID       uint      `json:"user_id"`
+	CategoryID   uint      `json:"category_id"`
+	Title        string    `json:"title"`
+	CoverKey     string    `json:"cover_key"`
+	ContentKey   string    `json:"content_key"`
+	Intro        string    `json:"intro"`
+	ChapterCount int       `json:"chapter_count"`
+	WordCount    int       `json:"word_count"`
+	Status       int       `json:"status"`
+	CreatedAt    time.Time `json:"created_at"`
+	UpdatedAt    time.Time `json:"updated_at"`
+}
+
+type WorkCategory struct {
+	ID        uint      `json:"id"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type Volume struct {
+	ID            uint      `json:"id"`
+	WorkID        uint      `json:"work_id"`
+	VolumeIndex   int       `json:"volume_index"`
+	Title         string    `json:"title"`
+	ChapterCount  int       `json:"chapter_count"`
+	WordCount     int       `json:"word_count"`
+	Summary       string    `json:"summary"`
+	Characters    string    `json:"characters"`
+	PlotUnits     string    `json:"plot_units"`
+	Relationships string    `json:"relationships"`
+	Goals         string    `json:"goals"`
+	Conflicts     string    `json:"conflicts"`
+	Hooks         string    `json:"hooks"`
+	CreatedAt     time.Time `json:"created_at"`
+	UpdatedAt     time.Time `json:"updated_at"`
+}
+
+type Chapter struct {
+	ID           uint      `json:"id"`
+	WorkID       uint      `json:"work_id"`
+	VolumeID     uint      `json:"volume_id"`
+	ChapterIndex int       `json:"chapter_index"`
+	Title        string    `json:"title"`
+	ContentKey   string    `json:"content_key"`
+	Summary      string    `json:"summary"`
+	TimeSpace    string    `json:"time_space"`
+	Characters   string    `json:"characters"`
+	Scenes       string    `json:"scenes"`
+	WordCount    int       `json:"word_count"`
+	Status       int       `json:"status"`
+	CreatedAt    time.Time `json:"created_at"`
+	UpdatedAt    time.Time `json:"updated_at"`
+}
+
+type Scene struct {
+	ID         uint      `json:"id"`
+	ChapterID  uint      `json:"chapter_id"`
+	ContentKey string    `json:"content_key"`
+	Begin      string    `json:"begin"`
+	Conflict   string    `json:"conflict"`
+	Turn       string    `json:"turn"`
+	Result     string    `json:"result"`
+	Style      string    `json:"style"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
+}
+
 type OptimizationStep struct {
-	ID             uint      `json:"id" gorm:"primaryKey"`
-	UserID         uint      `json:"user_id" gorm:"index;not null"`
-	Name           string    `json:"name" gorm:"size:100;not null"`
-	ReviewPrompt   string    `json:"review_prompt" gorm:"type:text"`
-	OptimizePrompt string    `json:"optimize_prompt" gorm:"type:text"`
-	StepOrder      int       `json:"step_order" gorm:"not null"`
-	IsDefault      bool      `json:"is_default" gorm:"default:false"`
+	ID             uint      `json:"id"`
+	UserID         uint      `json:"user_id"`
+	Name           string    `json:"name"`
+	ReviewPrompt   string    `json:"review_prompt"`
+	OptimizePrompt string    `json:"optimize_prompt"`
+	StepOrder      int       `json:"step_order"`
+	IsDefault      bool      `json:"is_default"`
 	CreatedAt      time.Time `json:"created_at"`
 	UpdatedAt      time.Time `json:"updated_at"`
 }
 
 type OptimizationRecord struct {
-	ID               uint      `json:"id" gorm:"primaryKey"`
-	WorkID           uint      `json:"work_id" gorm:"index;not null"`
-	ChapterID        uint      `json:"chapter_id" gorm:"index"`
-	StepID           uint      `json:"step_id" gorm:"index"`
-	OriginalText     string    `json:"original_text" gorm:"type:text"`
-	OptimizedText    string    `json:"optimized_text" gorm:"type:text"`
-	ReviewConclusion string    `json:"review_conclusion" gorm:"type:text"`
+	ID               uint      `json:"id"`
+	WorkID           uint      `json:"work_id"`
+	ChapterID        uint      `json:"chapter_id"`
+	StepID           uint      `json:"step_id"`
+	OriginalKey      string    `json:"original_key"`
+	OptimizedKey     string    `json:"optimized_key"`
+	ReviewConclusion string    `json:"review_conclusion"`
 	CreatedAt        time.Time `json:"created_at"`
 }
 
 type PublishTask struct {
-	ID              uint      `json:"id" gorm:"primaryKey"`
-	WorkID          uint      `json:"work_id" gorm:"index;not null"`
-	Platform        string    `json:"platform" gorm:"size:50;not null"`
-	ChapterIDs      string    `json:"chapter_ids" gorm:"type:json"`
+	ID              uint      `json:"id"`
+	WorkID          uint      `json:"work_id"`
+	Platform        string    `json:"platform"`
+	ChapterIDs      string    `json:"chapter_ids"`
 	SplitWordCount  int       `json:"split_word_count"`
-	NewChapterNames string    `json:"new_chapter_names" gorm:"type:json"`
-	Status          int       `json:"status" gorm:"default:0"`
-	Result          string    `json:"result" gorm:"type:text"`
+	NewChapterNames string    `json:"new_chapter_names"`
+	Status          int       `json:"status"`
+	OutputKey       string    `json:"output_key"`
+	Result          string    `json:"result"`
 	CreatedAt       time.Time `json:"created_at"`
 	UpdatedAt       time.Time `json:"updated_at"`
 }
 
 type Notification struct {
-	ID        uint      `json:"id" gorm:"primaryKey"`
-	UserID    uint      `json:"user_id" gorm:"index;not null"`
-	Content   string    `json:"content" gorm:"type:text"`
-	IsRead    bool      `json:"is_read" gorm:"default:false"`
+	ID        uint      `json:"id"`
+	UserID    uint      `json:"user_id"`
+	Content   string    `json:"content"`
+	IsRead    bool      `json:"is_read"`
 	CreatedAt time.Time `json:"created_at"`
+}
+
+type MetaStore struct {
+	Users      map[string]User         `json:"users"`
+	Works      map[string]Work         `json:"works"`
+	Volumes    map[string]Volume       `json:"volumes"`
+	Chapters   map[string]Chapter      `json:"chapters"`
+	Categories map[string]WorkCategory `json:"categories"`
+	NextIDs    map[string]uint         `json:"next_ids"`
+}
+
+func NewMetaStore() *MetaStore {
+	return &MetaStore{
+		Users:      make(map[string]User),
+		Works:      make(map[string]Work),
+		Volumes:    make(map[string]Volume),
+		Chapters:   make(map[string]Chapter),
+		Categories: make(map[string]WorkCategory),
+		NextIDs: map[string]uint{
+			"user":         1,
+			"work":         1,
+			"volume":       1,
+			"chapter":      1,
+			"category":     1,
+			"optimization": 1,
+			"publish_task": 1,
+		},
+	}
 }
