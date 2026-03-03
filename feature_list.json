@@ -12,7 +12,7 @@
       "Step 7: 验证页面跳转至登录页或自动登录",
       "Step 8: 验证数据库中用户记录已创建"
     ],
-    "passes": true
+    "passes": false
   },
   {
     "category": "functional",
@@ -26,7 +26,7 @@
       "Step 6: 验证顶部显示用户名和头像",
       "Step 7: 验证JWT token已存储"
     ],
-    "passes": true
+    "passes": false
   },
   {
     "category": "functional",
@@ -40,7 +40,7 @@
       "Step 6: 验证未跳转到其他页面",
       "Step 7: 验证JWT token未生成"
     ],
-    "passes": true
+    "passes": false
   },
   {
     "category": "functional",
@@ -53,7 +53,7 @@
       "Step 5: 验证JWT token已清除",
       "Step 6: 验证未登录状态下访问需要鉴权的页面跳转回登录"
     ],
-    "passes": true
+    "passes": false
   },
   {
     "category": "functional",
@@ -65,7 +65,7 @@
       "Step 4: 验证页面显示用户名、邮箱、头像",
       "Step 5: 验证显示创建时间"
     ],
-    "passes": true
+    "passes": false
   },
   {
     "category": "functional",
