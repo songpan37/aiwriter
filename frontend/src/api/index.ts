@@ -48,6 +48,7 @@ api.interceptors.response.use(
 
 const originalGet = api.get.bind(api)
 const originalPost = api.post.bind(api)
+const originalPut = api.put.bind(api)
 
 api.get = async (url: string, config?: any) => {
   if (MOCK_MODE && mockResponses[url]) {
@@ -70,5 +71,13 @@ api.post = async (url: string, data?: any, config?: any) => {
   }
   return originalPost(url, data, config)
 }
+
+api.put = async (url: string, data?: any, config?: any) => {
+  return originalPut(url, data, config)
+}
+
+export const getProfile = () => api.get('/profile')
+export const updateProfile = (data: { username?: string; email?: string; avatar?: string }) => 
+  api.put('/profile', data)
 
 export default api

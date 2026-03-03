@@ -13,6 +13,10 @@ const Header = () => {
     navigate('/login')
   }
 
+  const handleProfile = () => {
+    navigate('/profile')
+  }
+
   return (
     <header className="header">
       <div className="header-left">
@@ -39,7 +43,7 @@ const Header = () => {
           <span className="header-username">{user?.username || '用户'}</span>
           {showDropdown && (
             <div className="header-dropdown">
-              <div className="header-dropdown-item">个人设置</div>
+              <div className="header-dropdown-item" onClick={handleProfile}>个人设置</div>
               <div className="header-dropdown-item" onClick={handleLogout}>退出登录</div>
             </div>
           )}

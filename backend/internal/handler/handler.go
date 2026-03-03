@@ -15,6 +15,7 @@ type Handler struct {
 	workService    *service.WorkService
 	volumeService  *service.VolumeService
 	chapterService *service.ChapterService
+	repos          *service.Service
 }
 
 func NewHandlers(services *service.Service) *Handler {
@@ -23,6 +24,7 @@ func NewHandlers(services *service.Service) *Handler {
 		workService:    service.NewWorkService(services.Repos, services.Store),
 		volumeService:  service.NewVolumeService(services.Repos),
 		chapterService: service.NewChapterService(services.Repos, services.Store),
+		repos:          services,
 	}
 }
 
@@ -85,11 +87,24 @@ func (h *Handler) Login(c *gin.Context) {
 
 func (h *Handler) GetProfile(c *gin.Context) {
 	userID := h.GetUserID(c)
+	user, err := h.repos.Repos.User.FindByID(userID)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"code":    404,
+			"message": "user not found",
+		})
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"code":    0,
 		"message": "success",
 		"data": gin.H{
-			"id": userID,
+			"id":         user.ID,
+			"username":   user.Username,
+			"email":      user.Email,
+			"avatar":     user.AvatarKey,
+			"created_at": user.CreatedAt,
 		},
 	})
 }

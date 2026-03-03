@@ -111,6 +111,21 @@ func (s *AuthService) Login(req *request.LoginRequest) (*response.LoginResponse,
 	}, nil
 }
 
+func (s *AuthService) GetProfile(userID uint) (*response.UserResponse, error) {
+	user, err := s.repos.User.FindByID(userID)
+	if err != nil {
+		return nil, errors.New("user not found")
+	}
+
+	return &response.UserResponse{
+		ID:        user.ID,
+		Username:  user.Username,
+		Email:     user.Email,
+		Avatar:    user.AvatarKey,
+		CreatedAt: user.CreatedAt,
+	}, nil
+}
+
 type WorkService struct {
 	repos *repository.Repositories
 	store storage.Storage

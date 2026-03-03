@@ -6,6 +6,7 @@ import WorksList from './pages/WorksList/WorksList'
 import WorkEditor from './pages/WorkEditor/WorkEditor'
 import Optimization from './pages/Optimization/Optimization'
 import Publish from './pages/Publish/Publish'
+import Profile from './pages/Profile/Profile'
 
 function App() {
   const isAuthenticated = !!localStorage.getItem('token')
@@ -21,6 +22,7 @@ function App() {
           <Route path="works/:workId/*" element={<WorkEditor />} />
           <Route path="optimization" element={<Optimization />} />
           <Route path="publish" element={<Publish />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
     </BrowserRouter>
