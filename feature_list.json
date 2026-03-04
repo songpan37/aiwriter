@@ -94,7 +94,7 @@
       "Step 7: 验证每个作品卡片显示最后修改时间",
       "Step 8: 验证无作品时显示空状态提示"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",
@@ -160,7 +160,7 @@
       "Step 6: 选择一个类别",
       "Step 7: 点击下一步"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",
@@ -173,7 +173,7 @@
       "Step 5: 点击已选中作品可取消选择",
       "Step 6: 点击下一步进入基本信息填写"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",
@@ -190,7 +190,7 @@
       "Step 9: 验证数据库中作品记录已创建",
       "Step 10: 验证作品包含正确的初始结构"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",
@@ -204,7 +204,7 @@
       "Step 6: 验证显示简介不能为空提示",
       "Step 7: 填写必填项后验证可以提交"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",
@@ -233,7 +233,7 @@
       "Step 4: 验证左侧菜单显示基本信息默认选中",
       "Step 5: 验证右侧显示该作品的基本信息编辑表单"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",

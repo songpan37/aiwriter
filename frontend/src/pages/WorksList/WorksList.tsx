@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '@/api'
+import WorkWizard from '../WorkWizard/WorkWizard'
 import './WorksList.less'
 
 interface Work {
@@ -18,6 +19,7 @@ const WorksList = () => {
   const [works, setWorks] = useState<Work[]>([])
   const [loading, setLoading] = useState(true)
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [wizardVisible, setWizardVisible] = useState(false)
 
   useEffect(() => {
     loadWorks()
@@ -82,14 +84,14 @@ const WorksList = () => {
               列表
             </button>
           </div>
-          <button className="works-add-btn">+ 新增作品</button>
+          <button className="works-add-btn" onClick={() => setWizardVisible(true)}>+ 新增作品</button>
         </div>
       </div>
 
       {works.length === 0 ? (
         <div className="works-empty">
           <p>暂无作品</p>
-          <button className="works-add-btn">创建第一个作品</button>
+          <button className="works-add-btn" onClick={() => setWizardVisible(true)}>创建第一个作品</button>
         </div>
       ) : (
         <div className={`works-content works-content-${viewMode}`}>
@@ -124,6 +126,11 @@ const WorksList = () => {
           ))}
         </div>
       )}
+      
+      <WorkWizard visible={wizardVisible} onClose={() => {
+        setWizardVisible(false)
+        loadWorks()
+      }} />
     </div>
   )
 }
