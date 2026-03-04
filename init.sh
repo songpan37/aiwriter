@@ -60,10 +60,6 @@ setup_frontend() {
             npm install
         fi
     fi
-    
-    echo ""
-    echo "Frontend setup complete!"
-    echo "Run 'npm run dev' or 'pnpm dev' in the frontend directory to start the development server."
     cd ..
 }
 
@@ -80,11 +76,41 @@ setup_backend() {
         echo "Initializing Go module..."
         go mod init aiwriter
     fi
+    cd ..
+}
+
+# Start servers
+start_servers() {
+    echo ""
+    echo "=== Starting Servers ==="
+    echo ""
+    
+    echo "Starting Backend server on port 8080..."
+    cd backend
+    go run main.go &
+    BACKEND_PID=$!
+    cd ..
+    
+    echo "Starting Frontend server on port 5173..."
+    cd frontend
+    if [ "$PM" = "pnpm" ]; then
+        pnpm dev &
+    else
+        npm run dev &
+    fi
+    FRONTEND_PID=$!
+    cd ..
     
     echo ""
-    echo "Backend setup complete!"
-    echo "Run 'go run main.go' in the backend directory to start the server."
-    cd ..
+    echo "=== Server Status ==="
+    echo "Backend:  http://localhost:8080"
+    echo "Frontend: http://localhost:5173"
+    echo ""
+    echo "Press Ctrl+C to stop all servers"
+    
+    # Wait for any signal
+    trap "kill $BACKEND_PID $FRONTEND_PID 2>/dev/null; exit" SIGINT SIGTERM
+    wait
 }
 
 # Print helpful information
@@ -121,7 +147,15 @@ main() {
     setup_frontend
     setup_backend
     
-    print_info
+    # Ask user if they want to start servers
+    echo ""
+    read -p "Do you want to start the servers now? (y/n) " -n 1 -r
+    echo ""
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        start_servers
+    else
+        print_info
+    fi
 }
 
 main "$@"

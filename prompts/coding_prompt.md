@@ -40,11 +40,13 @@ If os is linux and `init.sh` exists, run it:
 chmod +x init.sh
 ./init.sh
 ```
-If os is windows and `init.bat`, exists, run it instead.
+If os is windows and `init.bat` exists, run it instead.
 
 Otherwise, start servers manually and document the process.
 
 Read `env/env.md` to find test environment configs.
+
+**Note** : Please ensure the project is started using a background task so that it does not block yourself.
 
 ### STEP 3: VERIFICATION TEST (CRITICAL!)
 
