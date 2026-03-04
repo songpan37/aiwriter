@@ -51,10 +51,12 @@ const WorksList = () => {
   }
 
   const formatDate = (dateStr: string) => {
+    if (!dateStr) return ''
     return new Date(dateStr).toLocaleDateString('zh-CN')
   }
 
   const formatWordCount = (count: number) => {
+    if (count == null || count === 0) return '0字'
     if (count >= 10000) {
       return `${(count / 10000).toFixed(1)}万字`
     }
@@ -111,7 +113,7 @@ const WorksList = () => {
               <div className="work-info">
                 <h3 className="work-title">{work.title}</h3>
                 <div className="work-meta">
-                  <span>📖 {work.chapterCount}章</span>
+                  <span>📖 {work.chapterCount || 0}章</span>
                   <span>✍️ {formatWordCount(work.wordCount)}</span>
                 </div>
                 <div className="work-time">{formatDate(work.updatedAt)}</div>
