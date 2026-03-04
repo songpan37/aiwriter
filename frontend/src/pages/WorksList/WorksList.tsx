@@ -14,6 +14,16 @@ interface Work {
   category?: string
 }
 
+interface WorkApiResponse {
+  id: number
+  title: string
+  cover?: string
+  chapter_count: number
+  word_count: number
+  updated_at: string
+  category?: string
+}
+
 const WorksList = () => {
   const navigate = useNavigate()
   const [works, setWorks] = useState<Work[]>([])
@@ -27,9 +37,18 @@ const WorksList = () => {
 
   const loadWorks = async () => {
     try {
-      const response = await api.get('/works') as {code: number, data: {list: Work[]}}
+      const response = await api.get('/works') as {code: number, data: {list: WorkApiResponse[]}}
       if (response.code === 0) {
-        setWorks(response.data.list || [])
+        const worksList: Work[] = (response.data.list || []).map((item: WorkApiResponse) => ({
+          id: item.id,
+          title: item.title,
+          cover: item.cover,
+          chapterCount: item.chapter_count || 0,
+          wordCount: item.word_count || 0,
+          updatedAt: item.updated_at,
+          category: item.category,
+        }))
+        setWorks(worksList)
       }
     } catch (error) {
       console.error('Failed to load works:', error)
