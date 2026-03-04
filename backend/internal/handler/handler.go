@@ -109,6 +109,59 @@ func (h *Handler) GetProfile(c *gin.Context) {
 	})
 }
 
+func (h *Handler) UpdateProfile(c *gin.Context) {
+	userID := h.GetUserID(c)
+
+	var req request.UpdateProfileRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"code":    1002,
+			"message": err.Error(),
+		})
+		return
+	}
+
+	user, err := h.repos.Repos.User.FindByID(userID)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"code":    404,
+			"message": "user not found",
+		})
+		return
+	}
+
+	if req.Username != "" {
+		user.Username = req.Username
+	}
+	if req.Email != "" {
+		user.Email = req.Email
+	}
+	if req.Avatar != "" {
+		user.AvatarKey = req.Avatar
+	}
+
+	err = h.repos.Repos.User.Update(user)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"code":    1000,
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code":    0,
+		"message": "success",
+		"data": gin.H{
+			"id":         user.ID,
+			"username":   user.Username,
+			"email":      user.Email,
+			"avatar":     user.AvatarKey,
+			"created_at": user.CreatedAt,
+		},
+	})
+}
+
 func (h *Handler) CreateWork(c *gin.Context) {
 	var req request.CreateWorkRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

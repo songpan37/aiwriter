@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useUserStore } from '@/store'
-import { getProfile } from '@/api'
+import { getProfile, updateProfile } from '@/api'
 import './Profile.less'
 
 interface ProfileData {
@@ -49,14 +49,23 @@ const Profile = () => {
     setMessage({ type: '', text: '' })
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 500))
-      setMessage({ type: 'success', text: '保存成功' })
-      setEditing(false)
-      if (user) {
-        setUser({ ...user, username: formData.username, email: formData.email })
+      const response = await updateProfile({
+        username: formData.username,
+        email: formData.email,
+      }) as { code: number; message: string }
+      
+      if (response.code === 0) {
+        setMessage({ type: 'success', text: '保存成功' })
+        setEditing(false)
+        if (user) {
+          setUser({ ...user, username: formData.username, email: formData.email })
+        }
+        await loadProfile()
+      } else {
+        setMessage({ type: 'error', text: response.message || '保存失败' })
       }
-    } catch (err) {
-      setMessage({ type: 'error', text: '保存失败' })
+    } catch (err: unknown) {
+      setMessage({ type: 'error', text: '保存失败，请稍后重试' })
     } finally {
       setSaving(false)
     }

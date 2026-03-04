@@ -16,6 +16,7 @@ func RegisterRoutes(r *gin.RouterGroup, h *handler.Handler) {
 
 func RegisterProtectedRoutes(r *gin.RouterGroup, h *handler.Handler) {
 	r.GET("/profile", h.GetProfile)
+	r.PUT("/profile", h.UpdateProfile)
 
 	works := r.Group("/works")
 	{
